@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUTC ITM - 校務決策與辦學閉環視覺化 (Performance & Decision Loop)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Hiragino Sans GB", "Microsoft JhengHei", sans-serif;
+      background-color: #FAF8F5;
+      color: #1C1917;
+      margin: 0;
+      padding: 24px;
+    }
+    .editorial-bg {
+      background-color: #FAF8F5;
+    }
+    .card-shadow {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .diamond-box {
+      width: 76px;
+      height: 76px;
+      transform: rotate(45deg);
+      border: 1.5px solid #78716C;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+    .diamond-box:hover {
+      border-color: #D97706;
+      transform: rotate(45deg) scale(1.05);
+    }
+    .diamond-inner {
+      transform: rotate(-45deg);
+      text-align: center;
+      font-weight: 700;
+      font-size: 11px;
+      line-height: 1.3;
+      color: #1C1917;
+    }
+    .dashed-loop {
+      stroke-dasharray: 4, 4;
+      animation: dash 30s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -100;
+      }
+    }
+    .tab-active {
+      border-bottom: 2px solid #D97706;
+      color: #D97706;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="editorial-bg text-stone-900 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Container -->
+  <div class="max-w-[1380px] mx-auto bg-[#FAF8F5] border border-stone-200/80 rounded-2xl p-6 sm:p-8 shadow-sm">
+    
+    <!-- Top Meta Nav & Scenario Switcher -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-200">
+      <div class="flex items-center gap-2 overflow-x-auto text-xs">
+        <span class="text-stone-400 font-mono font-medium uppercase tracking-wider text-[11px] mr-2">情境切換</span>
+        <button onclick="switchWorkflow(1)" id="tab-btn-1" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-stone-900 text-white shadow-sm">
+          1. 招生生源防禦閉環 (四技甄選)
+        </button>
+        <button onclick="switchWorkflow(2)" id="tab-btn-2" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-stone-600 hover:text-stone-900 hover:bg-stone-200/60">
+          2. 生成式 AI 與跨域課程升級 (取代舊Mermaid)
+        </button>
+        <button onclick="switchWorkflow(3)" id="tab-btn-3" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-stone-600 hover:text-stone-900 hover:bg-stone-200/60">
+          3. 專任師資換血與五年轉型閉環
+        </button>
+      </div>
+
+      <!-- Legend Pill Badges (Anthropic Style) -->
+      <div class="flex items-center gap-3 self-end md:self-auto text-xs">
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-stone-200 card-shadow">
+          <span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span>
+          <span class="text-stone-700 font-medium text-[11px]" id="legend-ai">● IR/系統量測與執行</span>
+        </div>
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-stone-200 card-shadow">
+          <span class="w-2 h-2 rounded-full bg-stone-800 inline-block"></span>
+          <span class="text-stone-700 font-medium text-[11px]" id="legend-human">● 教授/系務決策與把關</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial Header Section -->
+    <div class="mt-6 mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="w-4 h-[2px] bg-amber-600 inline-block"></span>
+        <span id="kicker-tag" class="text-amber-800 font-bold tracking-wider text-xs uppercase font-mono">
+          校務研究工作流 ｜ ADMISSION DEFENSE LOOP
+        </span>
+      </div>
+      <h1 id="main-title" class="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
+        中科國貿如何把校務數據變成<span class="underline decoration-amber-500 decoration-[3px] underline-offset-4 ml-1">可驗收的防禦閉環</span>
+      </h1>
+      <p id="sub-title" class="text-stone-600 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+        IR 數據持續量測天敵流向與生源斷崖；系主任與專任師長負責設定目標、審查書審規準與把關辦學品質。
+      </p>
+    </div>
+
+    <!-- Workflow Diagram Area (Fully Responsive Pixel-Perfect HTML/SVG) -->
+    <div class="relative bg-white border border-stone-200/90 rounded-xl p-5 sm:p-7 card-shadow overflow-x-auto">
+      
+      <!-- Top Row: Steps 01 to 05 -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 sm:gap-4 relative items-stretch min-w-[900px]">
+        
+        <!-- Step 01 -->
+        <div class="relative flex flex-col justify-between bg-stone-50/60 border border-stone-200 rounded-lg p-3.5 hover:border-stone-400 hover:bg-white transition-all card-shadow">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-stone-200/60 text-[11px]">
+              <span id="step1-badge" class="inline-flex items-center gap-1 font-medium text-stone-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-stone-800"></span> 人類決策
+              </span>
+              <span class="font-mono font-bold text-stone-400">01</span>
+            </div>
+            <h3 id="step1-title" class="font-bold text-stone-900 text-sm mt-2.5">召開招生策略常會</h3>
+            <p id="step1-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              設定日間部註冊率 ≥98%、統測單科均分 >71 之年度戰略目標。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-stone-400 border-t border-stone-100 flex items-center gap-1">
+            <i class="fa-regular fa-clock"></i> 每年 10~11 月啟動
+          </div>
+        </div>
+
+        <!-- Connector 1->2 (Desktop Arrow) -->
+        <div class="hidden md:flex absolute left-[19.2%] top-[40%] z-10 -translate-y-1/2 items-center justify-center">
+          <div class="w-5 h-[1.5px] bg-stone-400"></div>
+          <div class="w-0 h-0 border-y-[3px] border-y-transparent border-l-[5px] border-l-stone-400"></div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="relative flex flex-col justify-between bg-amber-50/20 border border-amber-200/80 rounded-lg p-3.5 hover:border-amber-400 hover:bg-white transition-all card-shadow">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-amber-200/50 text-[11px]">
+              <span id="step2-badge" class="inline-flex items-center gap-1 font-medium text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> IR量測
+              </span>
+              <span class="font-mono font-bold text-amber-600">02</span>
+            </div>
+            <h3 id="step2-title" class="font-bold text-stone-900 text-sm mt-2.5">UDB 數據基準對照</h3>
+            <p id="step2-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              調閱教育部平台純日間退學率 (2.82%)、生師比與北商高科基準線。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-amber-600/80 border-t border-amber-100 flex items-center gap-1">
+            <i class="fa-solid fa-chart-line"></i> 鎖定四技 382 人基本盤
+          </div>
+        </div>
+
+        <!-- Connector 2->3 (Desktop Arrow) -->
+        <div class="hidden md:flex absolute left-[39.2%] top-[40%] z-10 -translate-y-1/2 items-center justify-center">
+          <div class="w-5 h-[1.5px] bg-stone-400"></div>
+          <div class="w-0 h-0 border-y-[3px] border-y-transparent border-l-[5px] border-l-stone-400"></div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="relative flex flex-col justify-between bg-amber-50/20 border border-amber-200/80 rounded-lg p-3.5 hover:border-amber-400 hover:bg-white transition-all card-shadow">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-amber-200/50 text-[11px]">
+              <span id="step3-badge" class="inline-flex items-center gap-1 font-medium text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> 系統執行
+              </span>
+              <span class="font-mono font-bold text-amber-600">03</span>
+            </div>
+            <h3 id="step3-title" class="font-bold text-stone-900 text-sm mt-2.5">少子化衝擊動態模擬</h3>
+            <p id="step3-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              預測 113~128 年中區生源缺口，動態推估安全備取遞補倍率。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-amber-600/80 border-t border-amber-100 flex items-center gap-1">
+            <i class="fa-solid fa-calculator"></i> 防禦高科大 120人抽吸
+          </div>
+        </div>
+
+        <!-- Connector 3->4 (Desktop Arrow) -->
+        <div class="hidden md:flex absolute left-[59.2%] top-[40%] z-10 -translate-y-1/2 items-center justify-center">
+          <div class="w-5 h-[1.5px] bg-stone-400"></div>
+          <div class="w-0 h-0 border-y-[3px] border-y-transparent border-l-[5px] border-l-stone-400"></div>
+        </div>
+
+        <!-- Step 04 -->
+        <div class="relative flex flex-col justify-between bg-stone-50/60 border border-stone-200 rounded-lg p-3.5 hover:border-stone-400 hover:bg-white transition-all card-shadow">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-stone-200/60 text-[11px]">
+              <span id="step4-badge" class="inline-flex items-center gap-1 font-medium text-stone-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-stone-800"></span> 教授把關
+              </span>
+              <span class="font-mono font-bold text-stone-400">04</span>
+            </div>
+            <h3 id="step4-title" class="font-bold text-stone-900 text-sm mt-2.5">審查甄選書審規準</h3>
+            <p id="step4-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              校正學習歷程評分指標，強化英語多益與跨域專案計分權重。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-stone-400 border-t border-stone-100 flex items-center gap-1">
+            <i class="fa-solid fa-user-check"></i> 系務課程委員會核定
+          </div>
+        </div>
+
+        <!-- Connector 4->5 (Desktop Arrow) -->
+        <div class="hidden md:flex absolute left-[79.2%] top-[40%] z-10 -translate-y-1/2 items-center justify-center">
+          <div class="w-5 h-[1.5px] bg-stone-400"></div>
+          <div class="w-0 h-0 border-y-[3px] border-y-transparent border-l-[5px] border-l-stone-400"></div>
+        </div>
+
+        <!-- Step 05 -->
+        <div class="relative flex flex-col justify-between bg-stone-50/60 border border-stone-200 rounded-lg p-3.5 hover:border-stone-400 hover:bg-white transition-all card-shadow">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-stone-200/60 text-[11px]">
+              <span id="step5-badge" class="inline-flex items-center gap-1 font-medium text-stone-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-stone-800"></span> 團隊作戰
+              </span>
+              <span class="font-mono font-bold text-stone-400">05</span>
+            </div>
+            <h3 id="step5-title" class="font-bold text-stone-900 text-sm mt-2.5">生源母校精準宣傳</h3>
+            <p id="step5-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              針對臺中家商、彰商、中壢家商等核心生源高中職深度入校宣講。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-stone-400 border-t border-stone-100 flex items-center gap-1">
+            <i class="fa-solid fa-bullhorn"></i> 鎖定 09商管群優勢生
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Middle Transition Zone (Connectors between Row 1 and Row 2) -->
+      <div class="hidden md:block relative h-16 min-w-[900px]">
+        <!-- Right Arrow Down from Step 05 to Step 06 -->
+        <div class="absolute right-[10%] top-2 flex flex-col items-center">
+          <div class="w-[1.5px] h-9 bg-stone-400"></div>
+          <div class="w-0 h-0 border-x-[3px] border-x-transparent border-t-[5px] border-t-stone-400"></div>
+        </div>
+
+        <!-- Upward Return Line from Step 07 to Step 01 -->
+        <div class="absolute left-[10%] top-2 flex flex-col items-center">
+          <div class="w-0 h-0 border-x-[3px] border-x-transparent border-b-[5px] border-b-amber-600"></div>
+          <div class="w-[1.5px] h-9 bg-amber-500 dashed-loop"></div>
+        </div>
+        <div class="absolute left-[12%] top-6 bg-amber-50 px-2 py-0.5 rounded text-[10px] font-medium text-amber-800 border border-amber-200">
+          回到第一輪 重新設定年度戰略
+        </div>
+      </div>
+
+      <!-- Bottom Row: Return Flow & Decision Loop (Right-to-Left) -->
+      <div class="relative grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-center min-w-[900px] mt-4 md:mt-0">
+        
+        <!-- Step 07 (Next Round) -> md:col-span-3 -->
+        <div class="md:col-span-3 flex flex-col justify-between bg-white border border-stone-200 rounded-lg p-3.5 card-shadow hover:border-amber-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-stone-200/60 text-[11px]">
+              <span id="step7-badge" class="inline-flex items-center gap-1 font-medium text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> 下一輪迭代
+              </span>
+              <span class="font-mono font-bold text-amber-600">07</span>
+            </div>
+            <h3 id="step7-title" class="font-bold text-stone-900 text-sm mt-2.5">深化國際生源 (15.18%)</h3>
+            <p id="step7-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              拓展純日間四技 58 名境外生優勢，開闢越南與歐美雙聯學制。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-stone-400 border-t border-stone-100 flex items-center gap-1">
+            <i class="fa-solid fa-globe"></i> 維持中區公立第一優勢
+          </div>
+        </div>
+
+        <!-- Success Branch Box -> md:col-span-2 -->
+        <div class="md:col-span-2 flex flex-col items-center justify-center p-2.5 bg-emerald-50/70 border border-emerald-200 rounded-lg text-center card-shadow">
+          <span class="px-2 py-0.5 bg-emerald-600 text-white rounded text-[10px] font-bold uppercase tracking-wider">達標 / 變強</span>
+          <p id="branch-win-text" class="text-xs font-semibold text-emerald-900 mt-1.5">門檻下調並鎖住成果</p>
+          <span class="text-[10px] text-emerald-700 mt-0.5">註冊率 99.40% 穩健達陣</span>
+          <!-- Left Arrow towards 07 -->
+          <div class="hidden md:flex items-center gap-1 mt-2 text-emerald-600 text-xs font-mono">
+            <span>← 轉入下一輪</span>
+          </div>
+        </div>
+
+        <!-- Center Decision Diamond -> md:col-span-2 -->
+        <div class="md:col-span-2 flex flex-col items-center justify-center py-2">
+          <div class="diamond-box cursor-pointer" title="決策判斷節點">
+            <div class="diamond-inner">
+              <span id="decision-text" class="block">成效有<br>改善嗎？</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning / Fallback Branch Box -> md:col-span-2 -->
+        <div class="md:col-span-2 flex flex-col items-center justify-center p-2.5 bg-rose-50/70 border border-rose-200 rounded-lg text-center card-shadow">
+          <span class="px-2 py-0.5 bg-rose-600 text-white rounded text-[10px] font-bold uppercase tracking-wider">未達標 / 踩空</span>
+          <p id="branch-fail-text" class="text-xs font-semibold text-rose-900 mt-1.5">重啟備援與備取調深</p>
+          <span class="text-[10px] text-rose-700 mt-0.5">回溯至步驟 03 重新精算</span>
+          <!-- Re-loop indicator -->
+          <div class="hidden md:flex items-center gap-1 mt-2 text-rose-600 text-xs font-mono">
+            <span>⟲ 閉環修正</span>
+          </div>
+        </div>
+
+        <!-- Step 06 (IR Measurement) -> md:col-span-3 -->
+        <div class="md:col-span-3 flex flex-col justify-between bg-amber-50/20 border border-amber-200/80 rounded-lg p-3.5 card-shadow hover:border-amber-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-amber-200/50 text-[11px]">
+              <span id="step6-badge" class="inline-flex items-center gap-1 font-medium text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> IR量測
+              </span>
+              <span class="font-mono font-bold text-amber-600">06</span>
+            </div>
+            <h3 id="step6-title" class="font-bold text-stone-900 text-sm mt-2.5">讀取放榜與交叉查榜</h3>
+            <p id="step6-desc" class="text-stone-500 text-xs mt-1 leading-relaxed">
+              分析正取報到率 (33.3%)、備取遞補深水區與天敵流失真實數據。
+            </p>
+          </div>
+          <div class="mt-3 pt-2 text-[10px] text-amber-600/80 border-t border-amber-100 flex items-center gap-1">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> 驗收年度招生成效
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Responsibility Contrast Card (Anthropic Split Bar) -->
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <!-- System / IR Responsibility -->
+      <div class="bg-white border border-stone-200 rounded-xl p-4 sm:p-5 card-shadow flex items-start gap-3.5">
+        <div class="px-2.5 py-1 rounded bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs shrink-0 tracking-wide">
+          系統 / IR 負責
+        </div>
+        <div class="text-xs text-stone-600 leading-relaxed" id="resp-ai">
+          <span class="font-semibold text-stone-800">自動化運算與預警：</span>
+          追蹤教育部 UDB 數據、精算少子化 113~128 年斷崖模型、剖析 104 產業職缺技能矩陣、即時監控交叉查榜天敵流向。
+        </div>
+      </div>
+
+      <!-- Human / Faculty Responsibility -->
+      <div class="bg-white border border-stone-200 rounded-xl p-4 sm:p-5 card-shadow flex items-start gap-3.5">
+        <div class="px-2.5 py-1 rounded bg-stone-900 text-white font-bold text-xs shrink-0 tracking-wide">
+          系所 / 教授 負責
+        </div>
+        <div class="text-xs text-stone-600 leading-relaxed" id="resp-human">
+          <span class="font-semibold text-stone-800">策略裁決與辦學主導：</span>
+          設定招生指標、調整甄選書審評分尺規、把關專任師資產學合作、推動國際雙聯與跨域 AI 課程轉型。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Meta Citation -->
+    <div class="mt-6 pt-4 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-2">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-shield-halved text-amber-600"></i>
+        <span>國立臺中科技大學 國際貿易與經營系 ｜ 校務研究 (IR) 戰情指揮部</span>
+      </div>
+      <div class="font-mono text-[11px] text-stone-400">
+        資料來源：教育部大專校院校務資訊公開平台 (UDB) · 技專交叉查榜 · 104人力銀行
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Interactive JavaScript Workflow State Switcher -->
+  <script>
+    const workflows = {
+      1: {
+        kicker: "校務研究工作流 ｜ ADMISSION DEFENSE LOOP",
+        mainTitle: `中科國貿如何把校務數據變成<span class="underline decoration-amber-500 decoration-[3px] underline-offset-4 ml-1">可驗收的防禦閉環</span>`,
+        subTitle: "IR 數據持續量測天敵流向與生源斷崖；系主任與專任師長負責設定目標、審查書審規準與把關辦學品質。",
+        legendAi: "● IR/系統量測與執行",
+        legendHuman: "● 教授/系務決策與把關",
+        step1: { badge: "人類決策", title: "召開招生策略常會", desc: "設定日間部註冊率 ≥98%、統測單科均分 >71 之年度戰略目標。" },
+        step2: { badge: "IR量測", title: "UDB 數據基準對照", desc: "調閱教育部平台純日間退學率 (2.82%)、生師比與北商高科基準線。" },
+        step3: { badge: "系統執行", title: "少子化衝擊動態模擬", desc: "預測 113~128 年中區生源缺口，動態推估安全備取遞補倍率。" },
+        step4: { badge: "教授把關", title: "審查甄選書審規準", desc: "校正學習歷程評分指標，強化英語多益與跨域專案計分權重。" },
+        step5: { badge: "團隊作戰", title: "生源母校精準宣傳", desc: "針對臺中家商、彰商、中壢家商等核心生源高中職深度入校宣講。" },
+        step6: { badge: "IR量測", title: "讀取放榜與交叉查榜", desc: "分析正取報到率 (33.3%)、備取遞補深水區與天敵流失真實數據。" },
+        decision: "成效有<br>改善嗎？",
+        branchWin: "門檻下調並鎖住成果",
+        branchFail: "重啟備援與備取調深",
+        step7: { badge: "下一輪迭代", title: "深化國際生源 (15.18%)", desc: "拓展純日間四技 58 名境外生優勢，開闢越南與歐美雙聯學制。" },
+        respAi: `<span class="font-semibold text-stone-800">自動化運算與預警：</span>追蹤教育部 UDB 數據、精算少子化 113~128 年斷崖模型、剖析 104 產業職缺技能矩陣、即時監控交叉查榜天敵流向。`,
+        respHuman: `<span class="font-semibold text-stone-800">策略裁決與辦學主導：</span>設定招生指標、調整甄選書審評分尺規、把關專任師資產學合作、推動國際雙聯與跨域 AI 課程轉型。`
+      },
+      2: {
+        kicker: "課程轉型工作流 ｜ AI CURRICULUM UPGRADE LOOP",
+        mainTitle: `逢甲 vs 中科如何把生成式 AI 變成<span class="underline decoration-amber-500 decoration-[3px] underline-offset-4 ml-1">高就業力的階梯體系</span>`,
+        subTitle: "徹底取代舊版生硬 Mermaid！對齊 104 人力銀行國外業務與跨境電商高薪職缺，免寫程式也能打造 AI 商務實戰力。",
+        legendAi: "● AI量測與工具鏈",
+        legendHuman: "● 教授授課與個案指導",
+        step1: { badge: "教授規劃", title: "大一通識：Prompt與數位創作", desc: "借鑑逢甲全院必修模式，全面訓練結構化提示詞與商業圖文影音產出。" },
+        step2: { badge: "AI量測", title: "104 職缺技能需求探勘", desc: "精準掃描外貿職缺提及 ChatGPT、多益 750+ 與跨境電商實戰率。" },
+        step3: { badge: "系統執行", title: "大二/三：AI 跨境電商自動化", desc: "導入 No-Code / Make / Coze 工作流，自動生成外銷開發信與市場洞察。" },
+        step4: { badge: "教授把關", title: "大四實務專題與外貿個案", desc: "指導學生串接 API 打造經貿 Agent，嚴格審查商業邏輯與合規真實性。" },
+        step5: { badge: "團隊部署", title: "產學企業實習媒合", desc: "對接台中精機、自行車與光電外銷隱形冠軍，直接爭取 40K+ 起薪職缺。" },
+        step6: { badge: "AI量測", title: "畢業就業追蹤與薪資驗收", desc: "追蹤畢業生投件錄取率、平均起薪溢價與企業主管滿意度反饋。" },
+        decision: "就業力<br>有提升嗎？",
+        branchWin: "擴大招商與跨國競賽",
+        branchFail: "修訂工作流與重調技能",
+        step7: { badge: "下一輪迭代", title: "全英 EMI 與跨國雙聯", desc: "升級至研究所跨境電商與高階 AI 經貿分析，培育高階跨國管理人才。" },
+        respAi: `<span class="font-semibold text-stone-800">AI工具與市場量測：</span>掃描產業最新外銷職缺痛點、提供 No-Code 工作流模板、自動化批改作業提示詞與多益練習。`,
+        respHuman: `<span class="font-semibold text-stone-800">教學主導與人際溫度：</span>挑選高階商業個案、啟發批判性思維、引進產學真實專案、指導人際溝通與商務談判。`
+      },
+      3: {
+        kicker: "治理轉型工作流 ｜ FACULTY RENEWAL & RESEARCH LOOP",
+        mainTitle: `中科國貿如何把五年換血轉化為<span class="underline decoration-amber-500 decoration-[3px] underline-offset-4 ml-1">永續辦學競爭力</span>`,
+        subTitle: "面對 5 年內 5 位資深教授屆退潮，透過數據模型精準鎖定「AI商務、ESG永續、跨境物流」新聘專長藍圖。",
+        legendAi: "● 數據預測與精算",
+        legendHuman: "● 教評會與學術主導",
+        step1: { badge: "系務研議", title: "盤點 5 年資深師資退休梯隊", desc: "提早規劃 113~118 學年度退休缺額，確立非但不能減聘、更須擴充能量。" },
+        step2: { badge: "數據預測", title: "生師比警戒線推估 (33.7:1)", desc: "模擬 708 名純日間在學學生配比，確保符合教育部評鑑甲等安全門檻。" },
+        step3: { badge: "系統執行", title: "產學新聘專長矩陣建模", desc: "鎖定具備 Python/AI 商務、跨境供應鏈與 ESG 永續貿易雙專長師資。" },
+        step4: { badge: "教授把關", title: "教評會嚴格遴選面試", desc: "引進具備海外頂大博士或知名跨國企業 5 年以上實務主管經歷新秀。" },
+        step5: { badge: "團隊部署", title: "新進教師薪火傳承機制", desc: "資深名師帶領接軌科技部專題研究與國際發表，搭配新創產學育苗。" },
+        step6: { badge: "數據預測", title: "科技部計畫與產學金額驗收", desc: "追蹤每年科技部通過率、產學案百萬級簽約數與論文引用指數。" },
+        decision: "研究產能<br>突破嗎？",
+        branchWin: "鎖定榮譽並增列名額",
+        branchFail: "調整媒合與育成資源",
+        step7: { badge: "下一輪迭代", title: "籌設跨國智慧經貿研究中心", desc: "爭取教育部高教深耕特色領域大額經費，建立全台中最權威經貿智庫。" },
+        respAi: `<span class="font-semibold text-stone-800">計量模型與趨勢監控：</span>退休年齡推移模擬、國科會計畫熱點探勘、產學合作趨勢分析、生師比動態試算。`,
+        respHuman: `<span class="font-semibold text-stone-800">學術評議與文化傳承：</span>教評遴聘決策、青年學者傳承 Mentorship、建立學術倫理與跨校產學聯盟戰略。`
+      }
+    };
+
+    function switchWorkflow(id) {
+      const data = workflows[id];
+      if (!data) return;
+
+      // Update button styles
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`tab-btn-${i}`);
+        if (i === id) {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-stone-900 text-white shadow-sm";
+        } else {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-stone-600 hover:text-stone-900 hover:bg-stone-200/60";
+        }
+      }
+
+      // Update Header Content
+      document.getElementById('kicker-tag').innerText = data.kicker;
+      document.getElementById('main-title').innerHTML = data.mainTitle;
+      document.getElementById('sub-title').innerText = data.subTitle;
+      document.getElementById('legend-ai').innerText = data.legendAi;
+      document.getElementById('legend-human').innerText = data.legendHuman;
+
+      // Update Step Cards
+      for (let s = 1; s <= 7; s++) {
+        const sData = data[`step${s}`];
+        if (sData) {
+          const badgeEl = document.getElementById(`step${s}-badge`);
+          const titleEl = document.getElementById(`step${s}-title`);
+          const descEl = document.getElementById(`step${s}-desc`);
+          if (titleEl) titleEl.innerText = sData.title;
+          if (descEl) descEl.innerText = sData.desc;
+        }
+      }
+
+      // Update Decisions & Branches
+      document.getElementById('decision-text').innerHTML = data.decision;
+      document.getElementById('branch-win-text').innerText = data.branchWin;
+      document.getElementById('branch-fail-text').innerText = data.branchFail;
+
+      // Update Bottom Responsibilities
+      document.getElementById('resp-ai').innerHTML = data.respAi;
+      document.getElementById('resp-human').innerHTML = data.respHuman;
+    }
+  </script>
+</body>
+</html>

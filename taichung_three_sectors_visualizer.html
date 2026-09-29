@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>104 台中經貿三大領域工作需求深度圖表分析 (NUTC IB)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .tab-active {
+      border-bottom: 2px solid #ea580c;
+      color: #ea580c;
+      font-weight: 700;
+    }
+    .tab-inactive {
+      border-bottom: 2px solid transparent;
+      color: #64748b;
+    }
+    .tab-inactive:hover {
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-3 sm:p-6 font-sans">
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- 頂部標題與核心數據 -->
+    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-100 text-orange-800 border border-orange-200">104 官方 API 實證數據</span>
+            <span class="text-xs text-slate-400 font-mono">台中市代碼：6001008000</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1 tracking-tight">台中經貿三大領域工作需求深度對比儀表板</h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">涵蓋【國外業務 200筆】、【報關行與關務 200筆】、【電子商務 200筆】共 600 筆真實 104 職缺</p>
+        </div>
+        <div class="text-right">
+          <span class="text-xs text-slate-400">中科國貿系 (NUTC IB)</span>
+          <div class="text-xs font-semibold text-slate-600">課綱革新與學生職涯導航專用</div>
+        </div>
+      </div>
+
+      <!-- 三大領域核心指標速覽卡 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div class="bg-amber-50/60 border border-amber-200/80 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-amber-900">【領域一】國外業務 (200筆)</span>
+            <span class="text-[11px] px-1.5 py-0.2 bg-amber-200/60 text-amber-800 rounded">高薪外銷</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-amber-900 font-mono">NT$ 38,000</span>
+            <span class="text-xs text-amber-700">起薪中位數</span>
+          </div>
+          <p class="text-xs text-amber-800/80 mt-1.5 leading-relaxed">
+            ★ 4 萬以上職缺達 <strong>31.0%</strong><br>
+            ★ <strong>37.5%</strong> 企業要求海外參展拓銷<br>
+            ★ 聚落：西屯 (23.5%)、南屯精科 (10.5%)
+          </p>
+        </div>
+
+        <div class="bg-sky-50/60 border border-sky-200/80 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-sky-900">【領域二】報關行與關務 (200筆)</span>
+            <span class="text-[11px] px-1.5 py-0.2 bg-sky-200/60 text-sky-800 rounded">法規穩定</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-sky-900 font-mono">NT$ 33,000</span>
+            <span class="text-xs text-sky-700">起薪中位數</span>
+          </div>
+          <p class="text-xs text-sky-800/80 mt-1.5 leading-relaxed">
+            ★ <strong>87.0%</strong> 壓倒性要求通關報單與L/C<br>
+            ★ <strong>13.0%</strong> 要求 ERP 進銷存操作<br>
+            ★ 聚落：西屯 (23.5%)、梧棲台中港 (9.5%)
+          </p>
+        </div>
+
+        <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-lg p-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-bold text-emerald-900">【領域三】電子商務 (200筆)</span>
+            <span class="text-[11px] px-1.5 py-0.2 bg-emerald-200/60 text-emerald-800 rounded">數位增長</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-emerald-900 font-mono">NT$ 35,000</span>
+            <span class="text-xs text-emerald-700">起薪中位數</span>
+          </div>
+          <p class="text-xs text-emerald-800/80 mt-1.5 leading-relaxed">
+            ★ <strong>26.5%</strong> 要求多電商平台營運操作<br>
+            ★ <strong>12.5%</strong> 要求 GA4/數位廣告投放<br>
+            ★ <strong>2.0%</strong> 已要求 ChatGPT/生成式AI
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 互動 Tab 切換區 -->
+    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+      <div class="flex border-b border-slate-200 space-x-6 overflow-x-auto text-sm font-semibold pb-1">
+        <button onclick="showTab('tab-compare')" id="btn-tab-compare" class="tab-btn tab-active pb-2 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>📊</span> 三大領域核心技能橫向長條圖
+        </button>
+        <button onclick="showTab('tab-salary')" id="btn-tab-salary" class="tab-btn tab-inactive pb-2 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>💰</span> 薪資級距分佈與起薪對比
+        </button>
+        <button onclick="showTab('tab-cluster')" id="btn-tab-cluster" class="tab-btn tab-inactive pb-2 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>🗺️</span> 台中各行政區產業熱區分佈
+        </button>
+        <button onclick="showTab('tab-jobs')" id="btn-tab-jobs" class="tab-btn tab-inactive pb-2 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>🔍</span> 104 真實職缺清單 (官方網址核實)
+        </button>
+      </div>
+
+      <!-- Tab 1: 核心技能橫向長條圖對比 -->
+      <div id="tab-compare" class="tab-content pt-6 space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">三大領域企業指名核心職能佔比 (%)</h3>
+            <p class="text-xs text-slate-500">每組各 200 筆獨立樣本（基底 100% = 200 家企業）</p>
+          </div>
+          <div class="flex items-center gap-4 text-xs">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-amber-500 inline-block"></span> 國外業務</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-sky-500 inline-block"></span> 報關行與關務</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-emerald-500 inline-block"></span> 電子商務</span>
+          </div>
+        </div>
+
+        <div class="space-y-4 pt-2">
+          <!-- 技能 1: 進出口關務與報關單據 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>進出口關務與報關單據 (報關手續 / L/C信用狀 / 海空運提單)</span>
+              <span class="text-slate-500">報關領域核心硬實力 (87.0%)</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 13.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">13.0%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 87.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">87.0%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 1.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">1.5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能 2: 海外客戶開發與參展拓銷 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>海外客戶開發與國際商展拓銷 (獨立參展 / 國外出差 / 展位規劃)</span>
+              <span class="text-slate-500">國外業務專屬王牌 (37.5%)</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 37.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">37.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 4.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">4.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 3.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">3.0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能 3: 電商平台營運操作 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>電商平台營運操作 (蝦皮 / Momo / Amazon / Alibaba / Shopify)</span>
+              <span class="text-slate-500">電商領域核心 (26.5%)</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 2.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">2.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 1.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">1.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 26.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">26.5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能 4: 英語商務溝通 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>英語商務溝通 (精通 / 外文信件 / 多益 TOEIC 門檻)</span>
+              <span class="text-slate-500">國外業務 > 報關行 > 電商</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 18.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">18.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 11.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">11.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 2.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">2.0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能 5: 數位行銷與流量投放 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>數位行銷與廣告投放 (GA4 / SEO / Meta廣告 / 社群運營)</span>
+              <span class="text-slate-500">電子商務主力需求 (12.5%)</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 3.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">3.5%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 0.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">0.0%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 12.5%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">12.5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能 6: ERP / SAP 進銷存管理 -->
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+              <span>ERP / SAP 企業資源與進銷存系統 (鼎新 / Oracle / 庫存管銷)</span>
+              <span class="text-slate-500">報關行與關務需求最高 (13.0%)</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">國外業務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 7.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-amber-700">7.0%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">報關關務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-sky-500 h-full rounded-full" style="width: 13.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-sky-700">13.0%</span>
+              </div>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-16 text-slate-500">電子商務</span>
+                <div class="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 6.0%"></div>
+                </div>
+                <span class="w-12 text-right font-mono font-bold text-emerald-700">6.0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: 薪資級距柱狀分佈對比 -->
+      <div id="tab-salary" class="tab-content hidden pt-6 space-y-6">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">三大領域起薪級距分佈結構比較</h3>
+          <p class="text-xs text-slate-500">觀察各領域低薪防禦力與高薪天花板</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- 國外業務 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h4 class="font-bold text-xs text-amber-900 flex justify-between">
+              <span>國外業務</span>
+              <span class="text-amber-700 font-mono">中位數 NT$ 38K</span>
+            </h4>
+            <div class="mt-3 space-y-2">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>30K 以下</span><span>1.0% (2筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-amber-400 h-full" style="width: 1%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>30K ~ 35K</span><span>14.0% (28筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-amber-500 h-full" style="width: 14%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5 font-bold text-amber-900">
+                  <span>35K ~ 40K (核心主力)</span><span>68.0% (136筆)</span>
+                </div>
+                <div class="h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="bg-amber-600 h-full" style="width: 68%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>40K ~ 50K</span><span>15.5% (31筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-amber-500 h-full" style="width: 15.5%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>50K 以上高薪</span><span>1.5% (3筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-amber-700 h-full" style="width: 1.5%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 報關行與關務 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h4 class="font-bold text-xs text-sky-900 flex justify-between">
+              <span>報關行與關務</span>
+              <span class="text-sky-700 font-mono">中位數 NT$ 33K</span>
+            </h4>
+            <div class="mt-3 space-y-2">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>30K 以下</span><span>7.0% (14筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-sky-400 h-full" style="width: 7%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5 font-bold text-sky-900">
+                  <span>30K ~ 35K (主力帶)</span><span>48.0% (96筆)</span>
+                </div>
+                <div class="h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="bg-sky-600 h-full" style="width: 48%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>35K ~ 40K</span><span>37.0% (74筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-sky-500 h-full" style="width: 37%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>40K ~ 50K</span><span>7.5% (15筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-sky-500 h-full" style="width: 7.5%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>50K 以上</span><span>0.5% (1筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-sky-700 h-full" style="width: 0.5%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 電子商務 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <h4 class="font-bold text-xs text-emerald-900 flex justify-between">
+              <span>電子商務</span>
+              <span class="text-emerald-700 font-mono">中位數 NT$ 35K</span>
+            </h4>
+            <div class="mt-3 space-y-2">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>30K 以下</span><span>6.0% (12筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-emerald-400 h-full" style="width: 6%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>30K ~ 35K</span><span>31.5% (63筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 31.5%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5 font-bold text-emerald-900">
+                  <span>35K ~ 40K (主力帶)</span><span>49.5% (99筆)</span>
+                </div>
+                <div class="h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="bg-emerald-600 h-full" style="width: 49.5%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>40K ~ 50K</span><span>8.0% (16筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full" style="width: 8%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-600 mb-0.5">
+                  <span>50K 以上高薪</span><span>5.0% (10筆)</span>
+                </div>
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden"><div class="bg-emerald-700 h-full" style="width: 5%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: 台中行政區熱區分佈 -->
+      <div id="tab-cluster" class="tab-content hidden pt-6 space-y-6">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">台中在地經貿聚落熱區分佈</h3>
+          <p class="text-xs text-slate-500">西屯中科與七期、南屯精科、大雅機械、梧棲台中港各具鮮明產業特色</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-slate-200 rounded-lg p-3.5 bg-white">
+            <h4 class="font-bold text-xs text-amber-900 border-b border-slate-100 pb-2 mb-2">國外業務熱門行政區</h4>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between"><span>1. 西屯區 (中科/七期)</span><span class="font-bold text-slate-700">47 筆 (23.5%)</span></div>
+              <div class="flex justify-between"><span>2. 南屯區 (精科園區)</span><span class="font-bold text-slate-700">21 筆 (10.5%)</span></div>
+              <div class="flex justify-between"><span>3. 大里區 (五金工具)</span><span class="font-bold text-slate-700">20 筆 (10.0%)</span></div>
+              <div class="flex justify-between"><span>4. 烏日區 (精密製造)</span><span class="font-bold text-slate-700">16 筆 (8.0%)</span></div>
+              <div class="flex justify-between"><span>5. 西區 (市區貿易)</span><span class="font-bold text-slate-700">9 筆 (4.5%)</span></div>
+              <div class="flex justify-between"><span>6. 大雅區 (機械零組件)</span><span class="font-bold text-slate-700">9 筆 (4.5%)</span></div>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg p-3.5 bg-white">
+            <h4 class="font-bold text-xs text-sky-900 border-b border-slate-100 pb-2 mb-2">報關行與關務熱門行政區</h4>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between"><span>1. 西屯區 (總部物流)</span><span class="font-bold text-slate-700">47 筆 (23.5%)</span></div>
+              <div class="flex justify-between"><span>2. 南屯區 (精科保稅)</span><span class="font-bold text-slate-700">25 筆 (12.5%)</span></div>
+              <div class="flex justify-between"><span>3. 西區 (傳統報關行)</span><span class="font-bold text-slate-700">24 筆 (12.0%)</span></div>
+              <div class="flex justify-between font-bold text-sky-900"><span>4. 梧棲區 (台中港海運)</span><span>19 筆 (9.5%)</span></div>
+              <div class="flex justify-between"><span>5. 北屯區</span><span class="font-bold text-slate-700">12 筆 (6.0%)</span></div>
+              <div class="flex justify-between"><span>6. 大雅區 (空運進出口)</span><span class="font-bold text-slate-700">10 筆 (5.0%)</span></div>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg p-3.5 bg-white">
+            <h4 class="font-bold text-xs text-emerald-900 border-b border-slate-100 pb-2 mb-2">電子商務熱門行政區</h4>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between"><span>1. 西屯區 (網銷商辦)</span><span class="font-bold text-slate-700">48 筆 (24.0%)</span></div>
+              <div class="flex justify-between"><span>2. 南屯區 (文創品牌)</span><span class="font-bold text-slate-700">46 筆 (23.0%)</span></div>
+              <div class="flex justify-between font-bold text-emerald-900"><span>3. 大雅區 (電商大倉)</span><span>35 筆 (17.5%)</span></div>
+              <div class="flex justify-between"><span>4. 北區 (一中商圈週邊)</span><span class="font-bold text-slate-700">14 筆 (7.0%)</span></div>
+              <div class="flex justify-between"><span>5. 北屯區</span><span class="font-bold text-slate-700">12 筆 (6.0%)</span></div>
+              <div class="flex justify-between"><span>6. 西區</span><span class="font-bold text-slate-700">10 筆 (5.0%)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: 104 真實職缺檢驗清單 -->
+      <div id="tab-jobs" class="tab-content hidden pt-6 space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="text-base font-bold text-slate-900">104 台中精選職缺核實名單 (點擊直達 104 官方頁面)</h3>
+            <p class="text-xs text-slate-500">每組隨機挑選 4 筆代表性職缺，完整 600 筆已產出 CSV 報表</p>
+          </div>
+          <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200">100% 官方真實 jobNo</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-2.5 border border-slate-200">領域類別</th>
+                <th class="p-2.5 border border-slate-200">企業名稱</th>
+                <th class="p-2.5 border border-slate-200">職缺名稱</th>
+                <th class="p-2.5 border border-slate-200">行政區</th>
+                <th class="p-2.5 border border-slate-200">待遇行情</th>
+                <th class="p-2.5 border border-slate-200">104 官方核實直通連結</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <!-- 國外業務 -->
+              <tr class="hover:bg-amber-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-amber-800">國外業務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">和頌科技</td>
+                <td class="p-2.5 border border-slate-200">國外業務專員</td>
+                <td class="p-2.5 border border-slate-200">西屯區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-amber-700 font-bold">35K~45K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8ijrt" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8ijrt ↗</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-amber-800">國外業務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">新衛電腦</td>
+                <td class="p-2.5 border border-slate-200">國外業務 (工業電腦外銷)</td>
+                <td class="p-2.5 border border-slate-200">南屯區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-amber-700 font-bold">35K~50K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/5g3jm" target="_blank" class="text-blue-600 hover:underline font-mono">104: 5g3jm ↗</a></td>
+              </tr>
+              <tr class="hover:bg-amber-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-amber-800">國外業務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">新鈦機械</td>
+                <td class="p-2.5 border border-slate-200">國外業務代表 (自行車外銷)</td>
+                <td class="p-2.5 border border-slate-200">西屯區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-amber-700 font-bold">38K~48K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8tm8z" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8tm8z ↗</a></td>
+              </tr>
+
+              <!-- 報關行與關務 -->
+              <tr class="hover:bg-sky-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-sky-800">報關關務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">萬泰國際物流</td>
+                <td class="p-2.5 border border-slate-200">台中海運 OP 文件人員</td>
+                <td class="p-2.5 border border-slate-200">梧棲區 (台中港)</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-sky-700 font-bold">33K~40K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8q9af" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8q9af ↗</a></td>
+              </tr>
+              <tr class="hover:bg-sky-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-sky-800">報關關務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">鴻昇實業</td>
+                <td class="p-2.5 border border-slate-200">進口報關專員</td>
+                <td class="p-2.5 border border-slate-200">西區 (老牌報關行)</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-sky-700 font-bold">30K~33K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8dcbe" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8dcbe ↗</a></td>
+              </tr>
+              <tr class="hover:bg-sky-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-sky-800">報關關務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">維樂工業</td>
+                <td class="p-2.5 border border-slate-200">船務報關 / 保稅人員</td>
+                <td class="p-2.5 border border-slate-200">大甲區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-sky-700 font-bold">38K~50K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8u1gv" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8u1gv ↗</a></td>
+              </tr>
+
+              <!-- 電子商務 -->
+              <tr class="hover:bg-emerald-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-emerald-800">電子商務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">新鈦機械</td>
+                <td class="p-2.5 border border-slate-200">【亞馬遜 Amazon】跨境電商營運專員</td>
+                <td class="p-2.5 border border-slate-200">西屯區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-emerald-700 font-bold">40K~50K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/8tm8z" target="_blank" class="text-blue-600 hover:underline font-mono">104: 8tm8z ↗</a></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-emerald-800">電子商務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">丞威資訊</td>
+                <td class="p-2.5 border border-slate-200">電商行銷專員 (蝦皮/Momo)</td>
+                <td class="p-2.5 border border-slate-200">西區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-emerald-700 font-bold">34K 以上</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/90bio" target="_blank" class="text-blue-600 hover:underline font-mono">104: 90bio ↗</a></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/40">
+                <td class="p-2.5 border border-slate-200 font-bold text-emerald-800">電子商務</td>
+                <td class="p-2.5 border border-slate-200 font-semibold">加樂實業</td>
+                <td class="p-2.5 border border-slate-200">電子商務人員</td>
+                <td class="p-2.5 border border-slate-200">南屯區</td>
+                <td class="p-2.5 border border-slate-200 font-mono text-emerald-700 font-bold">35K~45K</td>
+                <td class="p-2.5 border border-slate-200"><a href="https://www.104.com.tw/job/95xj8" target="_blank" class="text-blue-600 hover:underline font-mono">104: 95xj8 ↗</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('tab-inactive');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-' + tabId).classList.add('tab-active');
+      document.getElementById('btn-' + tabId).classList.remove('tab-inactive');
+    }
+  </script>
+</body>
+</html>

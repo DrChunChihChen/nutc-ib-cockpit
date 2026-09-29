@@ -1,0 +1,6 @@
+# Local Netlify folder
+.netlify
+
+*.bak*
+*.pre_*
+*.staged

@@ -1,0 +1,810 @@
+﻿<!--工具列-->
+<md-toolbar md-whiteframe="1" class="site-toolbar" ng-controller="sitetoolbarController as sitetoolbarCtrl">
+
+    <div class="md-toolbar-tools" layout="row">
+        <!-- 左側按鈕 -->
+        <div style="width:52px">
+            <md-button class="md-icon-button" ng-click="sideNavCtrl.toggleLeftSideNav()" ng-if="mainCtrl.user.enableWishlist">
+                <md-tooltip md-direction="bottom">
+                    <span translate="WISHLIST"></span>
+                </md-tooltip>
+                <!--md-colors="::{color: 'primary'}"-->
+                <md-icon>event</md-icon>
+            </md-button>
+        </div>
+        <!-- 系統標題 -->
+        <h2 flex="glow" class="md-title system_title" translate="SYS_TITLE"></h2>
+        <!-- 右側按鈕 -->
+
+        <md-button class="" md-no-ink ng-click="sitetoolbarCtrl.login()" ng-if="mainCtrl.user.isAnonymus" translate="LOGIN" ng-disabled="isLoading"></md-button>
+        <md-button class="" md-no-ink ng-click="sitetoolbarCtrl.logout()" ng-if="!mainCtrl.user.isAnonymus" translate="LOGOUT" ng-disabled="isLoading"></md-button>
+
+    </div>
+
+</md-toolbar>
+
+<!-- 內容 -->
+<div flex layout="row">
+    <!--側邊欄(關注清單)-->
+    <md-sidenav md-disable-scroll-target="body" class="md-whiteframe-z2" md-component-id="siteLeftsidenav"
+                md-is-locked-open="mainCtrl.user.enableWishlist&&$mdMedia('gt-sm')&&sideNavCtrl.shouldLockOpen">
+
+        <div ng-if="mainCtrl.isSummer()" style="color: red;margin:15px">暑修課表請至Myfcu的我的課表查詢。</div>
+        <div class="timetable" flex="grow" ng-controller="wishlistController as wishlistCtrl" ng-if="mainCtrl.user.enableWishlist&&!mainCtrl.isSummer()">
+
+            <div style="padding: 20px 10px 0 8px;" class="name">{{'WISHLIST'|translate}}：{{mainCtrl.user.detail.name[mainCtrl.user.detail.wishlist.info.lang]}}</div>
+            <div style="padding-left:2px;padding-top:8px" layout="column" layout-align="start center">
+
+                <div ng-hide="mainCtrl.user.detail.wishlist.info.lang=='en'">
+                    <span>{{wishlistCtrl.showYear()}}</span> / <span>{{('SEMESTER_OPT'+wishlistCtrl.user.detail.wishlist.info.sms)|translate}}</span>
+                </div>
+                <div ng-show="mainCtrl.user.detail.wishlist.info.lang=='en'">
+                    <span>{{('SEMESTER_OPT'+wishlistCtrl.user.detail.wishlist.info.sms)|translate}}</span> / <span>{{wishlistCtrl.showYear()}}</span>
+                </div>
+
+                <div>
+                    <table class="md-whiteframe-z2" border="1">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tr bindonce ng-repeat="period in wishlistCtrl.periods">
+                            <td bo-text="period.text"></td>
+                            <td ng-repeat="week in wishlistCtrl.weeks">
+
+                                <div layout="column" style="height:100%">
+                                    <div layout="column" layout-align="center" flex class="timetable-item"
+                                         ng-repeat="course in courses= (wishlistCtrl.user.detail.wishlistTimetable[period.key][week.key]|filter:{type:wishlistCtrl.showSelected})"
+                                         ng-class="{wish:course.type=='1',sel:course.type=='2',reg:course.type=='3',dup:courses.length>1}"
+                                         ng-click="isLoading?angular.noop():wishlistCtrl.showDetail(course.scr_selcode)">
+                                        <a href="#">
+                                            <span bo-text="course.scr_selcode"></span><md-tooltip md-direction="top"><span bo-text="course.sub_name"></span></md-tooltip>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--<tr bindonce>
+                            <td>0</td>
+                            <td ng-repeat="week in wishlistCtrl.weeks">
+
+                                <div layout="column" style="height:100%">
+
+                                    <div layout="column" layout-align="center" flex class="timetable-item"
+                                         ng-repeat="course in courses2= (wishlistCtrl.user.detail.wishlistTimetable[0][week.key]|filter:{type:wishlistCtrl.showSelected})"
+                                         ng-class="{wish:course.type=='1',sel:course.type=='2',reg:course.type=='3'}"
+                                         ng-click="wishlistCtrl.showDetail(course.scr_selcode)">
+                                        <a href="#">
+                                            <span bo-text="course.scr_selcode"></span><md-tooltip md-direction="top"><span bo-text="course.sub_name"></span></md-tooltip>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>-->
+                    </table>
+
+                    <div class="no-time-block" ng-if="wishlistCtrl.user.detail.noTimeList">
+                        <div class="title">{{'NOTIMELIST'|translate}}</div>
+                        <div bindonce class="no-time-list md-whiteframe-z2">
+                            <div class="no-time-item"
+                                ng-repeat="course in courses= (wishlistCtrl.user.detail.noTimeList|filter:{type:wishlistCtrl.showSelected})"
+                                ng-class="{wish:course.type=='1',sel:course.type=='2',reg:course.type=='3'}"
+                                ng-click="wishlistCtrl.showDetail(course.scr_selcode)">
+                                <a href="#">
+                                    <span bo-text="course.scr_selcode"></span><md-tooltip md-direction="top"><span bo-text="course.sub_name"></span></md-tooltip>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <md-checkbox aria-label="" class="md-primary noBottomMargin" ng-model="wishlistCtrl.showSelected" ng-true-value="''" ng-false-value="'1'">
+                        <span translate="SHOWSELECTED"></span>
+                    </md-checkbox>
+                </div>
+
+            </div>
+            <div style="padding: 8px 10px 30px 8px;">
+                <!--<div translate="ICON_TITLE"></div>-->
+                <div layout="row" layout-align="start start" style="padding-bottom:2px;"><span class="coloricon wish">　</span><span translate="ICON_TEXT1"></span></div>
+                <div layout="row" layout-align="start start" style="padding-bottom:2px;"><span class="coloricon sel">　</span><span translate="ICON_TEXT2"></span></div>
+                <div layout="row" layout-align="start start" style="padding-bottom:2px;"><span class="coloricon reg">　</span><span translate="ICON_TEXT3"></span></div>
+                <div layout="row" layout-align="start start" style="padding-bottom:2px;"><span class="coloricon dup">　</span><span translate="ICON_TEXT4"></span></div>
+            </div>
+        </div>
+
+    </md-sidenav>
+
+    <!--課程檢索內容-->
+    <md-content flex id="content" layout="column" style="overflow-x:hidden" on-scroll="mainCtrl.onScroll($direct,$event)">
+        <md-progress-linear class="md-accent" md-mode="indeterminate" style="z-index:70" ng-disabled="!isLoading"></md-progress-linear>
+
+        <!-- 主要內容 -->
+        <div class="search-main-container" ng-class="{'ai-layout-active': searchCtrl.isType4TabActiveForLayout()}" layout="column" layout-padding flex="noshrink" ng-controller="searchController as searchCtrl">
+
+            <md-subheader ng-show="searchCtrl.searchResult.search" class="result-header">
+                <div layout="row" layout-align="space-between center">
+                    <span><span translate="SEARCHRESULT"></span><span>{{searchCtrl.searchResult.total}} </span><span translate="SEARCHRESULTUNIT"></span></span>
+                    <md-button class="md-raised md-warn" md-no-ink ng-click="searchCtrl.resetSearchResult()"
+                               ng-show="searchCtrl.searchResult.search&&searchCtrl.searchResult.total>0" translate="RESEARCH">
+                    </md-button>
+                </div>
+            </md-subheader>
+
+            <!-- 搜尋面板 -->
+            <div class="search-query-panel" ng-class="{'ai-layout-active': searchCtrl.isType4TabActiveForLayout()}" layout="row" ng-hide="searchCtrl.searchResult.search">
+                <div flex="5" flex-xs="0" flex-sm="10" flex-gt-md="20"><!--留白行--></div>
+                <div flex class="search-query-main" ng-class="{'ai-layout-active': searchCtrl.isType4TabActiveForLayout()}">
+
+                    <!--語系學年度學期-->
+                    <div>
+
+                        <md-input-container class="lessMargin" style="width:100px">
+                            <label translate="LANGUAGE"></label>
+                            <md-select ng-model="searchCtrl.baseOptions.lang"
+                                       ng-change="searchCtrl.changeLang()"
+                                       ng-disabled="isLoading">
+                                <md-option value="cht">中文</md-option>
+                                <md-option value="en">English</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container class="lessMargin" style="min-width:100px" ng-show="searchCtrl.baseOptions.lang=='en'">
+                            <label translate="SEMESTER"></label>
+                            <md-select ng-model="searchCtrl.baseOptions.sms"
+                                       ng-change="searchCtrl.clearAllDeptList();searchCtrl.changeEnYear(searchCtrl.baseOptions.sms)"
+                                       ng-disabled="isLoading">
+                                <md-option ng-value="1" translate="SEMESTER_OPT1"></md-option>
+                                <md-option ng-value="2" translate="SEMESTER_OPT2"></md-option>
+                                <md-option ng-value="3" translate="SEMESTER_OPT3"></md-option>
+                                <md-option ng-value="4" translate="SEMESTER_OPT4"></md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container class="lessMargin" ng-style="(searchCtrl.baseOptions.lang=='en')?{'width':'140px'}:{}">
+                            <label translate="YEAR"></label>
+                            <md-select ng-model="searchCtrl.baseOptions.year"
+                                       ng-change="searchCtrl.clearAllDeptList()"
+                                       ng-disabled="isLoading">
+                                <md-option ng-repeat="year in searchCtrl.yearList" ng-value="::year">
+                                    {{searchCtrl.showYear(year)}}
+                                </md-option>
+
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container class="lessMargin" style="min-width:100px" ng-hide="searchCtrl.baseOptions.lang=='en'">
+                            <label translate="SEMESTER"></label>
+                            <md-select ng-model="searchCtrl.baseOptions.sms"
+                                       ng-change="searchCtrl.clearAllDeptList()"
+                                       ng-disabled="isLoading">
+                                <md-option ng-value="1" translate="SEMESTER_OPT1"></md-option>
+                                <md-option ng-value="2" translate="SEMESTER_OPT2"></md-option>
+                                <md-option ng-value="3" translate="SEMESTER_OPT3"></md-option>
+                                <md-option ng-value="4" translate="SEMESTER_OPT4"></md-option>
+                            </md-select>
+                        </md-input-container>
+
+                    </div>
+
+                    <!--查詢頁籤-->
+                    <md-tabs class="search-tabs" ng-class="{'ai-layout-active': searchCtrl.isType4TabActiveForLayout()}" md-border-bottom md-dynamic-height md-no-select-click md-no-ink md-selected="searchCtrl.activeSearchTabIndex">
+                        <!--第一個tab-->
+                        <md-tab label="{{'TAB1_TITLE'|translate}}">
+                            <md-card class="md-whiteframe-z2">
+                                <md-card-content>
+
+                                    <form name="searchCtrl.type1Form">
+                                        <div layout="row" layout-xsb="column" layout-wrap>
+                                            <!--學制-->
+                                            <md-input-container flex="20" flex-xs="100" flex-sm="50">
+                                                <label translate="DEGREE"></label>
+                                                <md-select ng-model="searchCtrl.type1Options.degree" ng-change="searchCtrl.clearDeptList()"
+                                                           ng-disabled="searchCtrl.isSummer()">
+                                                    <md-option value="-" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                    <md-option value="1" translate="DEGREE_OPT1"></md-option>
+                                                    <md-option value="3" translate="DEGREE_OPT2"></md-option>
+                                                    <md-option value="4" translate="DEGREE_OPT3"></md-option>
+                                                    <md-option value="5" translate="DEGREE_OPT4"></md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <!--學院-->
+                                            <md-input-container flex="20" flex-xs="100" flex-sm="50">
+                                                <label translate="DEPT"></label>
+                                                <md-select name="dept" ng-model="searchCtrl.type1Options.deptId" ng-change="searchCtrl.clearUnitList()" md-on-open="searchCtrl.getDeptList()"
+                                                           ng-disabled="searchCtrl.isSummer()" placeholder="{{'DEPT'|translate}}" required>
+                                                    <md-option value="-" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                    <md-option ng-repeat="dept in searchCtrl.deptList track by dept.id" value="{{::dept.id}}" title="{{::dept.name}}">{{::dept.name}}</md-option>
+                                                </md-select>
+                                                <div ng-messages="searchCtrl.type1Form.dept.$error">
+                                                    <div ng-message="required" translate="REQUIRED_DEPT"></div>
+                                                </div>
+                                            </md-input-container>
+                                            <!--系所-->
+                                            <md-input-container flex="20" flex-xs="100" flex-sm="50">
+                                                <label translate="UNIT"></label>
+                                                <md-select ng-model="searchCtrl.type1Options.unitId" ng-change="searchCtrl.clearClassList()" placeholder="{{'UNIT'|translate}}"
+                                                           ng-disabled="searchCtrl.type1Options.deptId==''||searchCtrl.isSummer()" md-on-open="searchCtrl.getUnitList()">
+                                                    <md-option value="*" ng-if="searchCtrl.type1Options.deptId!=''" translate="ALL"></md-option>
+                                                    <md-option value="-" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                    <md-option ng-repeat="unit in searchCtrl.currDeptInfo.unitList track by unit.id" value="{{::unit.id}}" title="{{::unit.name}}">{{::unit.name}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <!--班級-->
+                                            <md-input-container flex="20" flex-xs="100" flex-sm="50">
+                                                <label translate="CLASS"></label>
+                                                <md-select name="classId" ng-model="searchCtrl.type1Options.classId" placeholder="{{'CLASS'|translate}}" md-on-open="searchCtrl.getClassList()"
+                                                           ng-disabled="searchCtrl.type1Options.unitId=='*'||searchCtrl.type1Options.unitId==''"
+                                                           ng-required="searchCtrl.isSummer()">
+                                                    <md-option value="*" ng-if="searchCtrl.type1Options.unitId!='*'&&searchCtrl.type1Options.unitId!=''&&!searchCtrl.isSummer()" translate="ALL"></md-option>
+                                                    <md-option ng-repeat="class in searchCtrl.currUnitInfo.classList track by class.id" value="{{::class.id}}" title="{{::class.name}}">{{::class.name}}</md-option>
+                                                </md-select>
+                                                <div ng-messages="searchCtrl.type1Form.classId.$error">
+                                                    <div ng-message="required" translate="REQUIRED_CLASSID"></div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </form>
+
+                                </md-card-content>
+                                <md-card-actions layout="row" layout-align="center center">
+                                    <md-button class="md-raised  md-primary" ng-click="searchCtrl.searchType1()" ng-disabled="isLoading||searchCtrl.type1Form.$invalid" translate="SEARCH"></md-button>
+                                    <md-button class="md-raised" ng-click="searchCtrl.resetType1Options()" translate="RESET"></md-button>
+                                </md-card-actions>
+                            </md-card>
+
+                        </md-tab>
+                        <!--第二個tab-->
+                        <md-tab label="{{'TAB2_TITLE'|translate}}">
+
+                            <md-card class="md-whiteframe-z2">
+                                <md-card-content>
+                                    <form name="searchCtrl.type2Form" layout="row" layout-wrap>
+                                        <!--選課代號-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.code.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container class="noBottomMargin">
+                                                <label translate="CODE"></label>
+                                                <input name="code" autocomplete="off" maxlength="4" ng-required="searchCtrl.type2Options.code.enabled"
+                                                       ng-model="searchCtrl.type2Options.code.value" ng-focus="searchCtrl.autoCheckOption('code')" />
+                                                <div ng-messages="searchCtrl.type2Form.code.$error" md-auto-hide="false">
+                                                    <div ng-message="required" translate="REQUIRED_CODE"></div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <!--星期節次-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.weekPeriod.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <div style="min-width:148px">
+                                                <md-input-container md-is-error="!searchCtrl.checkWeekPeriod()">
+                                                    <label translate="WEEK"></label>
+                                                    <md-select ng-model="searchCtrl.type2Options.weekPeriod.week" name="week" ng-change="searchCtrl.autoCheckOption('weekPeriod')">
+                                                        <md-option value="*" translate="ALL"></md-option>
+                                                        <md-option value="1" translate="WEEK_OPT1"></md-option>
+                                                        <md-option value="2" translate="WEEK_OPT2"></md-option>
+                                                        <md-option value="3" translate="WEEK_OPT3"></md-option>
+                                                        <md-option value="4" translate="WEEK_OPT4"></md-option>
+                                                        <md-option value="5" translate="WEEK_OPT5"></md-option>
+                                                        <md-option value="6" translate="WEEK_OPT6"></md-option>
+                                                        <md-option value="7" translate="WEEK_OPT7"></md-option>
+                                                    </md-select>
+                                                </md-input-container>
+                                                <md-input-container md-is-error="!searchCtrl.checkWeekPeriod()" ng-style="(searchCtrl.baseOptions.lang=='en')?{'width':'95px'}:{}">
+                                                    <label translate="PERIOD"></label>
+                                                    <md-select ng-model="searchCtrl.type2Options.weekPeriod.period" name="period" ng-change="searchCtrl.autoCheckOption('weekPeriod')"
+                                                               md-selected-text="searchCtrl.getSelectedPeriodText()">
+                                                        <md-option value="*" translate="ALL" style="width:180px"></md-option>
+                                                        <md-option value="0">0</md-option>
+                                                        <md-option ng-repeat="periodTime in searchCtrl.getPeriodList(searchCtrl.baseOptions.year)" value="{{periodTime.period}}">{{periodTime.period}} ({{periodTime.time}})</md-option>
+                                                    </md-select>
+
+                                                </md-input-container>
+                                                <div class="error" flex="grow" ng-show="!searchCtrl.checkWeekPeriod()">
+                                                    <div translate="REQUIRED_WEEKPERIOD"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--科目名稱-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.course.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container class="noBottomMargin">
+                                                <label translate="SUBJECTNAME"></label>
+                                                <input type="text" autocomplete="off" name="course" ng-required="searchCtrl.type2Options.course.enabled"
+                                                       ng-model="searchCtrl.type2Options.course.value" ng-focus="searchCtrl.autoCheckOption('course')" />
+                                                <div ng-messages="searchCtrl.type2Form.course.$error" md-auto-hide="false">
+                                                    <div ng-message="required" translate="REQUIRED_SUBJECTNAME"></div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <!--開課教師名稱-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.teacher.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container class="noBottomMargin">
+                                                <label translate="TEACHER"></label>
+                                                <input type="text" autocomplete="off" name="teacher" ng-required="searchCtrl.type2Options.teacher.enabled"
+                                                       ng-model="searchCtrl.type2Options.teacher.value" ng-focus="searchCtrl.autoCheckOption('teacher')" />
+                                                <div ng-messages="searchCtrl.type2Form.teacher.$error" md-auto-hide="false">
+                                                    <div ng-message="required" translate="REQUIRED_TEACHER"></div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                        <!--全英語授課-->
+                                        <!--<div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                    <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.useEnglish.enabled" class="md-primary noBottomMargin">
+                                        <span translate="USEENGLISH" style="height:76px" layout="row" layout-align="start center"></span>
+                                    </md-checkbox>
+
+                                </div>-->
+                                        <!--授課語言-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="Checkbox" ng-model="searchCtrl.type2Options.useLanguage.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container style="width:183px">
+                                                <label translate="USELANGUAGE"></label>
+                                                <md-select ng-model="searchCtrl.type2Options.useLanguage.value" ng-change="searchCtrl.autoCheckOption('useLanguage')">
+                                                    <md-option ng-repeat="language in searchCtrl.languageList" value={{language.id}}>{{language[searchCtrl.baseOptions.lang]}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <!--特定科目-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="Checkbox" ng-model="searchCtrl.type2Options.specificSubject.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container>
+                                                <label translate="SPECIFICSUBJECT"></label>
+                                                <md-select ng-model="searchCtrl.type2Options.specificSubject.value" ng-change="searchCtrl.autoCheckOption('specificSubject')">
+                                                    <md-option value="1" translate="SPECIFICSUBJECT_OPT1"></md-option>
+                                                    <md-option value="2" translate="SPECIFICSUBJECT_OPT2"></md-option>
+                                                    <md-option value="3" translate="SPECIFICSUBJECT_OPT3"></md-option>
+                                                    <md-option value="4" translate="SPECIFICSUBJECT_OPT4"></md-option>
+                                                    <md-option value="5" translate="SPECIFICSUBJECT_OPT5"></md-option>
+                                                    <md-option value="6" translate="SPECIFICSUBJECT_OPT6"></md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <!--課程描述-->
+                                        <div layout="row" flex="50" flex-xs="100" flex-gt-md="33" layout-align="start center">
+                                            <md-checkbox aria-label="" ng-model="searchCtrl.type2Options.courseDescription.enabled" class="md-primary noBottomMargin">
+                                            </md-checkbox>
+                                            <md-input-container class="noBottomMargin">
+                                                <label translate="COURSEDESCRIPTION"></label>
+                                                <input type="text" autocomplete="off" name="courseDescription" ng-required="searchCtrl.type2Options.courseDescription.enabled"
+                                                       ng-model="searchCtrl.type2Options.courseDescription.value" ng-focus="searchCtrl.autoCheckOption('courseDescription')" />
+                                                <div ng-messages="searchCtrl.type2Form.courseDescription.$error" md-auto-hide="false">
+                                                    <div ng-message="required" translate="REQUIRED_COURSEDESCRIPTION"></div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </form>
+                                </md-card-content>
+                                <md-card-actions layout="row" layout-align="center center">
+                                    <md-button class="md-raised md-primary" ng-click="searchCtrl.searchType2()" ng-disabled="isLoading||searchCtrl.checkType2OptionsInvaild()" translate="SEARCH"></md-button>
+                                    <md-button class="md-raised" ng-click="searchCtrl.resetType2Options()" translate="RESET"></md-button>
+                                </md-card-actions>
+                            </md-card>
+
+                        </md-tab>
+                        <!--第三個tab-->
+                        <md-tab label="{{'TAB3_TITLE'|translate}}">
+                            <md-card class="md-whiteframe-z2">
+                                <md-card-content>
+
+                                    <form name="searchCtrl.type3Form">
+                                        <!--依選擇學程名稱查詢-->
+                                        <div>
+                                            <md-radio-group ng-model="searchCtrl.type3Options.searchType">
+                                                <md-radio-button value="1" class="md-primary">
+                                                    <b translate="TYPE3_SEARCH_TYPE_1"></b>
+                                                </md-radio-button>
+                                            </md-radio-group>
+
+                                            <div layout="row" layout-xsb="column" layout-wrap class="padding-left-20">
+                                                <!--學術層級-->
+                                                <md-input-container flex="25" flex-xs="100" flex-sm="50">
+                                                    <label translate="LEVEL"></label>
+                                                    <md-select ng-model="searchCtrl.type3Options.degree" ng-change="searchCtrl.clearType3DeptList()"
+                                                               ng-disabled="searchCtrl.isSummer()||searchCtrl.type3Options.searchType == '2'">
+                                                        <md-option value="-" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                        <md-option value="1" translate="DEGREE_OPT1"></md-option>
+                                                    </md-select>
+                                                </md-input-container>
+                                                <!--學程類型-->
+                                                <md-input-container flex="25" flex-xs="100" flex-sm="50">
+                                                    <label translate="TYPE"></label>
+                                                    <md-select ng-model="searchCtrl.type3Options.progType" ng-change="searchCtrl.clearType3SectList()" placeholder="{{'TYPE'|translate}}"                                                               
+                                                               ng-disabled="searchCtrl.isSummer()||searchCtrl.type3Options.searchType == '2'" required>
+                                                        <md-option value="-" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                        <md-option ng-repeat="progType in searchCtrl.progTypeList track by progType.progType"
+                                                                   ng-value="progType.progType">
+                                                            {{progType[searchCtrl.baseOptions.lang]}}
+                                                        </md-option>
+                                                    </md-select>
+                                                </md-input-container>
+                                                <!--學程名稱-->
+                                                <md-input-container flex="25" flex-xs="100" flex-sm="50">
+                                                    <label translate="SECT"></label>
+                                                    <md-select name="sect" ng-model="searchCtrl.type3Options.prog" md-on-open="searchCtrl.getType3SectList()"
+                                                               ng-disabled="searchCtrl.isSummer()||searchCtrl.type3Options.searchType == '2'"
+                                                               placeholder="{{'SECT'|translate}}"
+                                                               ng-required="searchCtrl.type3Options.searchType == '1'">
+                                                        <md-option ng-value="null" ng-if="searchCtrl.isSummer()">-</md-option>
+                                                        <md-option ng-repeat="sect in searchCtrl.type3Cache.sectList track by sect.progId" ng-value="sect" title="{{::sect.name}}">{{::sect.name}}</md-option>
+                                                    </md-select>
+                                                    <div ng-messages="searchCtrl.type3Form.sect.$error">
+                                                        <div ng-message="required" translate="REQUIRED_SECT"></div>
+                                                    </div>
+                                                </md-input-container>
+
+                                            </div>
+                                        </div>
+
+                                        <!--依系所推薦修讀學程查詢-->
+                                        <div ng-if="!mainCtrl.user.isAnonymus&&
+                                             (searchCtrl.defaultYearSms.year==searchCtrl.baseOptions.year&&searchCtrl.defaultYearSms.sms==searchCtrl.baseOptions.sms)">
+                                            <md-radio-group ng-model="searchCtrl.type3Options.searchType">
+                                                <md-radio-button value="2" class="md-primary"
+                                                                 ng-disabled="searchCtrl.type3Sect2List.length==0">
+                                                    <b translate="TYPE3_SEARCH_TYPE_2"></b>
+                                                </md-radio-button>
+                                            </md-radio-group>
+                                            <div class="padding-left-20">
+                                                <md-radio-group flex layout="row" layout-xsb="column" layout-wrap
+                                                                ng-model="searchCtrl.type3Options.prog2"
+                                                                ng-required="searchCtrl.type3Options.searchType == '2'">
+                                                    <md-radio-button class="md-primary"
+                                                                     ng-repeat="sect2 in searchCtrl.type3Sect2List track by sect2.progId"
+                                                                     ng-value="sect2"
+                                                                     ng-disabled="searchCtrl.type3Options.searchType=='1'">
+                                                        {{searchCtrl.baseOptions.lang=='en'?sect2.eName:sect2.name}}
+                                                    </md-radio-button>
+                                                </md-radio-group>
+                                                <div translate="NO_DATA" ng-if="searchCtrl.type3Sect2List.length==0"></div>
+                                            </div>
+                                        </div>
+
+                                        <!--課程科目表-->
+                                        <div layout="row" layout-xsb="column" layout-wrap>
+                                            <div flex="75" ng-if="searchCtrl.type3Options.prog||searchCtrl.type3Options.prog2" class="credit-container">
+                                                <md-button class="md-raised  md-primary" ng-click="searchCtrl.getCourseCurriculum()"
+                                                           translate="COURSE_CURRICULUM"></md-button>
+                                                <div class="credit-info">
+                                                    <label translate="TOTAL_CREDITS"></label>
+                                                    <span class="credit">{{searchCtrl.type3Options.searchType=='1'?searchCtrl.type3Options.prog.credit:searchCtrl.type3Options.prog2.credit}}</span>
+                                                </div>
+                                                <div class="credit-info">
+                                                    <label translate="REQUIRED_CREDITS"></label>
+                                                    <span class="credit">{{searchCtrl.type3Options.searchType=='1'?searchCtrl.type3Options.prog.pmust:searchCtrl.type3Options.prog2.pmust}}</span>
+                                                </div>
+                                                <div class="credit-info">
+                                                    <label translate="ELECTIVE_CREDITS"></label>
+                                                    <span class="credit">{{searchCtrl.type3Options.searchType=='1'?searchCtrl.type3Options.prog.cresel:searchCtrl.type3Options.prog2.cresel}}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </md-card-content>
+                                <md-card-actions layout="row" layout-align="center center">
+                                    <md-button class="md-raised  md-primary" ng-click="searchCtrl.searchType3()" ng-disabled="isLoading || searchCtrl.checkType3OptionsInvaild()" translate="SEARCH"></md-button>
+                                    <md-button class="md-raised" ng-click="searchCtrl.resetType3Options()" ng-disabled="isLoading||searchCtrl.isSummer()" translate="RESET"></md-button>
+                                </md-card-actions>
+                            </md-card>
+
+                        </md-tab>
+                        <!--第四個tab-->
+                        <md-tab label="{{'TAB4_TITLE'|translate}}"
+                                ng-if="(!mainCtrl.user.isAnonymus
+                                &&(searchCtrl.defaultYearSms.year==searchCtrl.baseOptions.year
+                                &&searchCtrl.defaultYearSms.sms==searchCtrl.baseOptions.sms))
+                                &&searchCtrl.baseOptions.lang=='cht'">
+                            <md-card class="md-whiteframe-z2 ai-chat-panel" ng-class="{'ai-layout-active': searchCtrl.isType4TabActiveForLayout()}">
+                                <md-card-content>
+                                    <!--免責聲明-->
+                                    <span class="ai_disclaimer" translate="AI_DISCLAIMER"></span>
+                                    <!--對話歷史-->
+                                    <div id="type4-chat-history" class="ai-chat-history">
+                                        <!--初始說明-->
+                                        <div ng-if="searchCtrl.type4Chat.messages.length===0" class="ai-chat-empty-state">
+                                            <div class="ai-chat-empty-hint" translate="CHAT_EMPTY_HINT"></div>
+                                            <div class="ai-chat-example-block">
+                                                <div class="ai-chat-example-quick-list">
+                                                    <md-button class="md-raised ai-chat-example-btn"
+                                                               ng-repeat="example in searchCtrl.type4Examples.quick track by $index"
+                                                               ng-click="searchCtrl.fillType4Example(example.value)">
+                                                        {{example.label}}
+                                                    </md-button>
+                                                </div>
+
+                                                <details class="ai-chat-example-more">
+                                                    <summary>{{'CHAT_MORE_EXAMPLES'|translate}}</summary>
+                                                    <div class="ai-chat-example-groups">
+                                                        <div class="ai-chat-example-group" ng-repeat="group in searchCtrl.type4Examples.groups track by $index">
+                                                            <div class="ai-chat-example-group-title">{{group.title}}</div>
+                                                            <div class="ai-chat-example-group-list">
+                                                                <md-button class="md-raised ai-chat-example-btn"
+                                                                           ng-repeat="example in group.items track by $index"
+                                                                           ng-click="searchCtrl.fillType4Example(example.value)">
+                                                                    {{example.label}}
+                                                                </md-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </details>
+                                            </div>
+                                        </div>
+
+                                        <div ng-repeat="msg in searchCtrl.type4Chat.messages track by msg.id" class="ai-chat-message">
+                                            <!--使用者問題-->
+                                            <div ng-if="msg.role==='user'" class="ai-chat-user-row">
+                                                <span class="ai-chat-avatar user" aria-hidden="true"><md-icon>account_circle</md-icon></span>
+                                                <div class="ai-chat-user-bubble">{{msg.content}}</div>
+                                            </div>
+                                            <!--AI回應-->
+                                            <div ng-if="msg.role==='assistant'&&((!msg.isStreaming&&msg.content)||msg.isStreaming)" class="ai-chat-assistant-row">
+                                                <span class="ai-chat-avatar assistant" aria-hidden="true"><md-icon>smart_toy</md-icon></span>
+                                                <!--AI回應內容-->
+                                                <div class="ai-chat-assistant-bubble">
+                                                    <div class="chat-markdown-wrap">
+                                                        <div class="chat-markdown" markdown-render="msg.content"></div>
+                                                    </div>
+                                                    <span class="wave-dots" ng-if="msg.isStreaming"><span>●</span><span>●</span><span>●</span></span>
+
+                                                </div>
+                                            </div>
+                                            <!--課程查詢列表-->
+                                            <div ng-if="msg.role==='assistant' && msg.courseResult && msg.courseResult.items && msg.courseResult.items.length>0" class="ai-chat-course-table-wrap">
+                                                <div class="ai-course-list">
+                                                    <article bindonce ng-repeat="item in msg.courseResult.items track by item.scr_selcode" class="ai-course-card">
+                                                        <div class="ai-course-card-header">
+                                                            <div class="ai-course-main">
+                                                                <a class="ai-course-title"
+                                                                   target="_blank"
+                                                                   bo-href="searchCtrl.getCourseOutlineUrl(item)"
+                                                                   bo-text="item.sub_name"></a>
+                                                                <div class="ai-course-meta">
+                                                                    <span class="ai-course-meta-item">
+                                                                        <span class="ai-course-meta-label" bo-text="searchCtrl.headerText.col1"></span>
+                                                                        <span class="ai-course-meta-value" bo-text="item.scr_selcode"></span>
+                                                                    </span>
+                                                                    <span class="ai-course-meta-item">
+                                                                        <span class="ai-course-meta-label" bo-text="searchCtrl.headerText.col12"></span>
+                                                                        <span class="ai-course-meta-value" bo-text="item.sub_id3"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ai-course-actions">
+                                                                <!--關注-->
+                                                                <md-button class="md-icon-button md-primary"
+                                                                           ng-if="(!mainCtrl.user.isAnonymus&&mainCtrl.user.enableWishlist&&mainCtrl.user.detail.wishlist.enableEdit)&&!!!item.isWishlistItem"
+                                                                           ng-click="searchCtrl.addToWishlist(item)"
+                                                                           title="{{'ADDWISHITEM'|translate}}">
+                                                                    <md-icon>favorite_border</md-icon>
+                                                                </md-button>
+                                                                <!--取消關注-->
+                                                                <md-button class="md-icon-button md-accent"
+                                                                           ng-if="(!mainCtrl.user.isAnonymus&&mainCtrl.user.enableWishlist&&mainCtrl.user.detail.wishlist.enableEdit)&&!!item.isWishlistItem"
+                                                                           ng-click="searchCtrl.delFromWishlist(item)"
+                                                                           title="{{'DELWISHITEM'|translate}}">
+                                                                    <md-icon>favorite</md-icon>
+                                                                </md-button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="ai-course-chips">
+                                                            <span class="ai-course-chip" bo-text="searchCtrl.headerText.col3+'：'+item.scr_credit"></span>
+                                                            <span class="ai-course-chip" bo-text="item.scj_scr_mso"></span>
+                                                            <span class="ai-course-chip" ng-if="item.scr_english=='Y'" bo-text="searchCtrl.contentText.text1"></span>
+                                                        </div>
+
+                                                        <details class="ai-course-details">
+                                                            <summary>{{'CHAT_SHOW_FULL_FIELDS'|translate}}</summary>
+                                                            <dl class="ai-course-detail-grid">
+                                                                <dt bo-text="searchCtrl.headerText.col16" ng-if="!mainCtrl.user.isAnonymus"></dt>
+                                                                <dd bo-text="item.scr_date" ng-if="!mainCtrl.user.isAnonymus"></dd>
+
+                                                                <dt bo-text="searchCtrl.headerText.col13"></dt>
+                                                                <dd bo-text="item.scr_ldl"></dd>
+
+                                                                <dt bo-text="searchCtrl.headerText.col8"></dt>
+                                                                <dd bo-text="item.cls_name"></dd>
+
+                                                                <dt bo-text="searchCtrl.headerText.col9"></dt>
+                                                                <dd>
+                                                                    <span bo-text="item.scr_period"></span>
+                                                                    <md-button class="md-icon-button md-primary info-btn"
+                                                                               ng-click="searchCtrl.showTeacherInfo(item)"
+                                                                               ng-if="searchCtrl.hasTeacher(item)">
+                                                                        <md-icon md-svg-icon="Images/icon/info.svg"></md-icon>
+                                                                    </md-button>
+                                                                </dd>
+
+                                                                <dt bo-text="searchCtrl.headerText.col10"></dt>
+                                                                <dd bo-text="item.scr_acptcnt+'/'+(item.scr_acptcnt>item.scr_precnt?item.scr_acptcnt:item.scr_precnt)"></dd>
+
+                                                                <dt bo-text="searchCtrl.headerText.col11"></dt>
+                                                                <dd bo-text="item.scr_remarks"></dd>
+                                                            </dl>
+                                                        </details>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--錯誤訊息-->
+                                        <div ng-if="searchCtrl.type4Chat.error" class="ai-chat-message">
+                                            <div class="ai-chat-assistant-row">
+                                                <span class="ai-chat-avatar assistant" aria-hidden="true"><md-icon>smart_toy</md-icon></span>
+                                                <div class="ai-chat-assistant-bubble">
+                                                    <div class="ai-chat-error">{{searchCtrl.type4Chat.error}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <md-button class="md-raised ai-chat-scroll-action"
+                                               ng-if="searchCtrl.shouldShowType4ScrollAction()"
+                                               ng-class="{'is-streaming': searchCtrl.type4Chat.isStreaming, 'is-idle': !searchCtrl.type4Chat.isStreaming}"
+                                               ng-click="searchCtrl.scrollType4ChatToBottom(true)">
+                                        <span ng-if="searchCtrl.type4Chat.isStreaming" class="ai-chat-scroll-action-text">{{searchCtrl.getType4ScrollActionText()}}</span>
+                                        <md-icon ng-if="!searchCtrl.type4Chat.isStreaming">keyboard_arrow_down</md-icon>
+                                    </md-button>
+
+                                </md-card-content>
+
+
+
+                                <!--ai對話工具列-->
+                                <div class="ai-chat-input-dock">
+                                    <div class="ai-chat-input-shell" layout="row" layout-align="start center">
+                                        <md-input-container class="noBottomMargin ai-chat-textbox" flex>
+                                            <label></label>
+                                            <textarea autocomplete="off"
+                                                      id="type4-chat-input"
+                                                      ng-model="searchCtrl.type4Chat.input"
+                                                      ng-keydown="searchCtrl.onType4InputKeyDown($event)"
+                                                      ng-disabled="isLoading||searchCtrl.type4Chat.isStreaming"
+                                                      max-rows="6"                                               
+                                                      placeholder="{{'CHAT_INPUT_PLACEHOLDER'|translate}}"></textarea>
+                                        </md-input-container>
+
+                                        <div class="ai-chat-action-buttons" layout="row" layout-align="end center">
+                                            <md-button class="md-icon-button md-primary"
+                                                       ng-if="!searchCtrl.type4Chat.isStreaming"
+                                                       ng-click="searchCtrl.sendType4Message()"
+                                                       ng-disabled="isLoading||!searchCtrl.type4Chat.input.trim()"
+                                                       title="{{'CHAT_SEND'|translate}}">
+                                                <md-icon>send</md-icon>
+                                            </md-button>
+                                            <md-button class="md-icon-button md-warn"
+                                                       ng-if="searchCtrl.type4Chat.isStreaming"
+                                                       ng-click="searchCtrl.stopType4Stream()"
+                                                       title="{{'CHAT_STOP'|translate}}">
+                                                <md-icon>stop</md-icon>
+                                            </md-button>
+                                            <md-button class="md-icon-button md-warn"
+                                                       ng-click="searchCtrl.clearType4Conversation()"
+                                                       ng-disabled="searchCtrl.type4Chat.isStreaming||searchCtrl.type4Chat.messages.length===0"
+                                                       title="{{'CHAT_CLEAR'|translate}}">
+                                                <md-icon>delete</md-icon>
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-card>
+
+                        </md-tab>
+                    </md-tabs>
+
+                    <!-- 說明 -->
+                    <md-card class="md-whiteframe-z2" ng-if="!searchCtrl.isType4TabActiveForLayout()">
+                        <md-toolbar style="min-height:40px">
+                            <div class="md-toolbar-tools" layout="row" style="height:40px">
+                                <h1 flex="glow" translate="REMARK_TITLE"></h1>
+                            </div>
+                        </md-toolbar>
+                        <md-card-content>
+                            <div ng-include="'Views/remark-'+searchCtrl.baseOptions.lang+'.html?v=0004'" class="remark_content"></div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <div flex="5" flex-xs="0" flex-sm="10" flex-gt-md="20"><!--留白行--></div>
+            </div>
+
+
+            <!--搜尋結果-->
+            <div ng-if="searchCtrl.searchResult.search">
+                <span ng-if="searchCtrl.searchResult.message">{{searchCtrl.searchResult.message|translate}}</span>
+                <table align="center" class="rwd-table mid" ng-if="searchCtrl.searchResult.total">
+                    <thead>
+                        <tr>
+                            <th width="113" ng-show="showTools=(!mainCtrl.user.isAnonymus&&mainCtrl.user.enableWishlist&&mainCtrl.user.detail.wishlist.enableEdit)"></th>
+                            <th width="47">{{::searchCtrl.headerText.col1}}</th>
+                            <th width="120">{{::searchCtrl.headerText.col12}}</th>
+                            <th>{{::searchCtrl.headerText.col2}}</th>
+                            <th>{{::searchCtrl.headerText.col3}}</th>
+                            <th>{{::searchCtrl.headerText.col4}}</th>
+                            <th width="210" ng-show="!mainCtrl.user.isAnonymus">{{::searchCtrl.headerText.col16}}</th>
+                            <th width="135">{{::searchCtrl.headerText.col13}}</th>
+                            <th width="100">{{::searchCtrl.headerText.col14}}</th>
+                            <th>{{::searchCtrl.headerText.col8}}</th>
+                            <th>{{::searchCtrl.headerText.col9}}</th>
+                            <th width="80">{{::searchCtrl.headerText.col10}}</th>
+                            <th>{{::searchCtrl.headerText.col11}}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr bindonce ng-repeat="item in searchCtrl.searchResult.items| limitTo:searchCtrl.searchResult.page*searchCtrl.searchResult.pageItem">
+                            <td ng-show="showTools&&!!!item.isWishlistItem">
+                                <md-button class="md-raised md-primary" ng-click="searchCtrl.addToWishlist(item)" md-no-ink bo-text="'ADDWISHITEM'|translate"></md-button>
+                            </td>
+                            <td ng-show="showTools&&!!item.isWishlistItem">
+                                <md-button class="md-raised md-accent" ng-click="searchCtrl.delFromWishlist(item)" md-no-ink bo-text="'DELWISHITEM'|translate"></md-button>
+                            </td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col1" bo-text="item.scr_selcode"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col12" bo-text="item.sub_id3"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col2" class="alignLeft">
+                                <a target="_blank" bo-href="searchCtrl.getCourseOutlineUrl(item)" bo-text="item.sub_name"></a>
+                            </td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col3" bo-text="item.scr_credit"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col4" bo-text="item.scj_scr_mso"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col16" bo-text="item.scr_date" ng-show="!mainCtrl.user.isAnonymus"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col13" bo-text="item.scr_ldl"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col14" bo-text="item.scr_english=='Y'?searchCtrl.contentText.text1:''"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col8" bo-text="item.cls_name" class="alignLeft"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col9"
+                                class="alignLeft">
+                                <span bo-text="item.scr_period"></span><md-button class="md-icon-button md-primary info-btn" ng-click="searchCtrl.showTeacherInfo(item)" ng-if="searchCtrl.hasTeacher(item)">
+                                    <md-icon md-svg-icon="Images/icon/info.svg"></md-icon>
+                                </md-button>
+                            </td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col10" bo-text="item.scr_acptcnt+'/'+(item.scr_acptcnt>item.scr_precnt?item.scr_acptcnt:item.scr_precnt)"></td>
+                            <td bo-attr bo-attr-data-title="searchCtrl.headerText.col11" bo-text="item.scr_remarks" class="alignLeft remarks"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <div layout="row" layout-align="center center" style="width:100%">
+                    <md-button class="md-raised md-primary md-hue" md-no-ink
+                               ng-click="searchCtrl.nextResult()" ng-show="searchCtrl.searchResult.page*searchCtrl.searchResult.pageItem<searchCtrl.searchResult.total"
+                               translate="MORE">
+                    </md-button>
+                    <md-button class="md-raised md-warn" md-no-ink ng-click="searchCtrl.resetSearchResult()" ng-show="searchCtrl.searchResult.search" translate="RESEARCH">
+
+                    </md-button>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!--Footer-->
+        <div layout="row" flex="noshrink" layout-align="center center" ng-if="!$root.uiState || !$root.uiState.isType4Active">
+            <div flex="auto" class="content-footer">
+                <div translate="FOOTER_TEXT1"></div>
+                <div>
+                    <span translate="FOOTER_TEXT2"></span><span ng-include="::'../Views/appVersion.html'"></span>
+                </div>
+
+            </div>
+        </div>
+
+    </md-content>
+
+</div>

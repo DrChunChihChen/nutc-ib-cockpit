@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中科國貿系務戰情室 · Lieflat Editorial 設計概念打版 (Design Preview)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Noto Serif TC, Noto Sans TC, Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fafaf7;
+            color: #1a202c;
+        }
+        .font-serif-tc {
+            font-family: 'Noto Serif TC', Georgia, serif;
+        }
+        .font-mono-num {
+            font-family: 'Space Grotesk', 'JetBrains Mono', monospace;
+        }
+        /* 經典出版品雙細線 */
+        .double-border-b {
+            border-bottom: 4px double #d6d3d1;
+        }
+        .double-border-t {
+            border-top: 4px double #d6d3d1;
+        }
+        .double-border-r {
+            border-right: 4px double #d6d3d1;
+        }
+        /* 點狀引線 Dot Leaders */
+        .dot-leader {
+            flex-grow: 1;
+            border-bottom: 1px dotted #a8a29e;
+            margin: 0 8px;
+            position: relative;
+            top: -4px;
+        }
+        /* 梯級橫紋刻度樣式 (Rung Bars) */
+        .rung-pattern {
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 3px,
+                #f05138 3px,
+                #f05138 5px
+            );
+        }
+        .rung-pattern-dark {
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 3px,
+                #292524 3px,
+                #292524 5px
+            );
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased p-4 sm:p-8 lg:p-12 selection:bg-[#f05138] selection:text-white">
+
+    <!-- 頂部黑底出版標註 Ribbon (來自 report-03 / report-09 靈魂) -->
+    <div class="max-w-6xl mx-auto bg-[#18181b] text-[#fafaf7] px-4 py-2 rounded-sm flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono tracking-widest uppercase">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#f05138]"></span>
+            <span>NUTC IB · 國立臺中科技大學 國際貿易與經營系 (Department of International Business)</span>
+            <span class="text-stone-500">|</span>
+            <span class="text-stone-300">系務策略與生源海嘯決策白皮書</span>
+        </div>
+        <div class="text-stone-400 mt-1 sm:mt-0">
+            CONFIDENTIAL · 114學年度最新校務實證
+        </div>
+    </div>
+
+    <!-- 主報告畫布容器 -->
+    <div class="max-w-6xl mx-auto mt-4 bg-white border border-[#e7e5e4] shadow-[0_4px_24px_rgba(0,0,0,0.03)] p-6 sm:p-10 lg:p-14 relative">
+
+        <!-- 頂部章節大標題 (融入 report-09 的靈魂哲學) -->
+        <header class="pb-8 border-b border-stone-200">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div>
+                    <div class="text-[11px] font-mono tracking-widest text-stone-500 uppercase flex items-center gap-2 mb-2">
+                        <span>LIEFLAT EDITORIAL SYSTEM</span>
+                        <span>/</span>
+                        <span class="text-[#f05138] font-bold">PORCELAIN & CORAL</span>
+                        <span>/</span>
+                        <span>DEMO PREVIEW</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black font-serif-tc text-[#111827] tracking-tight leading-[1.15]">
+                        把全台大專校務數據，<br class="hidden sm:inline">
+                        變成一頁<span class="text-[#f05138]">可定奪</span>的戰略白皮書。
+                    </h1>
+                    <p class="text-sm sm:text-base text-stone-600 mt-3 max-w-2xl leading-relaxed">
+                        這不是堆砌圖表，而是從數據形狀與生源競爭力出發的工作地圖：直擊中科國貿 114 統測錄取分歷史新高、73 位休學深水區、以及 169 位正取生遭逢甲與高科航管瓜分之實證流向。
+                    </p>
+                </div>
+
+                <!-- 戰略五步弧線地圖 (仿 report-09 頂部弧線) -->
+                <div class="bg-[#fafaf7] border border-[#e7e5e4] p-4 rounded-sm min-w-[280px]">
+                    <div class="text-[10px] font-mono text-stone-500 uppercase tracking-widest mb-2">5 階段決策地圖</div>
+                    <div class="flex items-center justify-between text-xs font-bold text-stone-800">
+                        <span class="text-[#f05138]">六強旗盤</span>
+                        <span class="text-stone-300">→</span>
+                        <span>中部五強</span>
+                        <span class="text-stone-300">→</span>
+                        <span class="text-[#f05138]">深水體質</span>
+                        <span class="text-stone-300">→</span>
+                        <span>少子推估</span>
+                        <span class="text-stone-300">→</span>
+                        <span class="text-[#f05138]">天敵查榜</span>
+                    </div>
+                    <div class="w-full bg-stone-200 h-1 mt-3 rounded-full overflow-hidden">
+                        <div class="bg-[#f05138] h-full" style="width: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 經典雙細線分隔區 (Double Border) -->
+        <div class="double-border-b my-8"></div>
+
+        <!-- 區塊一：AT A GLANCE · 4 大關鍵數據 (Dot Leaders & Coral Accent 靈感來自 report-03) -->
+        <section class="mb-12">
+            <div class="flex items-baseline justify-between mb-4">
+                <h2 class="text-lg sm:text-xl font-bold font-serif-tc text-stone-900 tracking-tight flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 bg-[#f05138]"></span>
+                    AT A GLANCE · 核心指標速覽
+                </h2>
+                <span class="text-xs font-mono text-stone-400">DECISION BENCHMARKS</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- KPI 1 -->
+                <div class="bg-[#fafaf7] p-4 border border-[#e7e5e4] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between text-xs text-stone-500 font-medium">
+                            <span>114 統測單科均分</span>
+                            <span class="text-[10px] font-mono bg-[#f05138]/10 text-[#f05138] px-1.5 py-0.5 rounded font-bold">中台公立榜首</span>
+                        </div>
+                        <div class="flex items-baseline gap-1 mt-2">
+                            <span class="text-3xl font-black font-mono-num text-[#f05138]">71.78</span>
+                            <span class="text-xs text-stone-500">分</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-stone-200/80 flex items-center text-[11px] text-stone-600">
+                        <span>中台灣國貿排名</span>
+                        <span class="dot-leader"></span>
+                        <strong class="text-stone-900 font-mono">No. 1</strong>
+                    </div>
+                </div>
+
+                <!-- KPI 2 -->
+                <div class="bg-[#fafaf7] p-4 border border-[#e7e5e4] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between text-xs text-stone-500 font-medium">
+                            <span>114 日間四技註冊率</span>
+                            <span class="text-[10px] font-mono bg-stone-200 text-stone-700 px-1.5 py-0.5 rounded font-bold">全系主力</span>
+                        </div>
+                        <div class="flex items-baseline gap-1 mt-2">
+                            <span class="text-3xl font-black font-mono-num text-stone-900">99.06%</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-stone-200/80 flex items-center text-[11px] text-stone-600">
+                        <span>實招 / 核定</span>
+                        <span class="dot-leader"></span>
+                        <strong class="text-stone-900 font-mono">79 / 80 人</strong>
+                    </div>
+                </div>
+
+                <!-- KPI 3 -->
+                <div class="bg-[#fafaf7] p-4 border border-[#e7e5e4] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between text-xs text-stone-500 font-medium">
+                            <span>甄選正取生留任率</span>
+                            <span class="text-[10px] font-mono bg-[#f05138]/10 text-[#f05138] px-1.5 py-0.5 rounded font-bold">正取保衛戰</span>
+                        </div>
+                        <div class="flex items-baseline gap-1 mt-2">
+                            <span class="text-3xl font-black font-mono-num text-[#f05138]">58.0%</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-stone-200/80 flex items-center text-[11px] text-stone-600">
+                        <span>留任 / 正取總數</span>
+                        <span class="dot-leader"></span>
+                        <strong class="text-stone-900 font-mono">98 / 169 人</strong>
+                    </div>
+                </div>
+
+                <!-- KPI 4 -->
+                <div class="bg-[#fafaf7] p-4 border border-[#e7e5e4] flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between text-xs text-stone-500 font-medium">
+                            <span>113 退學流失率警戒</span>
+                            <span class="text-[10px] font-mono bg-stone-800 text-white px-1.5 py-0.5 rounded font-bold">深水區</span>
+                        </div>
+                        <div class="flex items-baseline gap-1 mt-2">
+                            <span class="text-3xl font-black font-mono-num text-stone-900">3.73%</span>
+                            <span class="text-xs text-stone-500 font-mono">(80人)</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-stone-200/80 flex items-center text-[11px] text-stone-600">
+                        <span>志趣不合自退</span>
+                        <span class="dot-leader"></span>
+                        <strong class="text-[#f05138] font-mono">24 人 (72.7%)</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 經典雙細線分隔區 -->
+        <div class="double-border-b my-8"></div>
+
+        <!-- 區塊二：三大視覺圖表展現 (結合 Rung Bars, Hairline Line, Tick Gauge) -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- 左側 5 欄：天敵校系掠奪排行 (階梯刻度條 Rung Bar 風格) -->
+                <div class="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-baseline justify-between mb-2">
+                            <h3 class="text-base font-bold font-serif-tc text-stone-900">
+                                掠奪中科國貿之天敵校系
+                            </h3>
+                            <span class="text-[10px] font-mono text-stone-400">113~115 累計人次</span>
+                        </div>
+                        <p class="text-xs text-stone-500 mb-4 leading-relaxed">
+                            統計三學年度共 229 名被外校奪走之正備取考生，高科航管與逢甲國貿為最大生源失血點。
+                        </p>
+
+                        <!-- 手工純 CSS / SVG Rung Bars 階梯刻度條展示 -->
+                        <div class="space-y-4">
+                            <!-- Item 1: 高科航管 -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold text-stone-800 mb-1">
+                                    <span>1. 高科 航運管理系</span>
+                                    <span class="text-[#f05138] font-mono font-bold">37 人 (年均 12.3)</span>
+                                </div>
+                                <div class="w-full bg-stone-100 h-4 border border-stone-300 relative overflow-hidden">
+                                    <div class="h-full bg-[#f05138]" style="width: 100%;"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+                                    <span>正取被奪 13 人</span>
+                                    <span>物流供應鏈熱門專長</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: 高科國企 -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold text-stone-800 mb-1">
+                                    <span>2. 高科 國際企業系</span>
+                                    <span class="text-stone-900 font-mono font-bold">22 人 (年均 7.3)</span>
+                                </div>
+                                <div class="w-full bg-stone-100 h-4 border border-stone-300 relative overflow-hidden">
+                                    <div class="h-full bg-stone-800" style="width: 59.4%;"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+                                    <span>正取被奪 9 人</span>
+                                    <span>南部綜合型研發大系</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: 逢甲國貿 -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold text-stone-800 mb-1">
+                                    <span class="text-[#f05138] font-bold">3. 逢甲 國際經營與貿易</span>
+                                    <span class="text-[#f05138] font-mono font-bold">20 人 (正取佔 60%!)</span>
+                                </div>
+                                <div class="w-full bg-stone-100 h-4 border border-stone-300 relative overflow-hidden">
+                                    <div class="h-full bg-[#f05138]" style="width: 54.0%;"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-mono text-[#f05138] mt-0.5">
+                                    <span class="font-bold">正取被奪 12 人 (正取殺手)</span>
+                                    <span>台中在地商會人脈磁吸</span>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: 北商國商 -->
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold text-stone-800 mb-1">
+                                    <span>4. 北商 國際商務系</span>
+                                    <span class="text-stone-900 font-mono font-bold">10 人 (正取佔 50%)</span>
+                                </div>
+                                <div class="w-full bg-stone-100 h-4 border border-stone-300 relative overflow-hidden">
+                                    <div class="h-full bg-stone-700" style="width: 27.0%;"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-mono text-stone-400 mt-0.5">
+                                    <span>正取被奪 5 人</span>
+                                    <span>台北都會菁英實習網絡</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 註釋區 -->
+                    <div class="mt-6 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+                        RUNG BARS · N=504 交叉查榜母體 · 橙色標註為正取流失重災系所
+                    </div>
+                </div>
+
+                <!-- 右側 7 欄：全國國立國貿 6 年單科均分走勢 (Hairline Line Chart 靈感來自 report-09) -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-baseline justify-between mb-2">
+                            <h3 class="text-base font-bold font-serif-tc text-stone-900">
+                                6 年統測商管最低錄取均分走勢 (109~114)
+                            </h3>
+                            <span class="text-[10px] font-mono text-stone-400">UNIFIED ENTRANCE EXAM</span>
+                        </div>
+                        <p class="text-xs text-stone-500 mb-3 leading-relaxed">
+                            中科國貿以加粗珊瑚紅折線標記，114 學年展現強韌反彈達 71.78 分；北商與雲科維持北部都會與全英高分段。
+                        </p>
+
+                        <!-- Chart.js 畫布容器 (自訂髮絲格線與色調) -->
+                        <div class="bg-[#fafaf7] p-4 border border-[#e7e5e4] rounded-sm relative h-[280px]">
+                            <canvas id="preview-line-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 圖例與備註 -->
+                    <div class="mt-4 flex flex-wrap items-center justify-between text-xs text-stone-600 gap-3 border-t border-stone-200 pt-3">
+                        <div class="flex items-center gap-4 text-[11px] font-mono">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-1 bg-[#f05138]"></span>
+                                <strong class="text-[#f05138]">中科國貿 (71.78)</strong>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-0.5 bg-[#0284c7]"></span>
+                                <span>北商國商 (79.86)</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-0.5 bg-[#6366f1]"></span>
+                                <span>雲科國管 (79.78)</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-0.5 bg-[#f59e0b]"></span>
+                                <span>高科航管 (73.89)</span>
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-stone-400">HAIRLINE SERIES</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 經典雙細線分隔區 -->
+        <div class="double-border-b my-8"></div>
+
+        <!-- 區塊三：正取生保衛戰半圓儀表 + 跨年度拆解表 (融合 report-03 下方儀表與點引表格) -->
+        <section class="mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- 左側 4 欄：正取生保衛戰 Tick Gauge (仿 report-03 轉化率儀表) -->
+                <div class="lg:col-span-4 bg-[#fafaf7] p-6 border border-[#e7e5e4] flex flex-col justify-between">
+                    <div>
+                        <div class="text-[11px] font-mono text-stone-500 uppercase tracking-widest mb-1">
+                            MAIN ADMISSION RETENTION
+                        </div>
+                        <h3 class="text-base font-bold font-serif-tc text-stone-900">
+                            169 位正取生去向保衛戰
+                        </h3>
+                        
+                        <!-- 核心大數字展示 (仿 9% 轉化率) -->
+                        <div class="text-center my-6">
+                            <div class="text-5xl sm:text-6xl font-black font-mono-num text-[#f05138] tracking-tighter">
+                                58.0%
+                            </div>
+                            <div class="text-xs text-stone-600 font-serif-tc mt-1 font-bold">
+                                正取生留任率 (98 / 169人)
+                            </div>
+                        </div>
+
+                        <!-- 點引線明細 -->
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center text-stone-700">
+                                <span>中科國貿 (留任實招)</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-[#f05138] font-mono">98 人</strong>
+                            </div>
+                            <div class="flex items-center text-stone-700">
+                                <span>高科大商管航管</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-stone-900 font-mono">27 人</strong>
+                            </div>
+                            <div class="flex items-center text-stone-700">
+                                <span class="text-[#f05138] font-bold">逢甲大學 國貿系</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-[#f05138] font-mono">12 人</strong>
+                            </div>
+                            <div class="flex items-center text-stone-700">
+                                <span>北商大 國商系</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-stone-900 font-mono">5 人</strong>
+                            </div>
+                            <div class="flex items-center text-stone-700">
+                                <span>中原/北護/其他私立</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-stone-900 font-mono">23 人</strong>
+                            </div>
+                            <div class="flex items-center text-stone-700">
+                                <span>放棄 / 未分發</span>
+                                <span class="dot-leader"></span>
+                                <strong class="text-stone-400 font-mono">4 人</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-3 border-t border-stone-200 text-[10px] font-mono text-stone-500">
+                        TICK GAUGE · 正取拔尖考生之真實就讀歸宿
+                    </div>
+                </div>
+
+                <!-- 右側 8 欄：天敵跨年度 113~115 逐年 Breakdown 出版級表單 -->
+                <div class="lg:col-span-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-baseline justify-between mb-3">
+                            <h3 class="text-base font-bold font-serif-tc text-stone-900">
+                                前五大天敵逐年 (113~115) 拆解清單
+                            </h3>
+                            <span class="text-[10px] font-mono text-stone-400">DATA BREAKDOWN</span>
+                        </div>
+
+                        <!-- 出版級表格 -->
+                        <div class="overflow-x-auto border-t border-b border-stone-800">
+                            <table class="w-full text-left text-xs border-collapse font-mono">
+                                <thead>
+                                    <tr class="border-b border-stone-300 text-[11px] text-stone-500 uppercase">
+                                        <th class="py-2.5 px-2 font-serif-tc">排名與校系名稱</th>
+                                        <th class="py-2.5 px-2 text-right">3年累計</th>
+                                        <th class="py-2.5 px-2 text-right">113年</th>
+                                        <th class="py-2.5 px-2 text-right">114年</th>
+                                        <th class="py-2.5 px-2 text-right">115年</th>
+                                        <th class="py-2.5 px-2 text-right text-[#f05138]">正取被奪</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-200 text-stone-800 text-[11px]">
+                                    <tr class="hover:bg-[#f05138]/5 transition">
+                                        <td class="py-2 px-2 font-serif-tc font-bold">#1 國立高雄科技大學 航運管理系</td>
+                                        <td class="py-2 px-2 text-right font-bold text-[#f05138]">37</td>
+                                        <td class="py-2 px-2 text-right">11</td>
+                                        <td class="py-2 px-2 text-right">15</td>
+                                        <td class="py-2 px-2 text-right">11</td>
+                                        <td class="py-2 px-2 text-right font-bold text-[#f05138]">13</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#f05138]/5 transition">
+                                        <td class="py-2 px-2 font-serif-tc font-bold">#2 國立高雄科技大學 國際企業系</td>
+                                        <td class="py-2 px-2 text-right font-bold">22</td>
+                                        <td class="py-2 px-2 text-right">9</td>
+                                        <td class="py-2 px-2 text-right">7</td>
+                                        <td class="py-2 px-2 text-right">6</td>
+                                        <td class="py-2 px-2 text-right font-bold">9</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#f05138]/5 transition bg-[#f05138]/5">
+                                        <td class="py-2 px-2 font-serif-tc font-bold text-[#f05138]">#3 逢甲大學 國際經營與貿易學系</td>
+                                        <td class="py-2 px-2 text-right font-bold text-[#f05138]">20</td>
+                                        <td class="py-2 px-2 text-right">6</td>
+                                        <td class="py-2 px-2 text-right">7</td>
+                                        <td class="py-2 px-2 text-right">7</td>
+                                        <td class="py-2 px-2 text-right font-bold text-[#f05138]">12 (60%)</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#f05138]/5 transition">
+                                        <td class="py-2 px-2 font-serif-tc font-bold">#4 國立高雄科技大學 行銷與流通管理</td>
+                                        <td class="py-2 px-2 text-right font-bold">12</td>
+                                        <td class="py-2 px-2 text-right">7</td>
+                                        <td class="py-2 px-2 text-right">4</td>
+                                        <td class="py-2 px-2 text-right">1</td>
+                                        <td class="py-2 px-2 text-right font-bold">5</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#f05138]/5 transition">
+                                        <td class="py-2 px-2 font-serif-tc font-bold">#5 國立臺北商業大學 國際商務系</td>
+                                        <td class="py-2 px-2 text-right font-bold">10</td>
+                                        <td class="py-2 px-2 text-right">5</td>
+                                        <td class="py-2 px-2 text-right">2</td>
+                                        <td class="py-2 px-2 text-right">3</td>
+                                        <td class="py-2 px-2 text-right font-bold">5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 底部文字引言 -->
+                        <div class="mt-4 p-3 bg-[#fafaf7] border border-[#e7e5e4] text-xs text-stone-600 leading-relaxed font-serif-tc">
+                            <strong>白皮書策略洞察：</strong>逢甲國貿在台中具備強大私立人脈拉力，搶走之 20 人中有高達 60%（12人）為中科正取生；而高科大則透過航管、國企、行流等多系聯手，年均抽走約 40 名商管群考生。
+                        </div>
+                    </div>
+
+                    <!-- 匯出按鈕區 (出版級白底細線) -->
+                    <div class="mt-6 flex items-center justify-between border-t border-stone-200 pt-3">
+                        <span class="text-[11px] font-mono text-stone-400">DATA FILE: NUTC_ITM_FULL_504.CSV</span>
+                        <a href="/Users/chenchunchih/Downloads/NUTC_IB_Cross_Admission_113_115_Full_504.csv" class="text-xs px-3 py-1.5 bg-[#18181b] text-white hover:bg-[#f05138] transition font-mono flex items-center gap-1.5 rounded-sm">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                            <span>下載完整 504 筆 CSV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部結尾雙細線 (Double Border) -->
+        <div class="double-border-t my-8"></div>
+
+        <!-- 底部版權與出版標示 (Footer) -->
+        <footer class="flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 font-mono gap-2">
+            <div>
+                nutc-itm-cockpit.netlify.app · 國立臺中科技大學 國際貿易與經營系 策略研究室 © 2026
+            </div>
+            <div class="flex items-center gap-4 text-[11px]">
+                <span>DESIGN: LIEFLAT EDITORIAL SYSTEM</span>
+                <span>·</span>
+                <span class="text-[#f05138] font-bold">PREVIEW PROTOTYPE</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Chart.js 初始化腳本 (微調為純淨髮絲線與暖米白畫布) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            const ctx = document.getElementById('preview-line-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['109學年', '110學年', '111學年', '112學年', '113學年', '114學年'],
+                    datasets: [
+                        {
+                            label: '中科大國貿 (焦點)',
+                            data: [75.44, 76.89, 68.33, 68.44, 75.56, 71.78],
+                            borderColor: '#f05138',
+                            backgroundColor: '#f05138',
+                            borderWidth: 3,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
+                            tension: 0.15
+                        },
+                        {
+                            label: '北商大國商',
+                            data: [84.71, 84.07, 80.14, 74.43, 80.93, 79.86],
+                            borderColor: '#0284c7',
+                            backgroundColor: '#0284c7',
+                            borderWidth: 1.5,
+                            borderDash: [3, 3],
+                            pointRadius: 3,
+                            tension: 0.15
+                        },
+                        {
+                            label: '雲科大國管',
+                            data: [82.5, 83.1, 77.8, 73.8, 81.33, 79.78],
+                            borderColor: '#6366f1',
+                            backgroundColor: '#6366f1',
+                            borderWidth: 1.5,
+                            borderDash: [3, 3],
+                            pointRadius: 3,
+                            tension: 0.15
+                        },
+                        {
+                            label: '高科大航管',
+                            data: [72.8, 73.5, 67.2, 67.9, 73.56, 73.89],
+                            borderColor: '#f59e0b',
+                            backgroundColor: '#f59e0b',
+                            borderWidth: 1.5,
+                            borderDash: [3, 3],
+                            pointRadius: 3,
+                            tension: 0.15
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#18181b',
+                            titleFont: { family: 'Noto Sans TC', size: 12 },
+                            bodyFont: { family: 'Space Grotesk', size: 12 },
+                            padding: 10,
+                            callbacks: {
+                                label: function(ctx) { return ` ${ctx.dataset.label}: ${ctx.raw} 分`; }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(0, 0, 0, 0.04)' },
+                            ticks: { color: '#78716c', font: { family: 'Noto Sans TC', size: 11 } }
+                        },
+                        y: {
+                            suggestedMin: 65,
+                            suggestedMax: 87,
+                            grid: { color: 'rgba(0, 0, 0, 0.04)' },
+                            ticks: { color: '#78716c', font: { family: 'Space Grotesk', size: 11 } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

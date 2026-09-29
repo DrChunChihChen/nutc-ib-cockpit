@@ -1,0 +1,10 @@
+# Local Netlify & caches
+.netlify
+moe_udb_cache/
+.DS_Store
+Thumbs.db
+*.bak
+*.bak_*
+__pycache__/
+*.py[cod]
+.env

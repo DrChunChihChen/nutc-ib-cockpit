@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北中台灣非技術 AI 就業市場白皮書 | 國立臺中科技大學 國際貿易系</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* Impeccable Design System Typography Standards */
+    :root {
+      --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Noto Serif TC', serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-size: 14px;
+      line-height: 1.6;
+      letter-spacing: -0.015em;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      color: inherit;
+    }
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: inherit;
+    }
+    h3 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.015em;
+      color: inherit;
+    }
+    h4 {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #1e293b;
+    }
+    p, li, td, th {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .font-mono {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    ::selection {
+      background-color: #e0e7ff;
+      color: #1e1b4b;
+    }
+    :focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+      .page-break { page-break-after: always; }
+    }
+</style>
+</head>
+<body class="antialiased py-8 px-4 sm:px-8">
+
+  <div class="max-w-4xl mx-auto space-y-10">
+
+    <!-- Header Actions (No print) -->
+    <div class="flex items-center justify-between no-print bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+      <div class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span class="text-xs font-bold text-slate-700">智庫研究級實證白皮書 (傳統無 AI vs. AI 賦能 N=5,286)</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="px-3.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 font-medium text-xs hover:bg-indigo-100 transition flex items-center">
+          <i class="fa-solid fa-arrow-left mr-1.5"></i>返回互動看板
+        </a>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 text-white font-medium text-xs hover:bg-slate-800 transition flex items-center">
+          <i class="fa-solid fa-print mr-1.5"></i>列印 / 存為 PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Title & Metadata Block -->
+    <header class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm space-y-4">
+      <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800 font-semibold">
+        <i class="fa-solid fa-graduation-cap mr-1.5"></i>國立臺中科技大學 · 國際貿易系 · 校務研究 (IR) 專案
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+        北中台灣非技術 AI 就業市場白皮書
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 font-medium leading-relaxed">
+        5,286 筆職缺實證對比：傳統無 AI vs. AI 賦能之薪資差異、處置效應與商管高教重塑
+      </p>
+      <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-y-2">
+        <div><strong>資料母體</strong>：104 人力銀行北中全量非工程職缺（實驗組 AI 2,607 筆 vs 對照組無 AI 2,679 筆）</div>
+        <div><strong>分析時間</strong>：2026 年 9 月 · 準實驗計量經濟學研究</div>
+      </div>
+    </header>
+
+    <!-- Executive Summary Box -->
+    <section class="bg-slate-900 border border-slate-800 text-white rounded-2xl p-6 sm:p-8 shadow-md space-y-4">
+      <div class="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
+        <i class="fa-solid fa-bolt"></i>
+        <span>執行摘要 (Executive Summary)</span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-bold leading-snug">
+        「沒 AI vs. AI 工作的薪資差異有多大？」大數據計量實證答案
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        本研究以準實驗設計抓取 5,286 筆非技術職缺，透過特徵薪資迴歸（OLS）與高階職位勝算 Logit 模型，發現 AI 技能對商管求職者產生了極為深刻的結構性影響：
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-800 border-t border-slate-800 pt-4 gap-y-3">
+        <div class="p-3 space-y-1">
+          <div class="text-xs text-indigo-200">面議(≥4萬)機率躍升</div>
+          <div class="text-2xl font-extrabold text-amber-400 font-mono">3.12 倍<span class="text-xs font-normal text-amber-200"> 勝算比</span></div>
+          <div class="text-xs text-slate-300">極度顯著 (p < 10⁻⁹⁴)。AI 職缺面議率高達 39.8%，遠高於傳統職缺的 17.5%。</div>
+        </div>
+        <div class="p-3 space-y-1">
+          <div class="text-xs text-indigo-200">流程自動化與 API 淨溢價</div>
+          <div class="text-2xl font-extrabold text-white font-mono">+$5,838<span class="text-xs font-normal text-indigo-300">/月</span></div>
+          <div class="text-xs text-slate-300">極度顯著 (p < 0.0001)。具備 Webhook、API 與自動化是跳脫底薪的最強槓桿。</div>
+        </div>
+        <div class="p-3 space-y-1">
+          <div class="text-xs text-indigo-200">軟體科技業 AI 溢價</div>
+          <div class="text-2xl font-extrabold text-emerald-400 font-mono">+19.9%<span class="text-xs font-normal text-emerald-200"> (+$7,383)</span></div>
+          <div class="text-xs text-slate-300">非技術職進入軟體網路產業，AI 職缺起薪平均高達 $44,484 元。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Overview & Data Comparison -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider font-mono">Chapter 1</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">傳統無 AI vs. AI 賦能職缺實證對比 (N = 5,286)</h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        本研究排除軟體工程師與資工技術職，聚焦於商管、國貿、行銷企劃、電商業務與行政客服等職位，對照組與實驗組各取逾 2,600 筆樣本，得出完整分佈對比：
+      </p>
+      
+      <!-- Table of Statistics -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b-2 border-slate-200 bg-slate-50 text-slate-700">
+              <th class="py-2.5 px-3 font-bold">指標項目</th>
+              <th class="py-2.5 px-3 font-bold text-slate-600">傳統無 AI 職缺 (對照組)</th>
+              <th class="py-2.5 px-3 font-bold text-indigo-700">提及 AI 工具職缺 (實驗組)</th>
+              <th class="py-2.5 px-3 font-bold text-indigo-600">實證統計差異檢定</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-600">
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">總有效職缺筆數 (N)</td>
+              <td class="py-2.5 px-3 font-bold font-mono">2,679 筆</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-indigo-700">2,607 筆</td>
+              <td class="py-2.5 px-3 text-slate-500">合計 5,286 筆，具高統計檢力</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">薪資「面議」比例 (≥4萬)</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-slate-600">17.5% (469筆)</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-amber-600">39.8% (1,037筆)</td>
+              <td class="py-2.5 px-3 text-amber-700 font-bold">AI 職缺高出 2.27 倍 (p < 10⁻⁹⁴)</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">公開月薪起薪中位數</td>
+              <td class="py-2.5 px-3 font-bold font-mono">$35,000</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-indigo-700">$36,000</td>
+              <td class="py-2.5 px-3 text-slate-700 font-semibold">中位數高出 +$1,000 / 月</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">四分位距 (IQR 薪資跨度)</td>
+              <td class="py-2.5 px-3 font-mono">$32,000 ~ $38,000</td>
+              <td class="py-2.5 px-3 font-mono text-indigo-700">$33,000 ~ $40,000</td>
+              <td class="py-2.5 px-3 text-slate-500">AI 職缺上限向上推進</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">無母數等級檢定</td>
+              <td class="py-2.5 px-3 font-mono text-slate-500">—</td>
+              <td class="py-2.5 px-3 font-mono text-indigo-700">Mann-Whitney U</td>
+              <td class="py-2.5 px-3 text-emerald-600 font-bold">U=2,021,336.5 (p = 3.39×10⁻¹⁸)</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-slate-800">流程自動化/API 滲透率</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-slate-500">0.0%</td>
+              <td class="py-2.5 px-3 font-bold font-mono text-indigo-700">9.8%</td>
+              <td class="py-2.5 px-3 text-indigo-600 font-bold">傳統職缺完全不要求 API 技能</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4-Panel Visualization Preview -->
+      <div class="pt-4 space-y-2">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center">
+          <i class="fa-solid fa-chart-column text-slate-700 mr-2"></i>傳統無 AI vs. AI 賦能職缺 4 分割計量對比圖
+        </h3>
+        <div class="border border-slate-200 rounded-xl overflow-hidden p-2 bg-slate-50">
+          <img src="ai_vs_non_ai_salary_comparison.png" alt="無 AI vs AI 職缺薪資實證對比圖" class="w-full rounded-lg shadow-xs">
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed text-center">
+          圖 A：KDE 核密度分佈；圖 B：產業 AI 溢價率；圖 C：地域×AI 四象限盒鬚圖；圖 D：迴歸係數 95% 信賴區間森林圖。
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 2: Industry AI Premium Matrix -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider font-mono">Chapter 2</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">各主要產業之 AI 起薪溢價矩陣</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50 text-slate-700">
+              <th class="py-2 px-2.5 font-bold">產業類別</th>
+              <th class="py-2 px-2.5 font-bold">無 AI 起薪中位</th>
+              <th class="py-2 px-2.5 font-bold">AI 職缺起薪中位</th>
+              <th class="py-2 px-2.5 font-bold">平均起薪差額</th>
+              <th class="py-2 px-2.5 font-bold">AI 溢價率 (%)</th>
+              <th class="py-2 px-2.5 font-bold">分析評註</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-600">
+            <tr class="bg-emerald-50/50">
+              <td class="py-2.5 px-2.5 font-bold text-emerald-950">資訊科技 / 軟體網路</td>
+              <td class="py-2.5 px-2.5 font-mono">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-emerald-700">$38,000</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-emerald-700">+$7,383</td>
+              <td class="py-2.5 px-2.5 font-mono font-extrabold text-emerald-700">+19.9%</td>
+              <td class="py-2.5 px-2.5 text-xs text-slate-600">非技術職在科技業的 AI 溢價最高，起薪直接進入高薪帶</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-2.5 font-bold text-slate-800">電子商務 / 數位零售</td>
+              <td class="py-2.5 px-2.5 font-mono">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">$36,000</td>
+              <td class="py-2.5 px-2.5 font-mono">+$719</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">+1.9%</td>
+              <td class="py-2.5 px-2.5 text-xs text-slate-600">中位數提升 1,000 元，主要反映電商行銷自動產圖文價值</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-2.5 font-bold text-slate-800">生技 / 醫療保健</td>
+              <td class="py-2.5 px-2.5 font-mono">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">$38,000</td>
+              <td class="py-2.5 px-2.5 font-mono">+$682</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">+1.8%</td>
+              <td class="py-2.5 px-2.5 text-xs text-slate-600">醫療生技業務與行政，AI 職缺起薪中位達 3.8 萬</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-2.5 font-bold text-slate-800">廣告行銷 / 公關顧問</td>
+              <td class="py-2.5 px-2.5 font-mono">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">$36,000</td>
+              <td class="py-2.5 px-2.5 font-mono">+$535</td>
+              <td class="py-2.5 px-2.5 font-mono font-bold text-indigo-700">+1.4%</td>
+              <td class="py-2.5 px-2.5 text-xs text-slate-600">行銷代理商正將 AI 列為標配工具</td>
+            </tr>
+            <tr class="bg-slate-50">
+              <td class="py-2.5 px-2.5 font-medium text-slate-700">傳統製造 / 精密工業</td>
+              <td class="py-2.5 px-2.5 font-mono">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono text-slate-600">$35,000</td>
+              <td class="py-2.5 px-2.5 font-mono text-slate-500">-$124</td>
+              <td class="py-2.5 px-2.5 font-mono text-slate-500">-0.3%</td>
+              <td class="py-2.5 px-2.5 text-xs text-slate-500">傳產起薪鐵板未動，單純寫 Prompt 無法打動傳產雇主加薪</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Econometric Regression & Logit -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider font-mono">Chapter 3</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">計量經濟學實證：Hedonic OLS 與 面議 Logit 模型</h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        為什麼直接看公開起薪，AI 的平均差異有限？因為依據《就業服務法》第5條，高於 4 萬元的職缺依法得以「面議」。透過二元勝算 Logit 模型，我們發現了真實的跳升機制：
+      </p>
+
+      <!-- Logit Table -->
+      <div class="space-y-2">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center">
+          <i class="fa-solid fa-lock-open text-amber-500 mr-2"></i>模型一：薪資面議 (≥4萬元) 機率 Logit 迴歸 (N = 5,286)
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-700">
+                <th class="py-2 px-2.5 font-bold">解釋變數</th>
+                <th class="py-2 px-2.5 font-bold">係數 (β)</th>
+                <th class="py-2 px-2.5 font-bold">標準誤</th>
+                <th class="py-2 px-2.5 font-bold">z 統計量</th>
+                <th class="py-2 px-2.5 font-bold">p 值</th>
+                <th class="py-2 px-2.5 font-bold">勝算比 (Odds Ratio)</th>
+                <th class="py-2 px-2.5 font-bold">實證結論</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-600">
+              <tr class="bg-amber-50/60">
+                <td class="py-2 px-2.5 font-bold text-amber-900">要求 AI 技能 (`is_ai_job`)</td>
+                <td class="py-2 px-2.5 font-bold text-amber-700 font-mono">+1.1391</td>
+                <td class="py-2 px-2.5 font-mono">0.068</td>
+                <td class="py-2 px-2.5 font-bold font-mono">16.816</td>
+                <td class="py-2 px-2.5 font-bold text-emerald-600 font-mono">< 0.0001***</td>
+                <td class="py-2 px-2.5 font-extrabold text-amber-700 font-mono">3.12 倍</td>
+                <td class="py-2 px-2.5 text-slate-700 font-medium">具 AI 能力開出 4 萬以上高薪機率高出 3.12 倍</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2.5 font-medium text-slate-800">外語商務能力 (`has_language`)</td>
+                <td class="py-2 px-2.5 font-bold text-indigo-700 font-mono">+0.3504</td>
+                <td class="py-2 px-2.5 font-mono">0.106</td>
+                <td class="py-2 px-2.5 font-bold font-mono">3.315</td>
+                <td class="py-2 px-2.5 font-bold text-emerald-600 font-mono">0.001***</td>
+                <td class="py-2 px-2.5 font-bold font-mono">1.42 倍</td>
+                <td class="py-2 px-2.5 text-slate-500">外語顯著提升進入高薪談判池之機率</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-2.5 font-medium text-slate-800">雙北地區 (`is_taipei`)</td>
+                <td class="py-2 px-2.5 font-mono">-0.3431</td>
+                <td class="py-2 px-2.5 font-mono">0.071</td>
+                <td class="py-2 px-2.5 font-mono">-4.862</td>
+                <td class="py-2 px-2.5 font-mono text-emerald-600">< 0.0001***</td>
+                <td class="py-2 px-2.5 font-mono">0.71 倍</td>
+                <td class="py-2 px-2.5 text-slate-500">雙北企業傾向明確標示 35K~45K 數字，台中多面議</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- OLS Table -->
+      <div class="space-y-2 pt-2">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center">
+          <i class="fa-solid fa-calculator text-indigo-600 mr-2"></i>模型二：特徵起薪 OLS 迴歸模型 (N = 3,780 公開起薪職缺)
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-700">
+                <th class="py-2 px-2.5 font-bold">自變數</th>
+                <th class="py-2 px-2.5 font-bold">係數估計值 (β)</th>
+                <th class="py-2 px-2.5 font-bold">標準誤</th>
+                <th class="py-2 px-2.5 font-bold">t 統計量</th>
+                <th class="py-2 px-2.5 font-bold">p 值</th>
+                <th class="py-2 px-2.5 font-bold">實證經濟學意涵</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-600">
+              <tr class="bg-indigo-50/50">
+                <td class="py-2 px-2.5 font-bold text-indigo-900">流程自動化/API (`has_auto`)</td>
+                <td class="py-2 px-2.5 font-extrabold text-indigo-700 font-mono">+5,838</td>
+                <td class="py-2 px-2.5 font-mono">1,367.5</td>
+                <td class="py-2 px-2.5 font-bold font-mono">4.269</td>
+                <td class="py-2 px-2.5 font-bold text-emerald-600 font-mono">0.000***</td>
+                <td class="py-2 px-2.5 font-medium text-slate-800">全模型最強淨增額，掌握 API/自動化起薪高出 5,838 元</td>
+              </tr>
+              <tr class="bg-blue-50/40">
+                <td class="py-2 px-2.5 font-bold text-blue-900">外語商務能力 (`has_lang`)</td>
+                <td class="py-2 px-2.5 font-extrabold text-blue-700 font-mono">+3,705</td>
+                <td class="py-2 px-2.5 font-mono">1,010.1</td>
+                <td class="py-2 px-2.5 font-bold font-mono">3.668</td>
+                <td class="py-2 px-2.5 font-bold text-emerald-600 font-mono">0.000***</td>
+                <td class="py-2 px-2.5 font-medium text-slate-800">外語能力提供顯著且穩定的 3,705 元淨溢價</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-2.5 font-medium text-slate-800">資訊軟體產業 (相對於傳產)</td>
+                <td class="py-2.5 px-2.5 font-bold font-mono text-indigo-700">+3,181</td>
+                <td class="py-2.5 px-2.5 font-mono">1,261.2</td>
+                <td class="py-2.5 px-2.5 font-bold font-mono">2.522</td>
+                <td class="py-2.5 px-2.5 font-bold text-emerald-600 font-mono">0.012*</td>
+                <td class="py-2.5 px-2.5 text-slate-500">非技術職進入軟體科技業享有高達 3.1K 產業淨紅利</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-2.5 font-medium text-slate-800">雙北地域純溢價 (`is_taipei`)</td>
+                <td class="py-2.5 px-2.5 font-mono text-indigo-700">+1,155</td>
+                <td class="py-2.5 px-2.5 font-mono">687.4</td>
+                <td class="py-2.5 px-2.5 font-mono">1.680</td>
+                <td class="py-2.5 px-2.5 font-mono text-slate-500">0.093</td>
+                <td class="py-2.5 px-2.5 text-slate-500">在 10% 顯著水準下反映雙北總部與物價溢價</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-2.5 font-medium text-slate-800">僅要求 AI 標籤 (`is_ai_job`)</td>
+                <td class="py-2.5 px-2.5 font-mono">+333</td>
+                <td class="py-2.5 px-2.5 font-mono">633.7</td>
+                <td class="py-2.5 px-2.5 font-mono">0.526</td>
+                <td class="py-2.5 px-2.5 text-slate-500 font-mono">0.599 (不顯著)</td>
+                <td class="py-2.5 px-2.5 text-slate-500">證實純標註或聊天無法在底薪層形成議價優勢</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Higher Education Matrix -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider font-mono">Chapter 4</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">商管與國貿教育重塑：四年階梯課綱嵌入表</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50 text-slate-600">
+              <th class="py-2.5 px-3 font-bold">年級</th>
+              <th class="py-2.5 px-3 font-bold">嵌入現有課程</th>
+              <th class="py-2.5 px-3 font-bold">實作任務設計</th>
+              <th class="py-2.5 px-3 font-bold">期末產出與薪資錨定目標</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="py-3 px-3 font-bold text-indigo-700 font-mono">大一</td>
+              <td class="py-3 px-3">計算機概論、商用英文</td>
+              <td class="py-3 px-3">LINE 官方帳號 + Make.com 自動推播</td>
+              <td class="py-3 px-3">雙語國貿術語問答 Bot（打底 35K 基本盤）</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-indigo-700 font-mono">大二</td>
+              <td class="py-3 px-3">國際貿易實務、行銷學</td>
+              <td class="py-3 px-3">Webhook + OpenAI 結構化抽取與自動報價</td>
+              <td class="py-3 px-3">詢價信轉報價單管線（跨越 38K~40K 門檻）</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-emerald-700 font-mono">大三</td>
+              <td class="py-3 px-3">跨境電子商務、產學實習</td>
+              <td class="py-3 px-3">外銷企業 Catalog RAG 向量知識庫</td>
+              <td class="py-3 px-3">50 筆人工盲測驗證報告（站穩 40K~45K 面議池）</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-amber-700 font-mono">大四</td>
+              <td class="py-3 px-3">畢業專題、創業實作</td>
+              <td class="py-3 px-3">企業試營運、Token 邊際成本精算、個資資安條款</td>
+              <td class="py-3 px-3">個人線上 Live Demo 作品集（挑戰 45K~55K+）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 py-6 space-y-1">
+      <p>© 2026 國立臺中科技大學 國際貿易系 · 校務研究 (IR) 專案小組</p>
+      <p class="font-mono text-xs">本白皮書資料取自 104 人力銀行公開職缺庫，受學術研究與校務治理合理使用保護。</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

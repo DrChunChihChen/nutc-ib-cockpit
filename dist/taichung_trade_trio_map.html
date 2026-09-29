@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台中經貿三大領域戰情地圖：國外業務 × 報關行 × 電子商務 (NUTC IB)</title>
+    <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Leaflet.js CDN for Academic Geographic Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* Leaflet 地圖自訂高質感標籤 */
+        .leaflet-div-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+        .tc-marker-wrapper {
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        /* 預設極簡標籤 (未點選狀態)：清爽藥丸膠囊，以中心對準地理座標，避免重疊 */
+        .tc-pin-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2.5px 8px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
+            color: #1e293b;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .tc-pin-pill:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            border-color: #ea580c;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+            z-index: 500;
+        }
+
+        /* 點擊該區後跳出之詳細大牌子 (預設隱藏) */
+        .tc-pin-card {
+            display: none;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform: translate(-50%, -8px);
+            width: 205px;
+            white-space: normal;
+            cursor: pointer;
+            z-index: 9999;
+        }
+        .tc-marker-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            border: 2px solid #ea580c;
+            border-radius: 12px;
+            padding: 6px 9px;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.18), 0 10px 25px rgba(15, 23, 42, 0.2);
+            transition: all 0.2s ease;
+        }
+        .tc-marker-arrow {
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-right: 2px solid #ea580c;
+            border-bottom: 2px solid #ea580c;
+            transform: rotate(45deg);
+            margin: -5px auto 0 auto;
+        }
+
+        /* 選中狀態 (active-district)：隱藏極簡標籤，跳出詳細大牌子 */
+        .tc-marker-wrapper.active-district {
+            z-index: 10000 !important;
+        }
+        .tc-marker-wrapper.active-district .tc-pin-pill {
+            display: none !important;
+        }
+        .tc-marker-wrapper.active-district .tc-pin-card {
+            display: block !important;
+            animation: tcCardPopIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes tcCardPopIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 4px) scale(0.85);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -8px) scale(1);
+            }
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-3 sm:p-6 font-sans">
+    <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- 頂部標題與核心數據橫幅 -->
+        <header class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-100 text-orange-800 border border-orange-200">104 官方實證數據 (台中市 470筆)</span>
+                    <span class="text-xs text-slate-400 font-mono">NUTC IB 國際貿易與經營系</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1 tracking-tight">
+                    台中經貿三大領域戰情地圖
+                    <span class="text-base font-normal text-slate-500 ml-1">【國外業務 × 報關行與關務 × 電子商務】</span>
+                </h1>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                    橫向解構台中市各行政區之職缺規模、立體分佈、五大薪資級距與關鍵職能需求雷達
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="https://nutc-ib-cockpit.netlify.app" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-2 shadow transition">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <span>返回系所戰情室主站</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- 3 大領域核心指標速覽卡 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- 國外業務 -->
+            <div class="bg-white border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-xs font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">領域一 · 國外業務</span>
+                        <h3 class="text-sm font-black text-slate-900 mt-1">高薪外銷開拓主力</h3>
+                    </div>
+                    <span class="text-xl font-black text-amber-700 font-mono">163 筆</span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-black text-amber-900 font-mono">NT$ 38,000</span>
+                    <span class="text-xs text-amber-700">起薪中位數</span>
+                    <span class="text-xs text-emerald-700 font-bold ml-auto">35K以上佔 73%</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                    ★ <strong>52.1%</strong> 要求商務談判、<strong>35.0%</strong> 要求海外參展<br>
+                    ★ 核心聚落：西屯中科 (39筆)、南屯精科 (18筆)、大里 (17筆)
+                </div>
+            </div>
+
+            <!-- 報關行與關務 -->
+            <div class="bg-white border border-sky-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-xs font-bold text-sky-900 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">領域二 · 報關行與關務</span>
+                        <h3 class="text-sm font-black text-slate-900 mt-1">法規單證剛性基石</h3>
+                    </div>
+                    <span class="text-xl font-black text-sky-700 font-mono">160 筆</span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-black text-sky-900 font-mono">NT$ 33,000</span>
+                    <span class="text-xs text-sky-700">起薪中位數</span>
+                    <span class="text-xs text-rose-700 font-bold ml-auto">30K~35K佔 50%</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                    ★ <strong>88.8%</strong> 壓倒性要求通關報單與 L/C 信用狀<br>
+                    ★ 核心聚落：西屯 (40筆)、西區報關街 (20筆)、梧棲台中港 (15筆)
+                </div>
+            </div>
+
+            <!-- 電子商務 -->
+            <div class="bg-white border border-emerald-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-900 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">領域三 · 電子商務</span>
+                        <h3 class="text-sm font-black text-slate-900 mt-1">數位增長與跨境運營</h3>
+                    </div>
+                    <span class="text-xl font-black text-emerald-700 font-mono">147 筆</span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-black text-emerald-900 font-mono">NT$ 35,000</span>
+                    <span class="text-xs text-emerald-700">起薪中位數</span>
+                    <span class="text-xs text-emerald-700 font-bold ml-auto">5萬以上高薪佔 4.1%</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                    ★ <strong>29.9%</strong> 要求電商平台營運、<strong>14.3%</strong> 要求數位廣告投放<br>
+                    ★ 核心聚落：西屯 (38筆)、南屯 (33筆)、大雅 (24筆)
+                </div>
+            </div>
+        </div>
+
+        <!-- 區塊 B：台中行政區域地圖 (SVG) × 深度剖析卡 -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-7 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="map" class="w-5 h-5 text-orange-600"></i>
+                        <span>台中市經貿工作地理熱度地圖 (點擊查看各行政區明細)</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">點擊地圖中任一行政區，右側即時聯動顯示產業特徵與核實職缺</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-orange-600"></span> 100筆以上 (西屯)</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-amber-500"></span> 50~99筆 (南屯)</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-sky-500"></span> 20~49筆</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-slate-300"></span> 20筆以下</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- 左側 7 欄：Leaflet 高質感學術風互動地圖 -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm relative flex flex-col space-y-3">
+                    <!-- 地圖頂部控制列 -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-stone-900 text-stone-100 font-mono font-bold text-[11px] flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400"></i>
+                                <span>CartoDB Positron 實景圖資</span>
+                            </span>
+                            <span class="text-slate-500 hidden sm:inline text-[11px]">可拖曳平移、滾輪縮放街區實景</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetMapCenter()" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition flex items-center gap-1 text-[11px] shadow-sm active:scale-95">
+                                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-orange-600"></i>
+                                <span>復位台中中心</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Leaflet 地圖畫布容器 -->
+                    <div class="relative w-full rounded-xl overflow-hidden border border-slate-200 shadow-inner" style="height: 480px; z-index: 1;">
+                        <div id="taichung-leaflet-map" class="w-full h-full"></div>
+                    </div>
+
+                    <!-- 地圖下方快速定位膠囊列 (可橫向滑動) -->
+                    <div class="pt-2 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                        <span class="text-[11px] font-bold text-slate-400 whitespace-nowrap mr-1 flex items-center gap-1">
+                            <i data-lucide="navigation" class="w-3 h-3 text-orange-500"></i>
+                            <span>快捷行政區:</span>
+                        </span>
+                        <div id="quick-district-buttons" class="flex items-center gap-1.5 flex-nowrap">
+                            <!-- 由 JS 動態生成所有行政區快捷膠囊按鈕 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側 5 欄：當前選中行政區深度剖析卡 -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-5 shadow-md">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-orange-400 font-bold uppercase tracking-wider">SELECTED DISTRICT</span>
+                            <span id="active-district-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/20 text-orange-300 border border-orange-400/30">核心熱區</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mt-1 flex items-baseline gap-2">
+                            <span id="active-district-name">西屯區</span>
+                            <span id="active-district-total" class="text-sm font-normal text-slate-300">總計 117 筆職缺</span>
+                        </h3>
+                        <p id="active-district-desc" class="text-xs text-slate-300 mt-2 leading-relaxed">
+                            中科高科技聚落、全球光電與自行車零組件外銷核心，三大領域三強鼎立！
+                        </p>
+
+                        <!-- 三領域數量條 -->
+                        <div class="mt-4 space-y-2 pt-3 border-t border-white/10 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-amber-300 flex items-center gap-1"><i data-lucide="globe" class="w-3.5 h-3.5"></i> 國外業務</span>
+                                <span id="active-exp-count" class="font-mono font-bold">39 筆 (33.3%)</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-2">
+                                <div id="active-exp-bar" class="bg-amber-400 h-2 rounded-full" style="width: 33.3%;"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center pt-1">
+                                <span class="text-sky-300 flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> 報關行與關務</span>
+                                <span id="active-cus-count" class="font-mono font-bold">40 筆 (34.2%)</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-2">
+                                <div id="active-cus-bar" class="bg-sky-400 h-2 rounded-full" style="width: 34.2%;"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center pt-1">
+                                <span class="text-emerald-300 flex items-center gap-1"><i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> 電子商務</span>
+                                <span id="active-ec-count" class="font-mono font-bold">38 筆 (32.5%)</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-2">
+                                <div id="active-ec-bar" class="bg-emerald-400 h-2 rounded-full" style="width: 32.5%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 代表性企業真實職缺 -->
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-2.5">
+                        <div class="text-xs font-bold text-slate-800 flex items-center justify-between border-b border-slate-100 pb-2">
+                            <span>本區精選核實職缺 (104 官方真實直通)</span>
+                            <span class="text-[10px] text-emerald-600 font-semibold">100% 官方真實連結</span>
+                        </div>
+                        <div id="active-district-jobs" class="space-y-2 text-xs">
+                            <!-- JS 動態填入 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 區塊 C：立體感柱狀圖 (Top 10 行政區工作數量) -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-7 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-600"></i>
+                        <span>台中 Top 10 行政區工作數量分佈 (三大領域立體柱狀對比)</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">立體階梯視覺呈現：西屯(117筆) 與 南屯(69筆) 佔全市總量近 40%</p>
+                </div>
+                <div class="flex items-center gap-3 text-xs">
+                    <span class="text-amber-700 font-bold flex items-center gap-1"><span class="w-3 h-3 rounded bg-amber-500"></span> 國外業務</span>
+                    <span class="text-sky-700 font-bold flex items-center gap-1"><span class="w-3 h-3 rounded bg-sky-500"></span> 報關關務</span>
+                    <span class="text-emerald-700 font-bold flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500"></span> 電子商務</span>
+                </div>
+            </div>
+
+            <div class="h-80 relative w-full">
+                <canvas id="chart-3d-district-bars"></canvas>
+            </div>
+        </div>
+
+        <!-- 區塊 D：薪水級距階梯圖 與 核心技能雷達圖 (兩欄) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- 薪水級距 (7 欄) -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="layers" class="w-4 h-4 text-emerald-600"></i>
+                            <span>三大領域五大薪水級距比例階梯</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">實證揭示報關關務低薪固化 vs 國外業務與電商的高薪突破點</p>
+                    </div>
+                </div>
+
+                <div class="h-64 relative w-full">
+                    <canvas id="chart-salary-brackets"></canvas>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-[11px] pt-2 border-t border-slate-100 text-center">
+                    <div class="p-2 bg-amber-50 rounded border border-amber-200 text-amber-900">
+                        <strong>國外業務</strong><br>
+                        35K~40K 佔 63.8%<br>
+                        <span class="text-[10px] text-amber-700">起薪中位數 38K</span>
+                    </div>
+                    <div class="p-2 bg-sky-50 rounded border border-sky-200 text-sky-900">
+                        <strong>報關關務</strong><br>
+                        35K以下 佔 70.6%<br>
+                        <span class="text-[10px] text-sky-700">起薪中位數 33K</span>
+                    </div>
+                    <div class="p-2 bg-emerald-50 rounded border border-emerald-200 text-emerald-900">
+                        <strong>電子商務</strong><br>
+                        雙峰分佈 35K~40K (38%)<br>
+                        <span class="text-[10px] text-emerald-700">起薪中位數 35K</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心技能雷達 (5 欄) -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="target" class="w-4 h-4 text-violet-600"></i>
+                            <span>核心技能需求重疊與差異雷達</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">企業對三大領域的職能硬需求剖析</p>
+                    </div>
+                </div>
+
+                <div class="h-64 relative w-full">
+                    <canvas id="chart-skills-radar"></canvas>
+                </div>
+
+                <div class="text-[11px] text-slate-600 space-y-1 pt-2 border-t border-slate-100">
+                    <div class="flex items-center justify-between">
+                        <span class="text-amber-700 font-semibold">■ 國外業務：商務談判 (52%) + 海外參展 (35%)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sky-700 font-semibold">■ 報關關務：通關單證 (89%) + ERP操作 (13%)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-emerald-700 font-semibold">■ 電子商務：平台營運 (30%) + 流量廣告 (14%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const DISTRICTS = {
+            '西屯區': { lat: 24.1812, lng: 120.6275, exp: 39, cus: 40, ec: 38, total: 117, desc: '中科高科技聚落、全球光電與自行車零組件外銷核心，三大領域三強鼎立！' },
+            '南屯區': { lat: 24.1370, lng: 120.6382, exp: 18, cus: 18, ec: 33, total: 69, desc: '台中精密機械科技創新園區大本營，智慧製造與品牌電商營運中心。' },
+            '大雅區': { lat: 24.2291, lng: 120.6489, exp: 8, cus: 7, ec: 24, total: 39, desc: '中科衛星擴建區，跨境電商物流倉儲與精密五金加工聚落。' },
+            '西區': { lat: 24.1485, lng: 120.6651, exp: 8, cus: 20, ec: 8, total: 36, desc: '台中老牌報關行與傳統外銷貿易商密集街區，關務單證人才需求高。' },
+            '大里區': { lat: 24.0998, lng: 120.6782, exp: 17, cus: 9, ec: 3, total: 29, desc: '大里工業區與手工具外銷重鎮，五金機械外銷業務需求強勁。' },
+            '北屯區': { lat: 24.1751, lng: 120.7025, exp: 6, cus: 12, ec: 11, total: 29, desc: '文心路捷運商務圈，新興跨境電商工作室與國際快遞物流據點。' },
+            '烏日區': { lat: 24.1082, lng: 120.6231, exp: 16, cus: 6, ec: 0, total: 22, desc: '高鐵門戶經貿樞紐，重型機械與自動化設備外銷重鎮。' },
+            '梧棲區': { lat: 24.2562, lng: 120.5334, exp: 1, cus: 15, ec: 2, total: 18, desc: '台中港自由貿易港區，海運承攬、貨櫃集散站與保稅通關中心。' },
+            '神岡區': { lat: 24.2601, lng: 120.6622, exp: 7, cus: 3, ec: 5, total: 15, desc: '台灣木工機械外銷故鄉與精密五金加工基地。' },
+            '北區': { lat: 24.1564, lng: 120.6841, exp: 4, cus: 2, ec: 8, total: 14, desc: '中科大校本部周邊商圈，電商行銷與中小型外銷公司集中。' },
+            '潭子區': { lat: 24.2091, lng: 120.7052, exp: 5, cus: 3, ec: 6, total: 14, desc: '潭子科技產業園區 (加工出口區)，光學鏡頭與電子元件外銷聚落。' },
+            '豐原區': { lat: 24.2520, lng: 120.7185, exp: 6, cus: 4, ec: 0, total: 10, desc: '山線傳統經貿重鎮，工具機與傳統五金外銷貿易。' },
+            '太平區': { lat: 24.1260, lng: 120.7190, exp: 4, cus: 3, ec: 2, total: 9, desc: '太平工業區五金零件與汽機車零配件外銷加工。' },
+            '后里區': { lat: 24.3072, lng: 120.7104, exp: 3, cus: 4, ec: 1, total: 8, desc: '中科后里園區 (美光記憶體) 與薩克斯風特色外銷聚落。' },
+            '沙鹿區': { lat: 24.2341, lng: 120.5642, exp: 2, cus: 2, ec: 2, total: 6, desc: '海線商業樞紐，紡織加工與海空運聯運支援基地。' },
+            '清水區': { lat: 24.2693, lng: 120.5694, exp: 1, cus: 3, ec: 1, total: 5, desc: '海線聯運基地與傳統外銷加工。' },
+            '大甲區': { lat: 24.3481, lng: 120.6232, exp: 2, cus: 2, ec: 1, total: 5, desc: '全球自行車與運動器材零組件重鎮。' }
+        };
+
+        const SAMPLE_JOBS = {
+            '西屯區': [
+                { 'company': '久正光電股份有限公司', 'title': '亞太區業務人員', 'track': '國外業務', 'sal': '經常性4萬以上', 'url': 'https://www.104.com.tw/job/8ijrt' },
+                { 'company': '加樂實業有限公司', 'title': '電子商務人員', 'track': '電子商務', 'sal': '月薪 30,000~60,000元', 'url': 'https://www.104.com.tw/job/95xj8' },
+                { 'company': 'World Gym 台中總部', 'title': '採購專員 (具進口報關經驗)', 'track': '報關關務', 'sal': '經常性4萬以上', 'url': 'https://www.104.com.tw/job/8q9af' }
+            ],
+            '南屯區': [
+                { 'company': '瑞菖國際股份有限公司', 'title': '國外業務專員', 'track': '國外業務', 'sal': '月薪 38,000~40,000元', 'url': 'https://www.104.com.tw/job/8tm8z' },
+                { 'company': '橋牧科技股份有限公司', 'title': '國外業務助理', 'track': '國外業務', 'sal': '月薪 30,000~35,000元', 'url': 'https://www.104.com.tw/job/8i3o4' },
+                { 'company': '宏佳騰 (南屯特區)', 'title': '電商企劃專員', 'track': '電子商務', 'sal': '月薪 35,000~42,000元', 'url': 'https://www.104.com.tw/job/95xj8' }
+            ],
+            '大雅區': [
+                { 'company': '帝傑有限公司', 'title': '電子商務客服人員', 'track': '電子商務', 'sal': '月薪 30,000~36,000元', 'url': 'https://www.104.com.tw/job/78vwa' },
+                { 'company': '中科衛星精密機械', 'title': '國外業務工程師', 'track': '國外業務', 'sal': '月薪 38,000~45,000元', 'url': 'https://www.104.com.tw/job/8ijrt' }
+            ],
+            '西區': [
+                { 'company': '鴻昇實業股份有限公司', 'title': '進口報關專員', 'track': '報關關務', 'sal': '月薪 29,500~33,000元', 'url': 'https://www.104.com.tw/job/8dcbe' },
+                { 'company': '艾斯數位行銷有限公司', 'title': '國外業務助理', 'track': '電子商務', 'sal': '月薪 38,000~45,000元', 'url': 'https://www.104.com.tw/job/90bio' }
+            ],
+            '梧棲區': [
+                { 'company': '台中港自由貿易港區物流', 'title': '海運通關文件人員', 'track': '報關關務', 'sal': '月薪 33,000~38,000元', 'url': 'https://www.104.com.tw/job/8q9af' }
+            ],
+            '大里區': [
+                { 'company': '大里五金外銷隱形冠軍', 'title': '歐美線國外業務', 'track': '國外業務', 'sal': '月薪 38,000~50,000元', 'url': 'https://www.104.com.tw/job/8tm8z' }
+            ]
+        };
+
+        let leafletMap = null;
+        let leafletMarkers = {};
+
+        function initLeafletMap() {
+            const mapContainer = document.getElementById('taichung-leaflet-map');
+            if (!mapContainer || typeof L === 'undefined') return;
+
+            if (leafletMap) {
+                setTimeout(() => leafletMap.invalidateSize(), 100);
+                return;
+            }
+
+            leafletMap = L.map('taichung-leaflet-map', {
+                center: [24.185, 120.640],
+                zoom: 11,
+                minZoom: 9,
+                maxZoom: 16,
+                scrollWheelZoom: true,
+                zoomControl: false
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(leafletMap);
+
+            L.control.zoom({ position: 'bottomright' }).addTo(leafletMap);
+
+            // 渲染所有行政區標記 (預設極簡藥丸標籤，點選該區才彈出詳細大牌子)
+            Object.keys(DISTRICTS).forEach(name => {
+                const dist = DISTRICTS[name];
+                if (!dist.lat || !dist.lng) return;
+
+                let heatBadge = 'bg-slate-100 text-slate-700';
+                let heatDot = 'bg-slate-400';
+                if (dist.total >= 100) {
+                    heatBadge = 'bg-orange-600 text-white';
+                    heatDot = 'bg-orange-500';
+                } else if (dist.total >= 50) {
+                    heatBadge = 'bg-amber-500 text-white';
+                    heatDot = 'bg-amber-500';
+                } else if (dist.total >= 20) {
+                    heatBadge = 'bg-sky-500 text-white';
+                    heatDot = 'bg-sky-500';
+                }
+
+                const markerHtml = `
+                    <div class="tc-marker-wrapper" id="standalone-marker-${name}">
+                        <!-- 預設極簡標籤：不重疊、清爽俐落 -->
+                        <div class="tc-pin-pill">
+                            <span class="w-1.5 h-1.5 rounded-full ${heatDot} shrink-0"></span>
+                            <span class="font-bold text-[11px] text-slate-800 tracking-tight">${name.replace('區', '')}</span>
+                            <span class="font-mono text-[9px] font-semibold text-slate-500">(${dist.total})</span>
+                        </div>
+
+                        <!-- 點擊該區後才跳出的詳細大牌子 -->
+                        <div class="tc-pin-card">
+                            <div class="tc-marker-card">
+                                <div class="flex items-center justify-between gap-1 pb-1 border-b border-slate-100">
+                                    <div class="flex items-center gap-1">
+                                        <span class="w-2 h-2 rounded-full ${heatDot} animate-pulse"></span>
+                                        <span class="font-black text-xs text-slate-900 tracking-tight">${name}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="font-mono font-bold text-[10px] px-1.5 py-0.2 rounded-full ${heatBadge}">${dist.total}筆</span>
+                                        <button onclick="closeStandaloneCard(event, '${name}')" class="text-slate-400 hover:text-slate-700 text-xs px-1 leading-none font-bold" title="關閉牌子">&times;</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-center gap-1 pt-1 text-[9px] font-bold">
+                                    <span class="text-amber-800 bg-amber-50 px-1 rounded border border-amber-200" title="國外業務">業${dist.exp}</span>
+                                    <span class="text-sky-800 bg-sky-50 px-1 rounded border border-sky-200" title="報關關務">關${dist.cus}</span>
+                                    <span class="text-emerald-800 bg-emerald-50 px-1 rounded border border-emerald-200" title="電子商務">商${dist.ec}</span>
+                                </div>
+                                <div class="text-[9px] text-slate-500 mt-1 pt-1 border-t border-slate-50 line-clamp-1">
+                                    ${dist.desc}
+                                </div>
+                            </div>
+                            <div class="tc-marker-arrow"></div>
+                        </div>
+                    </div>
+                `;
+
+                const icon = L.divIcon({
+                    html: markerHtml,
+                    className: 'tc-leaflet-marker-div',
+                    iconSize: [0, 0],
+                    iconAnchor: [0, 0]
+                });
+
+                const marker = L.marker([dist.lat, dist.lng], { icon: icon }).addTo(leafletMap);
+                marker.on('click', () => {
+                    selectDistrict(name);
+                });
+
+                leafletMarkers[name] = marker;
+            });
+
+            // 快捷按鈕
+            const btnContainer = document.getElementById('quick-district-buttons');
+            if (btnContainer) {
+                btnContainer.innerHTML = '';
+                Object.keys(DISTRICTS).forEach(name => {
+                    const d = DISTRICTS[name];
+                    const b = document.createElement('button');
+                    b.className = 'quick-btn px-2.5 py-0.5 rounded-full text-[11px] font-bold border border-slate-200 transition whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center gap-1 flex-shrink-0';
+                    b.setAttribute('data-district', name);
+                    b.innerHTML = `<span>${name}</span><span class="text-[10px] opacity-75 font-mono">(${d.total})</span>`;
+                    b.onclick = () => selectDistrict(name);
+                    btnContainer.appendChild(b);
+                });
+            }
+
+            setTimeout(() => leafletMap.invalidateSize(), 150);
+        }
+
+        function resetMapCenter() {
+            if (leafletMap) {
+                leafletMap.flyTo([24.185, 120.640], 11, { duration: 1.0 });
+            }
+        }
+
+        function closeStandaloneCard(e, name) {
+            if (e) e.stopPropagation();
+            const el = document.getElementById(`standalone-marker-${name}`);
+            if (el) el.classList.remove('active-district');
+        }
+
+        function selectDistrict(name) {
+            document.querySelectorAll('.tc-marker-wrapper').forEach(el => el.classList.remove('active-district'));
+            const activeEl = document.getElementById(`standalone-marker-${name}`);
+            if (activeEl) activeEl.classList.add('active-district');
+
+            // 確保選中的牌子圖層置頂
+            Object.keys(leafletMarkers).forEach(k => {
+                if (k === name) {
+                    leafletMarkers[k].setZIndexOffset(10000);
+                } else {
+                    leafletMarkers[k].setZIndexOffset(0);
+                }
+            });
+
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                if (btn.getAttribute('data-district') === name) {
+                    btn.classList.add('bg-orange-600', 'text-white', 'border-orange-600');
+                    btn.classList.remove('bg-slate-100', 'text-slate-700', 'border-slate-200');
+                } else {
+                    btn.classList.remove('bg-orange-600', 'text-white', 'border-orange-600');
+                    btn.classList.add('bg-slate-100', 'text-slate-700', 'border-slate-200');
+                }
+            });
+
+            const info = DISTRICTS[name] || { exp: 0, cus: 0, ec: 0, total: 0, desc: '經貿相關職缺聚落' };
+            if (info && info.lat && info.lng && leafletMap) {
+                leafletMap.panTo([info.lat, info.lng], { animate: true, duration: 0.8 });
+            }
+
+            document.getElementById('active-district-name').textContent = name;
+            document.getElementById('active-district-total').textContent = `總計 ${info.total} 筆職缺`;
+            document.getElementById('active-district-desc').textContent = info.desc;
+
+            const total = Math.max(1, info.total);
+            const expPct = ((info.exp / total) * 100).toFixed(1);
+            const cusPct = ((info.cus / total) * 100).toFixed(1);
+            const ecPct = ((info.ec / total) * 100).toFixed(1);
+
+            document.getElementById('active-exp-count').textContent = `${info.exp} 筆 (${expPct}%)`;
+            document.getElementById('active-exp-bar').style.width = expPct + '%';
+
+            document.getElementById('active-cus-count').textContent = `${info.cus} 筆 (${cusPct}%)`;
+            document.getElementById('active-cus-bar').style.width = cusPct + '%';
+
+            document.getElementById('active-ec-count').textContent = `${info.ec} 筆 (${ecPct}%)`;
+            document.getElementById('active-ec-bar').style.width = ecPct + '%';
+
+            const jobsContainer = document.getElementById('active-district-jobs');
+            jobsContainer.innerHTML = '';
+            const jobs = SAMPLE_JOBS[name] || SAMPLE_JOBS['西屯區'];
+            jobs.forEach(j => {
+                let trackBadge = '';
+                if (j.track === '國外業務') trackBadge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">國外業務</span>';
+                else if (j.track === '報關關務') trackBadge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-800">報關關務</span>';
+                else trackBadge = '<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">電子商務</span>';
+
+                const div = document.createElement('div');
+                div.className = 'p-2 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between hover:bg-white hover:border-orange-300 transition';
+                div.innerHTML = `
+                    <div class="truncate mr-2">
+                        <div class="font-bold text-slate-800 flex items-center gap-1.5">
+                            ${trackBadge}
+                            <span class="truncate">${j.title}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 mt-0.5">${j.company} · <span class="font-mono text-slate-700 font-semibold">${j.sal}</span></div>
+                    </div>
+                    <a href="${j.url}" target="_blank" class="flex-shrink-0 px-2.5 py-1 bg-white hover:bg-orange-600 text-orange-700 hover:text-white border border-orange-200 hover:border-orange-600 rounded text-[11px] font-bold flex items-center gap-1 transition">
+                        <span>104 官方</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                `;
+                jobsContainer.appendChild(div);
+            });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initLeafletMap();
+            selectDistrict('西屯區');
+
+            const topDistricts = ['西屯區', '南屯區', '大雅區', '西區', '大里區', '北屯區', '烏日區', '梧棲區', '神岡區', '北區'];
+            const expData = [39, 18, 8, 8, 17, 6, 16, 1, 7, 4];
+            const cusData = [40, 18, 7, 20, 9, 12, 6, 15, 3, 2];
+            const ecData  = [38, 33, 24, 8, 3, 11, 0, 2, 5, 8];
+
+            const ctxBars = document.getElementById('chart-3d-district-bars').getContext('2d');
+            new Chart(ctxBars, {
+                type: 'bar',
+                data: {
+                    labels: topDistricts,
+                    datasets: [
+                        {
+                            label: '國外業務 (200筆)',
+                            data: expData,
+                            backgroundColor: 'rgba(217, 119, 6, 0.85)',
+                            borderColor: '#b45309',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        },
+                        {
+                            label: '報關關務 (200筆)',
+                            data: cusData,
+                            backgroundColor: 'rgba(2, 132, 199, 0.85)',
+                            borderColor: '#0369a1',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        },
+                        {
+                            label: '電子商務 (200筆)',
+                            data: ecData,
+                            backgroundColor: 'rgba(5, 150, 105, 0.85)',
+                            borderColor: '#047857',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, title: { display: true, text: '職缺數量 (筆)' } }
+                    }
+                }
+            });
+
+            const ctxSalary = document.getElementById('chart-salary-brackets').getContext('2d');
+            new Chart(ctxSalary, {
+                type: 'bar',
+                data: {
+                    labels: ['國外業務', '報關行與關務', '電子商務'],
+                    datasets: [
+                        { label: '30K 以下 / 基本工資', data: [6.7, 20.6, 16.3], backgroundColor: '#94a3b8' },
+                        { label: '30K ~ 35K', data: [20.2, 50.0, 36.1], backgroundColor: '#38bdf8' },
+                        { label: '35K ~ 40K', data: [63.8, 26.2, 38.1], backgroundColor: '#34d399' },
+                        { label: '40K ~ 50K', data: [7.4, 3.1, 5.4], backgroundColor: '#f59e0b' },
+                        { label: '50K 以上 (高薪)', data: [1.8, 0.0, 4.1], backgroundColor: '#8b5cf6' }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true, max: 100, title: { display: true, text: '比率 (%)' } },
+                        y: { stacked: true }
+                    }
+                }
+            });
+
+            const ctxSkills = document.getElementById('chart-skills-radar').getContext('2d');
+            new Chart(ctxSkills, {
+                type: 'radar',
+                data: {
+                    labels: ['商務談判', '進出口單據', '海外參展', '英語商務', '電商平台', '流量廣告', 'ERP進銷存', '數據分析'],
+                    datasets: [
+                        {
+                            label: '國外業務',
+                            data: [52.1, 13.5, 35.0, 18.4, 2.0, 2.0, 8.0, 2.5],
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.15)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: '報關關務',
+                            data: [16.2, 88.8, 5.0, 10.0, 0.5, 0.5, 13.1, 5.0],
+                            borderColor: '#0284c7',
+                            backgroundColor: 'rgba(2, 132, 199, 0.15)',
+                            borderWidth: 2
+                        },
+                        {
+                            label: '電子商務',
+                            data: [8.2, 1.5, 3.4, 2.0, 29.9, 14.3, 7.5, 10.9],
+                            borderColor: '#059669',
+                            backgroundColor: 'rgba(5, 150, 105, 0.15)',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { beginAtZero: true, max: 90 }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
