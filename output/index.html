@@ -1008,6 +1008,17 @@
                         bodyHtml += '</tr>';
                     });
                     tBody.innerHTML = bodyHtml;
+
+                    // 移除舊的表格附註（若存在）避免重複
+                    const oldNote = tBox.querySelector('.table-footer-note');
+                    if (oldNote) oldNote.remove();
+
+                    if (data.table.note) {
+                        const noteDiv = document.createElement('div');
+                        noteDiv.className = 'table-footer-note px-4 py-2.5 bg-amber-50/80 border-t border-amber-200/60 text-xs text-amber-900 flex items-start gap-1.5';
+                        noteDiv.innerHTML = `<span class="font-bold shrink-0">💡 備註說明：</span><span>${data.table.note}</span>`;
+                        tBox.appendChild(noteDiv);
+                    }
                 }
             }
 

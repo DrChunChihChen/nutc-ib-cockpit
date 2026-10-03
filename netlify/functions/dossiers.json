@@ -6,7 +6,7 @@
       "slug": "ib",
       "dept_code": "04141020",
       "data_file": "output/ib/dept_data.json",
-      "fetched_at": "2026-10-02",
+      "fetched_at": "2026-10-03",
       "latest_year": 114
     },
     "profile": {
@@ -14,10 +14,10 @@
       "dept_name": "國際貿易與經營系",
       "dept_code": "04141020",
       "latest_year": 114,
-      "students_total": 796,
-      "freshmen_capacity": 118,
-      "freshmen_registered": 117,
-      "enrollment_rate": 99.53,
+      "students_total": 708,
+      "freshmen_capacity": 168,
+      "freshmen_registered": 167,
+      "enrollment_rate": 99.4,
       "enrollment_history": [
         {
           "year": 106,
@@ -74,24 +74,25 @@
           "registered": 117
         }
       ],
-      "dropout_count": 71,
-      "dropout_rate": 8.92,
-      "suspension_count": 60,
-      "suspension_rate": 7.54,
+      "dropout_count": 20,
+      "dropout_rate": 2.82,
+      "suspension_count": 20,
+      "suspension_rate": 2.82,
       "faculty_count": 21,
-      "faculty_ratio": 37.9,
+      "faculty_ratio": 33.7,
       "foreign_count": 9,
-      "foreign_ratio": 1.13,
-      "graduates_count": 0
+      "foreign_ratio": 1.27,
+      "graduates_count": 0,
+      "scope_note": "純日間部（四技＋二技＋五專）；已排除進修部夜間數據；進修四技因在職工作因素退學人數較高（60人），另列於戰情室學制診斷表。"
     },
     "kpis": {
       "K01": {
         "id": "K01",
         "name": "日間部新生註冊率",
-        "value": 99.53,
+        "value": 99.4,
         "unit": "%",
         "source_id": "UDB 學12-1",
-        "field": "當學年度新生註冊率(%)"
+        "field": "純日間部實際註冊人數(167人) / 核定名額(168人)"
       },
       "K02": {
         "id": "K02",
@@ -103,43 +104,43 @@
       },
       "K03": {
         "id": "K03",
-        "name": "學年度退學率",
-        "value": 8.92,
+        "name": "學年度退學率 (純日間部)",
+        "value": 2.82,
         "unit": "%",
         "source_id": "UDB 學14-1 / 學1-1",
-        "field": "學期間退學人數 / 在學學生數小計"
+        "field": "純日間部退學人數(20人) / 日間部在學學生數(708人)"
       },
       "K04": {
         "id": "K04",
-        "name": "學年度休學率",
-        "value": 7.54,
+        "name": "學年度休學率 (純日間部)",
+        "value": 2.82,
         "unit": "%",
         "source_id": "UDB 學13-1 / 學1-1",
-        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+        "field": "純日間部休學人數(20人) / 日間部在學學生數(708人)"
       },
       "K05": {
         "id": "K05",
-        "name": "學生淨流失率",
-        "value": 16.46,
+        "name": "學生淨流失率 (純日間部)",
+        "value": 5.64,
         "unit": "%",
         "source_id": "UDB 學13-1, 學14-1",
-        "field": "K03 + K04"
+        "field": "K03 (2.82%) + K04 (2.82%)"
       },
       "K06": {
         "id": "K06",
-        "name": "專任教師生師比",
-        "value": 37.9,
+        "name": "專任教師生師比 (純日間部)",
+        "value": 33.7,
         "unit": "生/師",
         "source_id": "UDB 學1-1, 教1-1",
-        "field": "在學學生數小計 / 專任教師數總計"
+        "field": "純日間部在學學生數(708人) / 專任教師數總計(21人)"
       },
       "K07": {
         "id": "K07",
         "name": "境外生在學比率",
-        "value": 1.13,
+        "value": 1.27,
         "unit": "%",
         "source_id": "UDB 學3-2",
-        "field": "外國學生數之在學比率(%)"
+        "field": "外國學生在學數(9人) / 純日間在學學生數(708人)"
       },
       "K08": {
         "id": "K08",
@@ -160,10 +161,10 @@
       "K23": {
         "id": "K23",
         "name": "同儕退學率中位數差",
-        "value": 4.88,
+        "value": -1.22,
         "unit": "pp",
         "source_id": "UDB 學14-1 跨校對比",
-        "field": "本系K03 - 同儕中位數"
+        "field": "本系日間退學率(2.82%) - 國立同儕日間中位數(4.04%)"
       },
       "K19": {
         "id": "K19",
@@ -231,8 +232,8 @@
       }
     },
     "k24": {
-      "score": 77.9,
-      "grade": "B 觀察",
+      "score": 81.6,
+      "grade": "A 穩健",
       "weights": {
         "K01": 0.3,
         "K05": 0.25,
@@ -241,18 +242,18 @@
         "K06": 0.1
       },
       "subscores": {
-        "K01": 99.5,
-        "K05": 83.5,
+        "K01": 99.4,
+        "K05": 94.4,
         "K10": 47.6,
         "K19": 80.5,
-        "K06": 55.2
+        "K06": 65.8
       },
       "contributions": {
-        "K01": 29.86,
-        "K05": 20.88,
+        "K01": 29.82,
+        "K05": 23.59,
         "K10": 9.53,
         "K19": 12.07,
-        "K06": 5.53
+        "K06": 6.58
       },
       "missing": [],
       "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"

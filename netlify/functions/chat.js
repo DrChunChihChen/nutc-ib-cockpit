@@ -327,7 +327,8 @@ function buildOverview(d) {
     .map(k => [k, kp[k].name, kp[k].value, kp[k].unit, kp[k].source_id]);
   const peers = d.peers || [];
 
-  let text = `${meta.dept_name}（${meta.latest_year || 113} 學年）：註冊率 ${kv(kp, "K01")}%、淨流失率 ${kv(kp, "K05")}%、生師比 ${kv(kp, "K06")}；K24 ${d.k24?.score}（${d.k24?.grade}）。`;
+  const note = "已排除進修部夜間數據；進修四技因在職工作因素退學人數較高（60人），另列於戰情室學制診斷表。";
+  let text = `${meta.dept_name}純日間部（${meta.latest_year || 114} 學年）：註冊率 ${kv(kp, "K01")}%、淨流失率 ${kv(kp, "K05")}%、生師比 ${kv(kp, "K06")}；K24 ${d.k24?.score}（${d.k24?.grade}）。\n（指標說明：${note}）`;
   if (al.length > 0) {
     text += ` 預警 ${al.length} 則：` + al.map(a => a.title).join("；");
   } else {
@@ -351,13 +352,14 @@ function buildOverview(d) {
 
   return {
     sections: ["kpis", "k24", "alerts", "peers", "profile"],
-    source: "dept_data.json（UDB 學1-1/學3-2/學12-1/學13-1/學14-1/教1-1；data.gov.tw 9622）",
+    source: "dept_data.json（UDB 學1-1/學3-2/學12-1/學13-1/學14-1/教1-1；data.gov.tw 9622；純日間部口徑）",
     fallback_text: text,
     chart,
     table: {
-      title: "核心指標",
+      title: "核心指標（純日間部：四技＋二技＋五專）",
       headers: ["代碼", "指標", "值", "單位", "來源"],
-      rows
+      rows,
+      note
     }
   };
 }

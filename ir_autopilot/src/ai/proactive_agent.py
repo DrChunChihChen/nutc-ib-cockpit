@@ -380,8 +380,10 @@ class ProactiveAgent:
         order = ["K01", "K02", "K03", "K04", "K05", "K06", "K07", "K09", "K10", "K19", "K23"]
         rows = [[k, kp[k].get("name"), kp[k].get("value"), kp[k].get("unit"), kp[k].get("source_id")] for k in order if k in kp]
         peers = d.get("peers", [])
-        text = (f"{meta['dept_name']}（{meta.get('latest_year')} 學年）：註冊率 {self._kv(kp,'K01')}%、淨流失率 {self._kv(kp,'K05')}%、"
-                f"生師比 {self._kv(kp,'K06')}；K24 {d['k24']['score']}（{d['k24']['grade']}）。"
+        note = "已排除進修部夜間數據；進修四技因在職工作因素退學人數較高（60人），另列於戰情室學制診斷表。"
+        text = (f"{meta['dept_name']}純日間部（{meta.get('latest_year')} 學年）：註冊率 {self._kv(kp,'K01')}%、淨流失率 {self._kv(kp,'K05')}%、"
+                f"生師比 {self._kv(kp,'K06')}；K24 {d['k24']['score']}（{d['k24']['grade']}）。\n"
+                f"（指標說明：{note}）"
                 + (f" 預警 {len(al)} 則：" + "；".join(a.get('title','') for a in al) if al else " 目前無預警。"))
         chart = None
         if peers:
@@ -391,10 +393,10 @@ class ProactiveAgent:
                                    "backgroundColor": "#059669", "borderRadius": 6}]}
         return {
             "sections": ["kpis", "k24", "alerts", "peers", "profile"],
-            "source": "dept_data.json（UDB 學1-1/學3-2/學12-1/學13-1/學14-1/教1-1；data.gov.tw 9622）",
+            "source": "dept_data.json（UDB 學1-1/學3-2/學12-1/學13-1/學14-1/教1-1；data.gov.tw 9622；純日間部口徑）",
             "fallback_text": text,
             "chart": chart,
-            "table": {"title": "核心指標", "headers": ["代碼", "指標", "值", "單位", "來源"], "rows": rows},
+            "table": {"title": "核心指標（純日間部：四技＋二技＋五專）", "headers": ["代碼", "指標", "值", "單位", "來源"], "rows": rows, "note": note},
         }
 
     @staticmethod

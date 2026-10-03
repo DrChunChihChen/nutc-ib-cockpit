@@ -9,7 +9,10 @@ function cleanText(text) {
 }
 function collectNumbers(obj, out) {
   if (obj == null || typeof obj === "boolean") return;
-  if (typeof obj === "number" && Number.isFinite(obj)) out.add(obj);
+  if (typeof obj === "number" && Number.isFinite(obj)) {
+    out.add(obj);
+    out.add(Math.abs(obj));
+  }
   else if (typeof obj === "string") {
     for (const m of cleanText(obj).matchAll(numericPattern()))
       out.add(Number(m[1].replaceAll(",", "")));

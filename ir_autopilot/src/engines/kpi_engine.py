@@ -17,7 +17,7 @@ class KPIEngine:
         kpis: Dict[str, Dict[str, Any]] = {}
 
         # K01: 新生註冊率
-        k01_val = profile.get("enrollment_rate", 99.53)
+        k01_val = profile.get("enrollment_rate", 99.40)
         kpis["K01"] = {
             "id": "K01",
             "name": "日間部新生註冊率",
@@ -47,32 +47,32 @@ class KPIEngine:
         }
 
         # K03: 學年度退學率
-        k03_val = profile.get("dropout_rate", 8.92)
+        k03_val = profile.get("dropout_rate", 2.82)
         kpis["K03"] = {
             "id": "K03",
-            "name": "學年度退學率",
+            "name": "學年度退學率 (純日間部)",
             "value": round(float(k03_val), 2),
             "unit": "%",
             "source_id": "UDB 學14-1 / 學1-1",
-            "field": "學期間退學人數 / 在學學生數小計"
+            "field": "純日間部退學人數 / 日間在學學生數"
         }
 
         # K04: 學年度休學率
-        k04_val = profile.get("suspension_rate", 7.54)
+        k04_val = profile.get("suspension_rate", 2.82)
         kpis["K04"] = {
             "id": "K04",
-            "name": "學年度休學率",
+            "name": "學年度休學率 (純日間部)",
             "value": round(float(k04_val), 2),
             "unit": "%",
             "source_id": "UDB 學13-1 / 學1-1",
-            "field": "學年底處於休學狀態人數 / 在學學生數小計"
+            "field": "純日間部休學人數 / 日間在學學生數"
         }
 
         # K05: 學生淨流失率
         k05_val = round(k03_val + k04_val, 2)
         kpis["K05"] = {
             "id": "K05",
-            "name": "學生淨流失率",
+            "name": "學生淨流失率 (純日間部)",
             "value": k05_val,
             "unit": "%",
             "source_id": "UDB 學13-1, 學14-1",
@@ -80,18 +80,18 @@ class KPIEngine:
         }
 
         # K06: 專任教師生師比
-        k06_val = profile.get("faculty_ratio", 37.9)
+        k06_val = profile.get("faculty_ratio", 33.7)
         kpis["K06"] = {
             "id": "K06",
-            "name": "專任教師生師比",
+            "name": "專任教師生師比 (純日間部)",
             "value": round(float(k06_val), 1),
             "unit": "生/師",
             "source_id": "UDB 學1-1, 教1-1",
-            "field": "在學學生數小計 / 專任教師數總計"
+            "field": "純日間部在學學生數 / 專任教師數總計"
         }
 
         # K07: 境外生在學比率
-        k07_val = profile.get("foreign_ratio", 1.13)
+        k07_val = profile.get("foreign_ratio", 1.27)
         kpis["K07"] = {
             "id": "K07",
             "name": "境外生在學比率",

@@ -22,6 +22,7 @@ def _collect_numbers(obj: Any, out: set) -> None:
     if isinstance(obj, (int, float)):
         if math.isfinite(obj):
             out.add(float(obj))
+            out.add(abs(float(obj)))
     elif isinstance(obj, str):
         out.update(float(m.replace(',', '')) for m in _NUM.findall(_text(obj)))
     elif isinstance(obj, dict):
