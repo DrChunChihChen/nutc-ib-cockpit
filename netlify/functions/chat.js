@@ -92,6 +92,247 @@ const REFUSAL_RESPONSE = `本助理為國立臺中科技大學「校務研究（
 
 請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。`;
 
+const PEER_SCHOOL_ALIASES = {
+  "高科": "國立高雄科技大學",
+  "高科大": "國立高雄科技大學",
+  "高雄科大": "國立高雄科技大學",
+  "高雄科技大學": "國立高雄科技大學",
+  "北商": "國立臺北商業大學",
+  "北商大": "國立臺北商業大學",
+  "台北商大": "國立臺北商業大學",
+  "臺北商業大學": "國立臺北商業大學",
+  "台北商業大學": "國立臺北商業大學",
+  "逢甲": "逢甲大學",
+  "逢甲大學": "逢甲大學",
+  "勤益": "國立勤益科技大學",
+  "勤益科大": "國立勤益科技大學",
+  "勤益科技大學": "國立勤益科技大學",
+  "雲科": "國立雲林科技大學",
+  "雲科大": "國立雲林科技大學",
+  "雲林科技大學": "國立雲林科技大學",
+  "東海": "東海大學",
+  "東海大學": "東海大學"
+};
+
+const CANONICAL_TO_SHORT = {
+  "國立高雄科技大學": "高科",
+  "國立臺北商業大學": "北商",
+  "逢甲大學": "逢甲",
+  "國立勤益科技大學": "勤益",
+  "國立雲林科技大學": "雲科",
+  "東海大學": "東海"
+};
+
+function detectPeerSchool(text) {
+  if (!text) return null;
+  for (const [alias, canonical] of Object.entries(PEER_SCHOOL_ALIASES).sort((a,b) => b[0].length - a[0].length)) {
+    if (text.includes(alias)) return canonical;
+  }
+  return null;
+}
+
+function hasExplicitDept(text) {
+  if (!text) return false;
+  const deptKeywords = [
+    "國貿", "國際貿易", "國企", "國際企業", "國際商務",
+    "企管", "企業管理", "工管",
+    "會資", "會計", "會計資訊",
+    "財金", "財務金融", "金融",
+    "保金", "保險", "風險管理", "風保",
+    "應統", "統計", "資管", "資訊管理",
+    "財稅", "財政"
+  ];
+  return deptKeywords.some(k => text.includes(k));
+}
+
+function buildSchoolDossier(schoolCanonical, dossiers) {
+  const depts = [];
+  let totalPoached = 0;
+  const enrollments = [];
+  const cleanCanonical = schoolCanonical.replace(/^國立/, "");
+
+  for (const [slug, d] of Object.entries(dossiers)) {
+    const ourName = d.meta?.dept_name || slug;
+    const m5 = d.module5 || {};
+    let poached = 0;
+    for (const dest of (m5.top_destinations || [])) {
+      if (dest.school && (dest.school.includes(schoolCanonical) || dest.school.includes(cleanCanonical))) {
+        poached += (dest.count || 0);
+      }
+    }
+    totalPoached += poached;
+
+    for (const p of (d.peers || [])) {
+      if (p.school && (p.school.includes(schoolCanonical) || p.school.includes(cleanCanonical))) {
+        if (p.enrollment_rate !== undefined && p.enrollment_rate !== null) {
+          enrollments.push(p.enrollment_rate);
+        }
+        depts.push({
+          our_dept: ourName,
+          slug,
+          peer_school: p.school,
+          peer_dept: p.dept,
+          enrollment_rate: p.enrollment_rate,
+          dropout_rate: p.dropout_rate,
+          faculty_ratio: p.faculty_ratio,
+          students_total: p.students_total,
+          foreign_ratio: p.foreign_ratio,
+          poached_from_our_dept: poached
+        });
+      }
+    }
+  }
+
+  const avgEnrollment = enrollments.length > 0
+    ? Number((enrollments.reduce((a, b) => a + b, 0) / enrollments.length).toFixed(2))
+    : null;
+
+  return {
+    target_school: schoolCanonical,
+    summary: {
+      total_depts_matched: depts.length,
+      avg_enrollment_rate: avgEnrollment,
+      total_poached_across_college: totalPoached
+    },
+    departments: depts
+  };
+}
+
+function buildSchoolSummaryTable(schoolCanonical, dossiers) {
+  const dossier = buildSchoolDossier(schoolCanonical, dossiers);
+  const rows = [];
+  for (const d of dossier.departments) {
+    rows.push([
+      d.our_dept,
+      d.peer_dept,
+      d.enrollment_rate !== null && d.enrollment_rate !== undefined ? `${d.enrollment_rate}%` : "—",
+      d.dropout_rate !== null && d.dropout_rate !== undefined ? `${d.dropout_rate}%` : "—",
+      d.faculty_ratio !== null && d.faculty_ratio !== undefined ? `${d.faculty_ratio}` : "—",
+      d.students_total !== null && d.students_total !== undefined ? `${d.students_total.toLocaleString()} 人` : "—",
+      d.poached_from_our_dept > 0 ? `${d.poached_from_our_dept} 人` : "0 人"
+    ]);
+  }
+  return {
+    title: `${schoolCanonical} 對接本院各系所指標清冊（114學年度）`,
+    headers: ["本院系所", "該校對應系所", "新生註冊率", "學年退學率", "生師比", "在學人數", "查榜外流人數"],
+    rows
+  };
+}
+
+function buildSchoolSummaryText(schoolCanonical, schoolDossier) {
+  const s = schoolDossier.summary;
+  const depts = schoolDossier.departments;
+  const deptList = depts.map(d => `${d.our_dept}對接${d.peer_dept}`).join("、");
+  const enrollments = depts.map(d => d.enrollment_rate).filter(v => v !== null && v !== undefined);
+  const minRate = enrollments.length ? Math.min(...enrollments) : 0;
+  const maxRate = enrollments.length ? Math.max(...enrollments) : 0;
+  const shortSchool = CANONICAL_TO_SHORT[schoolCanonical] || schoolCanonical.replace(/^國立/, "").replace(/科技大學$|大學$/, "");
+
+  let text = `就商學院整體而言，${schoolCanonical} 在本院實證數據庫中共收錄 ${s.total_depts_matched} 個對接系所（${deptList}）。\n\n`;
+  text += `• **招生註冊表現**：該校對接系所 114 學年度平均新生註冊率為 **${s.avg_enrollment_rate}%**（各系所註冊率介於 ${minRate}% 至 ${maxRate}% 之間，來源：UDB 學12-1）。\n`;
+  text += `• **生源競合流向**：交叉查榜實證顯示，本院各系所考生累計向 ${schoolCanonical} 外流共 **${s.total_poached_across_college} 人**${s.total_poached_across_college >= 100 ? "，為本院最主要之關鍵競爭同儕" : ""}（來源：大專聯招交叉查榜）。\n\n`;
+  text += `各系所指標整合如下方清冊。\n\n`;
+
+  const exampleDepts = depts.slice(0, 3).map(d => `${shortSchool}${d.peer_dept.replace(/學系$|系$/, "")}`).join("、");
+  text += `💡 **請問您詢問的是上述哪一個特定系所（例如：${exampleDepts}）？還是系統中${schoolCanonical}所有的系所？**\n\n`;
+  text += `• 若需特定系所深入診斷：請直接點名系所（如「${shortSchool}${depts[0]?.peer_dept.replace(/學系$|系$/, "") || ""}最近如何」），助理將為您進行單一系所深度對比。\n`;
+  text += `• 若檢視全院大局：請點擊下方按鈕開啟商學院全院健康熱力總覽。\n\n`;
+  text += `資料時點：114 學年度；來源：UDB 學12-1/學13-1/教1-1/學1-1、大專聯招交叉查榜。`;
+  return text;
+}
+
+function buildDeptPeerComparisonTable(slug, peerSchoolCanonical, dossiers) {
+  const d = dossiers[slug];
+  if (!d) return null;
+  const meta = d.meta || {};
+  const kpis = d.kpis || {};
+  const m5 = d.module5 || {};
+  const clean = peerSchoolCanonical.replace(/^國立/, "");
+
+  const matchingPeer = (d.peers || []).find(p => p.school && (p.school.includes(peerSchoolCanonical) || p.school.includes(clean)));
+  if (!matchingPeer) return null;
+
+  let poached = 0;
+  for (const dest of (m5.top_destinations || [])) {
+    if (dest.school && (dest.school.includes(peerSchoolCanonical) || dest.school.includes(clean))) {
+      poached += (dest.count || 0);
+    }
+  }
+
+  const ourEnroll = kpis.K01?.value;
+  const ourDrop = kpis.K02?.value;
+  const ourRatio = kpis.K06?.value;
+  const ourStudents = d.profile?.students_total || kpis.K04?.value || "—";
+  const ourRetained = m5.retained !== undefined ? `${m5.retained} 人` : "—";
+
+  const rows = [];
+  if (ourEnroll !== undefined && matchingPeer.enrollment_rate !== undefined) {
+    const diff = Number((ourEnroll - matchingPeer.enrollment_rate).toFixed(2));
+    const comp = diff > 0 ? `本系領先 +${diff}%` : diff < 0 ? `該校領先 +${Math.abs(diff)}%` : "持平 (0%)";
+    rows.push(["新生註冊率", `${ourEnroll}%`, `${matchingPeer.enrollment_rate}%`, comp, "UDB 學12-1"]);
+  }
+  if (ourDrop !== undefined && matchingPeer.dropout_rate !== undefined) {
+    const diff = Number((ourDrop - matchingPeer.dropout_rate).toFixed(2));
+    const comp = diff < 0 ? `本系較優 (低 ${Math.abs(diff)}%)` : diff > 0 ? `該校較優 (低 ${diff}%)` : "持平 (0%)";
+    rows.push(["學年度退學率", `${ourDrop}%`, `${matchingPeer.dropout_rate}%`, comp, "UDB 學13-1"]);
+  }
+  if (ourRatio !== undefined && matchingPeer.faculty_ratio !== undefined) {
+    const diff = Number((ourRatio - matchingPeer.faculty_ratio).toFixed(2));
+    const comp = diff < 0 ? `本系師資較充裕 (低 ${Math.abs(diff)})` : diff > 0 ? `該校師資較充裕 (低 ${diff})` : "持平";
+    rows.push(["專任生師比", `${ourRatio}`, `${matchingPeer.faculty_ratio}`, comp, "UDB 教1-1"]);
+  }
+  if (matchingPeer.students_total !== undefined) {
+    rows.push(["在學學生數", typeof ourStudents === "number" ? `${ourStudents.toLocaleString()} 人` : String(ourStudents), `${matchingPeer.students_total.toLocaleString()} 人`, "規模對照", "UDB 學1-1"]);
+  }
+  rows.push(["交叉查榜生源", ourRetained !== "—" ? `留任 ${ourRetained}` : "—", poached > 0 ? `吸引本系 ${poached} 人` : "0 人外流", poached > 0 ? `外流去向 (共${poached}人)` : "無考生外流", "交叉查榜"]);
+
+  return {
+    title: `臺中科大${meta.dept_name} vs ${matchingPeer.school}${matchingPeer.dept} 核心實證對比（114學年度）`,
+    headers: ["比較指標", `本校${meta.dept_name}`, `${matchingPeer.school.replace(/^國立/,"")}${matchingPeer.dept}`, "實證對比 / 差距", "資料來源"],
+    rows
+  };
+}
+
+function buildDeptPeerComparisonText(slug, peerSchoolCanonical, dossiers) {
+  const d = dossiers[slug];
+  if (!d) return null;
+  const meta = d.meta || {};
+  const kpis = d.kpis || {};
+  const m5 = d.module5 || {};
+  const clean = peerSchoolCanonical.replace(/^國立/, "");
+
+  const matchingPeer = (d.peers || []).find(p => p.school && (p.school.includes(peerSchoolCanonical) || p.school.includes(clean)));
+  if (!matchingPeer) return null;
+
+  let poached = 0;
+  for (const dest of (m5.top_destinations || [])) {
+    if (dest.school && (dest.school.includes(peerSchoolCanonical) || dest.school.includes(clean))) {
+      poached += (dest.count || 0);
+    }
+  }
+
+  const ourEnroll = kpis.K01?.value;
+  const peerEnroll = matchingPeer.enrollment_rate;
+  let text = `114 學年度實證數據中，臺中科大${meta.dept_name}新生註冊率為 **${ourEnroll}%**`;
+  if (peerEnroll !== undefined && peerEnroll !== null) {
+    if (ourEnroll > peerEnroll) {
+      text += `，領先${matchingPeer.school}${matchingPeer.dept}（**${peerEnroll}%**）達 ${(ourEnroll - peerEnroll).toFixed(2)} 個百分點（UDB 學12-1）。\n\n`;
+    } else if (ourEnroll < peerEnroll) {
+      text += `，${matchingPeer.school}${matchingPeer.dept}為 **${peerEnroll}%**，領先本系 ${(peerEnroll - ourEnroll).toFixed(2)} 個百分點（UDB 學12-1）。\n\n`;
+    } else {
+      text += `，與${matchingPeer.school}${matchingPeer.dept}同為 **${peerEnroll}%**，雙方皆達滿招（UDB 學12-1）。\n\n`;
+    }
+  } else {
+    text += `。\n\n`;
+  }
+
+  text += `• **教學規模與品質**：該校該系在學人數為 ${matchingPeer.students_total ? matchingPeer.students_total.toLocaleString() : "—"} 人，學年度退學率為 ${matchingPeer.dropout_rate}%（UDB 學13-1），專任生師比為 ${matchingPeer.faculty_ratio}（UDB 教1-1）。\n`;
+  text += `• **交叉查榜競合**：在聯招分發中，本系累計有 **${poached} 名考生**選擇就讀${matchingPeer.school}${matchingPeer.dept}${poached > 20 ? "，為本系主要外流去向之一" : ""}（大專聯招交叉查榜）。\n\n`;
+  text += `兩系核心指標深度對照請參閱下方清冊。\n\n`;
+  text += `資料時點：114 學年度；來源：UDB 學12-1/學13-1/教1-1/學1-1、交叉查榜。`;
+  return text;
+}
+
 function route(msg) {
   for (const [intent, kws] of INTENT_RULES) {
     if (kws.some(k => msg.includes(k))) return intent;
@@ -496,7 +737,7 @@ export default async (req, context) => {
     if (!image) {
       if (isFastOutOfScope(userMsg)) {
         intent = "out_of_scope";
-      } else if (intent === "general" && apiKey && !apiKey.includes("your_openrouter_api_key_here")) {
+      } else if (intent === "general" && !detectPeerSchool(userMsg) && !hasExplicitDept(userMsg) && apiKey && !apiKey.includes("your_openrouter_api_key_here")) {
         // 2. 透過 JEV 決策模型進行進階分類
         const jevChoice = await classifyWithJev(userMsg, apiKey);
         if (jevChoice === "out_of_scope") {
@@ -520,6 +761,58 @@ export default async (req, context) => {
         status: 200,
         headers
       });
+    }
+
+    // 3. 處理同儕學校諮詢 (全校性 or 特定系所對比)
+    const peerSchoolCanonical = !image ? detectPeerSchool(userMsg) : null;
+    const hasDept = hasExplicitDept(userMsg);
+
+    if (peerSchoolCanonical && !hasDept) {
+      // 跨系所全校性同儕諮詢（如「高科最近如何」、「北商最近如何」）
+      const schoolDossier = buildSchoolDossier(peerSchoolCanonical, DOSSIERS);
+      const schoolTable = buildSchoolSummaryTable(peerSchoolCanonical, DOSSIERS);
+      const schoolText = buildSchoolSummaryText(peerSchoolCanonical, schoolDossier);
+
+      return new Response(JSON.stringify({
+        intent: "school_intelligence",
+        dept: { slug: "all", name: "商學院全院", school: "國立臺中科技大學" },
+        response: schoolText,
+        model: "rule-based-ir-engine",
+        reasoning: `檢測到對同儕學校「${peerSchoolCanonical}」之全校性跨系所諮詢。系統自動跨商學院 7 個系所數據庫整合對接指標清冊、計算全院平均註冊率（${schoolDossier.summary.avg_enrollment_rate}%）與總外流生源（${schoolDossier.summary.total_poached_across_college} 人），並主動提示使用者指定特定系所進行進一步深度診斷。`,
+        grounding: { ok: true, checked: schoolDossier.departments.length, ungrounded: [] },
+        source: "教育部大專校院校務資訊公開平台（UDB 學12-1/學13-1/教1-1/學1-1）＋ 各系所交叉查榜實證數據庫",
+        drilldown_link: "heatmap.html",
+        table: schoolTable,
+        chart: null,
+        data_time: "114 學年度"
+      }), {
+        status: 200,
+        headers
+      });
+    }
+
+    if (peerSchoolCanonical && hasDept) {
+      // 特定系所對比（如「高科企管最近如何」）
+      const peerTable = buildDeptPeerComparisonTable(slug, peerSchoolCanonical, DOSSIERS);
+      const peerText = buildDeptPeerComparisonText(slug, peerSchoolCanonical, DOSSIERS);
+      if (peerTable && peerText) {
+        return new Response(JSON.stringify({
+          intent: "peer_comparison",
+          dept: { slug, name: meta.dept_name, school: meta.school_name },
+          response: peerText,
+          model: "rule-based-ir-engine",
+          reasoning: `檢測到針對特定系所「${meta.dept_name}」對比同儕學校「${peerSchoolCanonical}」之實證諮詢。系統精確萃取兩系 114 學年度各項核定指標與交叉查榜生源流向進行對照。`,
+          grounding: { ok: true, checked: peerTable.rows.length, ungrounded: [] },
+          source: "教育部大專校院校務資訊公開平台（UDB 學12-1/學13-1/教1-1/學1-1）＋ 各系所交叉查榜實證數據庫",
+          drilldown_link: `${slug}/index.html`,
+          table: peerTable,
+          chart: null,
+          data_time: "114 學年度"
+        }), {
+          status: 200,
+          headers
+        });
+      }
     }
 
     const builder = BUILDERS[intent] || BUILDERS.general;

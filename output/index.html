@@ -1012,6 +1012,11 @@
                 if (drillBox && drillLink) {
                     drillBox.classList.remove('hidden');
                     drillLink.href = data.drilldown_link;
+                    if (data.drilldown_link.includes('heatmap.html')) {
+                        drillLink.innerHTML = '<span>👉 於新視窗開啟商學院全院健康熱力總覽</span><span>&rarr;</span>';
+                    } else {
+                        drillLink.innerHTML = '<span>👉 於新視窗開啟該系 25MB+ 巨量實證戰情室</span><span>&rarr;</span>';
+                    }
                 }
             }
         }
