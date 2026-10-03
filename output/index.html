@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Hello IR 商學院 | 國立臺中科技大學 校務決策網絡</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2canvas CDN (支援全域戰情室畫面一鍵截圖提問) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Noto Sans TC', 'sans-serif'],
+                        'hero-serif': ['"Times New Roman"', 'Times', '"Noto Serif TC"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* 移動端優化：點擊無延遲 */
+        .touch-manipulation {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body class="bg-[#fafaf9] text-stone-900 font-sans antialiased min-h-screen flex flex-col selection:bg-stone-800 selection:text-white">
+
+    <!-- Top Global Navigation Bar (Mobile Responsive & Touch Scroll) -->
+    <header class="bg-[#1c1917] text-[#d6d3d1] text-[11px] px-3 sm:px-4 py-2 border-b border-[#292524] sticky top-0 z-[9999]">
+        <div class="max-w-[1350px] mx-auto flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="font-bold text-white tracking-wide">國立臺中科技大學 <span class="hidden sm:inline">商學院校務決策網絡</span></span>
+                <span class="sm:hidden px-1.5 py-0.5 rounded bg-stone-800 text-[10px] text-emerald-400 font-mono">隨身顧問</span>
+            </div>
+            <nav class="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar whitespace-nowrap text-stone-300 py-0.5">
+                <span class="px-2 py-0.5 rounded bg-emerald-800 text-white font-bold flex-shrink-0">Hello IR 總門戶</span>
+                <span class="text-stone-700">|</span>
+                <a href="ib/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">國貿系</a>
+                <span class="text-stone-700">|</span>
+                <a href="ba/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">企管系</a>
+                <span class="text-stone-700">|</span>
+                <a href="accounting/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">會資系</a>
+                <span class="text-stone-700">|</span>
+                <a href="finance/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">財金系</a>
+                <span class="text-stone-700">|</span>
+                <a href="insurance/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">保金系</a>
+                <span class="text-stone-700">|</span>
+                <a href="stat/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">應統系</a>
+                <span class="text-stone-700">|</span>
+                <a href="tax/index.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex-shrink-0">財稅系</a>
+                <span class="text-stone-700">|</span>
+                <a href="heatmap.html" target="_blank" rel="noopener noreferrer" class="px-2 py-0.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-bold flex-shrink-0 transition-colors">📊 全院熱力</a>
+                <span class="text-stone-700">|</span>
+                <a href="sources.html" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors text-stone-400 flex-shrink-0">📜 數據源</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container (主視窗：權威、典雅、行動隨行與桌機全域支援) -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-3 sm:px-6 pt-8 sm:pt-20 pb-20 sm:pb-24">
+
+        <!-- Hero Section (America.gov Clean Authority Style) -->
+        <section class="text-center max-w-3xl mx-auto px-1">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-hero-serif font-normal text-stone-900 tracking-tight leading-tight">
+                Hello, IR 商學院
+            </h1>
+            <p class="mt-3 sm:mt-5 text-base sm:text-2xl text-stone-600 font-normal leading-relaxed">
+                Whatever you need from academic intelligence, start here.
+            </p>
+            <p class="mt-1.5 sm:mt-2 text-xs sm:text-base text-stone-500 font-normal">
+                商學院 7 大系所招生生源對決、少子化 16 年推估、在地產學廠商合作網絡，在此開口即查。
+            </p>
+
+            <!-- 隱藏的手機拍照/相簿選取 input -->
+            <input type="file" id="mobilePhotoInput" accept="image/*" class="hidden" onchange="handleMobilePhotoSelected(event)">
+
+            <!-- 語音辨識狀態提示列 -->
+            <div id="heroVoiceStatus" class="hidden mt-3 sm:mt-4 text-xs font-semibold py-1.5 px-4 rounded-full max-w-md mx-auto bg-rose-50 text-rose-700 border border-rose-200 flex items-center justify-center gap-2 shadow-xs">
+                <span class="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+                <span>正在聆聽中... 請對麥克風說話（辨識後自動填入）</span>
+            </div>
+
+            <!-- 截圖/照片預覽標籤 (Screenshot Badge) -->
+            <div id="heroScreenshotBadge" class="hidden mt-3 sm:mt-4 flex justify-center"></div>
+
+            <!-- Conversational Search Capsule (主視窗對話輸入膠囊) -->
+            <div class="mt-5 sm:mt-6 relative max-w-2xl mx-auto">
+                <form id="heroSearchForm" onsubmit="event.preventDefault(); submitMainQuery();" class="relative flex items-center bg-white rounded-full border border-stone-300 shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:border-stone-400 focus-within:border-stone-900 focus-within:ring-4 focus-within:ring-stone-900/10 transition-all duration-200 px-2.5 sm:px-4 py-1.5 sm:py-2.5">
+                    
+                    <!-- Search Icon (Left) -->
+                    <div class="text-stone-400 pl-1.5 sm:pl-2 pr-1.5 sm:pr-2 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+
+                    <!-- Input Box -->
+                    <input 
+                        id="heroPromptInput" 
+                        type="text" 
+                        placeholder="請輸入問題（例如：國貿系最大競爭對手？、K24 怎麼算？）" 
+                        class="w-full text-sm sm:text-lg text-stone-900 bg-transparent placeholder-stone-400 focus:outline-none pr-1.5 sm:pr-2"
+                        autocomplete="off"
+                    />
+
+                    <!-- 📸 截圖/照片分析按鈕 (手機/桌機自適應) -->
+                    <button 
+                        type="button" 
+                        onclick="handleCameraTrigger()" 
+                        title="截取或拍照上傳戰情圖表畫面提問" 
+                        class="p-2 text-stone-400 hover:text-emerald-700 active:text-emerald-900 transition-colors flex items-center justify-center rounded-full hover:bg-stone-100 active:scale-95 flex-shrink-0 touch-manipulation">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- 🎙️ 麥克風語音輸入按鈕 (真實 Web Speech API 功能) -->
+                    <button 
+                        type="button" 
+                        id="heroMicBtn" 
+                        onclick="toggleVoiceRecording()" 
+                        title="點擊開始語音辨識提問" 
+                        class="p-2 text-stone-400 hover:text-stone-800 active:text-rose-600 transition-colors flex items-center justify-center rounded-full hover:bg-stone-100 active:scale-95 flex-shrink-0 mr-1 touch-manipulation">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Submit Circular Button (Right) -->
+                    <button 
+                        type="submit" 
+                        title="送出諮詢"
+                        class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-stone-900 text-white flex items-center justify-center hover:bg-stone-800 active:scale-90 transition-all shadow-sm flex-shrink-0 touch-manipulation">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Quick Suggestion Prompt Chips (手機橫向滑動、電腦置中換行) -->
+            <div class="mt-4 sm:mt-5 flex overflow-x-auto sm:flex-wrap items-center justify-start sm:justify-center gap-2 max-w-2xl mx-auto px-1 py-1 no-scrollbar">
+                <button onclick="askFromChip('113-115國貿系最大的競爭對手？')" class="flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-stone-700 border border-stone-200 hover:border-stone-400 active:bg-stone-100 transition-all shadow-xs active:scale-95 touch-manipulation">
+                    🥊 113-115國貿系最大的競爭對手？
+                </button>
+                <button onclick="askFromChip('綜合風險評級 [K24]. 這你怎麼算？')" class="flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-stone-700 border border-stone-200 hover:border-stone-400 active:bg-stone-100 transition-all shadow-xs active:scale-95 touch-manipulation">
+                    🧮 綜合風險評級 [K24]. 這你怎麼算？
+                </button>
+                <button onclick="askFromChip('國貿系可以和那些廠商合作？')" class="flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-stone-700 border border-stone-200 hover:border-stone-400 active:bg-stone-100 transition-all shadow-xs active:scale-95 touch-manipulation">
+                    🏢 國貿系可和哪些廠商合作？
+                </button>
+                <button onclick="askFromChip('117 虎年海嘯各系生源衝擊長條圖？')" class="flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-stone-700 border border-stone-200 hover:border-stone-400 active:bg-stone-100 transition-all shadow-xs active:scale-95 touch-manipulation">
+                    ⚠️ 117 虎年海嘯各系生源衝擊長條圖
+                </button>
+                <button onclick="askFromChip('全院 7 大系所健康診斷熱力總覽')" class="flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-stone-700 border border-stone-200 hover:border-stone-400 active:bg-stone-100 transition-all shadow-xs active:scale-95 touch-manipulation">
+                    📊 全院 7 大系所健康診斷熱力總覽
+                </button>
+            </div>
+        </section>
+
+        <!-- Conversational Generative Results Feed (直接在主視窗展開完整對話與圖表) -->
+        <section id="resultsSection" class="mt-12 space-y-6 hidden max-w-4xl mx-auto">
+            <!-- Dynamic interaction cards will be prepended here -->
+        </section>
+
+        <!-- Department Quick-Access Grid (All cards open in new tabs) -->
+        <section id="departmentsSection" class="mt-20 border-t border-stone-200 pt-12">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-lg font-bold text-stone-900 tracking-tight">商學院 7 大系所全量實證戰情室 (25MB+ 巨量實證)</h2>
+                    <p class="text-xs text-stone-500 mt-0.5">點擊任何卡片皆於新視窗開啟，查閱各系專屬微觀查榜矩陣與深層指標庫</p>
+                </div>
+                <a href="heatmap.html" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-emerald-800 hover:text-emerald-950 flex items-center gap-1">
+                    新視窗開啟全院熱力總覽 &rarr;
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                
+                <!-- 國貿系 -->
+                <a href="ib/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">ISCED 0414</span>
+                            <span class="text-[11px] text-stone-400 font-mono">1.4 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-emerald-900">國際貿易與經營系</h3>
+                        <p class="text-xs text-stone-500 mt-1">19,231 筆生源對決 · 104 外貿園區 · 報關物流產學</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 99.5%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 企管系 -->
+                <a href="ba/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded">ISCED 0413</span>
+                            <span class="text-[11px] text-stone-400 font-mono">3.2 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-blue-900">企業管理系</h3>
+                        <p class="text-xs text-stone-500 mt-1">勤益/致理交叉榜 · 智慧門市零售 · 精實管理實習</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 98.8%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 會資系 -->
+                <a href="accounting/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-purple-800 bg-purple-50 px-2 py-0.5 rounded">ISCED 0411</span>
+                            <span class="text-[11px] text-stone-400 font-mono">2.1 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-purple-900">會計資訊系</h3>
+                        <p class="text-xs text-stone-500 mt-1">四大事務所全職實習 · 6年分數頂標 · ESG確信</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 99.8%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 財金系 -->
+                <a href="finance/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded">ISCED 0412</span>
+                            <span class="text-[11px] text-stone-400 font-mono">1.7 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-amber-900">財務金融系</h3>
+                        <p class="text-xs text-stone-500 mt-1">台灣大道金融走廊 · 證券期貨量化 · 銀行全薪實習</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 98.5%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 保金系 -->
+                <a href="insurance/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">ISCED 0412</span>
+                            <span class="text-[11px] text-stone-400 font-mono">9.1 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-rose-900">保險金融管理系</h3>
+                        <p class="text-xs text-stone-500 mt-1">核保理賠實習 · 航運貨物保險 · 巨量考題知識庫</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 97.6%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 應統系 -->
+                <a href="stat/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded">ISCED 0542</span>
+                            <span class="text-[11px] text-stone-400 font-mono">4.8 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-cyan-900">應用統計系</h3>
+                        <p class="text-xs text-stone-500 mt-1">商業智慧 (BI) 建模 · 製程品保 SPC · 數據分析師</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 98.1%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 財稅系 -->
+                <a href="tax/index.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-white rounded-2xl border border-stone-200 shadow-sm hover:border-stone-400 hover:shadow-md transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded">ISCED 0411</span>
+                            <span class="text-[11px] text-stone-400 font-mono">3.1 MB</span>
+                        </div>
+                        <h3 class="text-base font-bold text-stone-900 mt-2.5 group-hover:text-indigo-900">財政稅務系</h3>
+                        <p class="text-xs text-stone-500 mt-1">中區國稅局實習 · 記帳士國家考照 · 租稅行政專班</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                        <span class="text-stone-600">註冊率 97.9%</span>
+                        <span class="font-semibold text-stone-900 group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 熱力總覽卡片 -->
+                <a href="heatmap.html" target="_blank" rel="noopener noreferrer" class="p-5 bg-stone-900 text-white rounded-2xl shadow-sm hover:bg-stone-800 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold text-emerald-400 bg-stone-800 px-2 py-0.5 rounded">宏觀校務監控</span>
+                            <span class="text-[11px] text-stone-400 font-mono">7 系綜合</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mt-2.5">全院健康診斷熱力總覽</h3>
+                        <p class="text-xs text-stone-400 mt-1">聚合註冊率、休退學率、專任生師比與 16 年少子化衝擊敏感度</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-stone-800 flex items-center justify-between text-xs text-emerald-400 font-semibold">
+                        <span>新視窗開啟全院矩陣</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 右下角圈選截圖問浮動按鈕 (點擊圈選畫面並填入提問，支援行動端安全邊距) -->
+    <div id="floatingScreenshotBtn" class="fixed z-[99999] bottom-4 sm:bottom-6 right-4 sm:right-6">
+        <button onclick="handleCameraTrigger()" title="截取或拍照上傳戰情圖表畫面提問" class="flex items-center gap-2 px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-full bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white border border-emerald-600 shadow-[0_10px_25px_-3px_rgba(0,0,0,0.3)] transition-all text-xs sm:text-sm font-bold touch-manipulation">
+            <span class="text-sm sm:text-base">📸</span>
+            <span class="inline">圈選截圖問</span>
+        </button>
+    </div>
+
+    <!-- 行動端拍照/相簿與圈選選擇底層抽屜 (Mobile Action Modal) -->
+    <div id="mobileCaptureModal" class="fixed inset-0 bg-stone-950/60 z-[2147483647] flex items-end sm:items-center justify-center p-0 sm:p-4 hidden transition-opacity" onclick="if(event.target === this) closeMobileCaptureSheet()">
+        <div class="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 space-y-4 shadow-2xl animate-in slide-in-from-bottom duration-200" style="padding-bottom: max(20px, env(safe-area-inset-bottom));">
+            <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+                <h3 class="font-bold text-stone-900 text-base flex items-center gap-2">
+                    <span>📸</span> 選擇圖表輸入方式
+                </h3>
+                <button onclick="closeMobileCaptureSheet()" class="text-stone-400 hover:text-stone-700 text-xl font-bold p-1 touch-manipulation">&times;</button>
+            </div>
+            <p class="text-xs text-stone-500 leading-relaxed">可直接分析戰情圖表照片或手機截圖：</p>
+            <div class="grid grid-cols-1 gap-2.5 pt-1">
+                <button onclick="triggerPhotoPick()" class="w-full flex items-center justify-between p-3.5 bg-emerald-50 hover:bg-emerald-100 active:bg-emerald-200 text-emerald-950 rounded-xl border border-emerald-300 text-left transition-all active:scale-[0.99] touch-manipulation">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">📷</span>
+                        <div>
+                            <div class="font-bold text-sm text-emerald-900">拍照或從相簿選取圖表</div>
+                            <div class="text-[11px] text-emerald-700">拍攝投影片、報表紙本或手機相簿截圖</div>
+                        </div>
+                    </div>
+                    <span class="text-emerald-800 font-bold">&rarr;</span>
+                </button>
+                <button onclick="closeMobileCaptureSheet(); captureHeroScreenshot();" class="w-full flex items-center justify-between p-3.5 bg-stone-50 hover:bg-stone-100 active:bg-stone-200 text-stone-800 rounded-xl border border-stone-200 text-left transition-all active:scale-[0.99] touch-manipulation">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">✂️</span>
+                        <div>
+                            <div class="font-bold text-sm text-stone-900">觸控圈選當前螢幕圖表</div>
+                            <div class="text-[11px] text-stone-500">手指在螢幕上拖曳選取要詢問的區塊</div>
+                        </div>
+                    </div>
+                    <span class="text-stone-400 font-bold">&rarr;</span>
+                </button>
+            </div>
+            <button onclick="closeMobileCaptureSheet()" class="w-full py-2.5 text-center text-xs font-semibold text-stone-500 hover:text-stone-800 touch-manipulation">取消</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-stone-200 bg-white py-8 text-center text-xs text-stone-500">
+        <div class="max-w-5xl mx-auto px-4 space-y-2">
+            <p>國立臺中科技大學 商學院 · 校務決策與產學 AI 網絡 (IR Autopilot)</p>
+            <p class="text-stone-400">數據底層綁定教育部大專校院校務資訊公開平台 (UDB) 8 大官方報表 · 經濟部商工行政資料開放平台 (GCIS) · 104 經貿人才庫</p>
+        </div>
+    </footer>
+
+    <!-- 主視窗對話引擎 (真實語音輸入、真實畫面截圖與即時渲染) -->
+    <script>
+        let chartInstances = {};
+        let currentScreenshot = null;
+        let speechRecognition = null;
+        let isListening = false;
+
+        // ==========================================
+        // 1. 真實 Web Speech API 語音辨識引擎
+        // ==========================================
+        function initSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return null;
+
+            const recognizer = new SpeechRecognition();
+            recognizer.lang = 'zh-TW';
+            recognizer.continuous = false;
+            recognizer.interimResults = true;
+
+            recognizer.onstart = function() {
+                isListening = true;
+                updateVoiceUI(true);
+            };
+
+            recognizer.onresult = function(event) {
+                let transcript = '';
+                for (let i = 0; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('heroPromptInput').value = transcript;
+            };
+
+            recognizer.onerror = function(event) {
+                console.warn('Speech recognition error:', event.error);
+                isListening = false;
+                updateVoiceUI(false);
+                if (event.error === 'not-allowed') {
+                    alert('⚠️ 請允許瀏覽器麥克風權限以使用語音辨識功能！');
+                } else if (event.error === 'audio-capture') {
+                    alert('⚠️ 未偵測到麥克風音訊輸入設備，請確認麥克風已插上或啟用！');
+                }
+            };
+
+            recognizer.onend = function() {
+                isListening = false;
+                updateVoiceUI(false);
+                const text = document.getElementById('heroPromptInput').value.trim();
+                if (text) {
+                    submitMainQuery();
+                }
+            };
+
+            return recognizer;
+        }
+
+        function toggleVoiceRecording() {
+            if (!speechRecognition) {
+                speechRecognition = initSpeechRecognition();
+            }
+
+            if (!speechRecognition) {
+                alert('⚠️ 您的瀏覽器目前未開啟 Web Speech API 語音識別支援。\n建議使用 Google Chrome、Microsoft Edge 或 Safari，並確認麥克風已允許存取。');
+                return;
+            }
+
+            if (isListening) {
+                speechRecognition.stop();
+            } else {
+                try {
+                    speechRecognition.start();
+                } catch (e) {
+                    console.error('Speech recognition start failed:', e);
+                }
+            }
+        }
+
+        function updateVoiceUI(listening) {
+            const micBtn = document.getElementById('heroMicBtn');
+            const input = document.getElementById('heroPromptInput');
+            const statusBanner = document.getElementById('heroVoiceStatus');
+
+            if (listening) {
+                if (micBtn) {
+                    micBtn.classList.add('text-rose-600', 'animate-pulse');
+                    micBtn.title = '正在聆聽中... 點擊可停止';
+                }
+                if (statusBanner) statusBanner.classList.remove('hidden');
+                if (input) input.placeholder = '🎙️ 正在聆聽中... 請說話';
+            } else {
+                if (micBtn) {
+                    micBtn.classList.remove('text-rose-600', 'animate-pulse');
+                    micBtn.title = '點擊開始語音辨識提問';
+                }
+                if (statusBanner) statusBanner.classList.add('hidden');
+                if (input) input.placeholder = '請輸入問題（例如：國貿系最大競爭對手？、K24 怎麼算？、產學廠商合作）';
+            }
+        }
+
+        // ==========================================
+        // 2. 📸 互動圈選截圖與剪貼簿分析引擎 (Drag-to-Crop Snipping)
+        // ==========================================
+        async function ensureHtml2Canvas() {
+            if (typeof html2canvas === 'undefined') {
+                await new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+                    s.onload = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                });
+            }
+        }
+
+        // 判斷是否為行動觸控設備
+        function isMobileDevice() {
+            return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 768);
+        }
+
+        // 觸發相機按鈕 (依設備自動分流)
+        function handleCameraTrigger() {
+            if (isMobileDevice()) {
+                showMobileCaptureSheet();
+            } else {
+                captureHeroScreenshot();
+            }
+        }
+
+        function showMobileCaptureSheet() {
+            const modal = document.getElementById('mobileCaptureModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeMobileCaptureSheet() {
+            const modal = document.getElementById('mobileCaptureModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function triggerPhotoPick() {
+            closeMobileCaptureSheet();
+            const photoInput = document.getElementById('mobilePhotoInput');
+            if (photoInput) photoInput.click();
+        }
+
+        function handleMobilePhotoSelected(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                currentScreenshot = evt.target.result;
+                updateScreenshotUI();
+                const input = document.getElementById('heroPromptInput');
+                if (!input.value.trim()) {
+                    input.value = '請根據我拍攝或上傳的這張圖表照片，詳細分析數據含義與決策建議';
+                }
+                input.focus();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            reader.readAsDataURL(file);
+            event.target.value = ''; // 重置 input 允許重複選取相同照片
+        }
+
+        async function startInteractiveSnipping(callback) {
+            await ensureHtml2Canvas();
+
+            const overlay = document.createElement('div');
+            overlay.id = 'nutcSnipOverlay';
+            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2147483647;cursor:crosshair;user-select:none;touch-action:none;background:rgba(15,23,42,0.18);';
+
+            const tip = document.createElement('div');
+            tip.style.cssText = 'position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#1c1917;color:#ffffff;padding:8px 18px;border-radius:9999px;box-shadow:0 10px 30px rgba(0,0,0,0.35);font-size:12px;font-weight:600;display:flex;align-items:center;gap:10px;z-index:2147483648;border:1px solid #44403c;font-family:system-ui,-apple-system,sans-serif;pointer-events:auto;max-width:92vw;';
+            tip.innerHTML = `
+                <span class="truncate">🎯 請拖曳圈選欲分析之圖表區塊</span>
+                <span style="font-size:10px;color:#a8a29e;background:#292524;padding:2px 6px;border-radius:4px;flex-shrink:0;">ESC 取消</span>
+                <button id="cancelSnipBtn" style="background:#ef4444;border:none;color:white;border-radius:9999px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;font-weight:bold;flex-shrink:0;" title="取消圈選">✕</button>
+            `;
+            overlay.appendChild(tip);
+
+            let isDragging = false;
+            let startX = 0, startY = 0;
+            let box = null;
+            let dimsBadge = null;
+
+            function cleanup() {
+                window.removeEventListener('keydown', handleKeyDown);
+                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            }
+
+            function handleKeyDown(e) {
+                if (e.key === 'Escape') {
+                    cleanup();
+                }
+            }
+            window.addEventListener('keydown', handleKeyDown);
+
+            tip.querySelector('#cancelSnipBtn').onclick = function(e) {
+                e.stopPropagation();
+                cleanup();
+            };
+
+            function getPointerPos(e) {
+                if (e.touches && e.touches.length > 0) {
+                    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+                if (e.changedTouches && e.changedTouches.length > 0) {
+                    return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+                }
+                return { x: e.clientX, y: e.clientY };
+            }
+
+            function onPointerDown(e) {
+                if (e.target.closest('#cancelSnipBtn')) return;
+                if (e.cancelable) e.preventDefault();
+                isDragging = true;
+                const pos = getPointerPos(e);
+                startX = pos.x;
+                startY = pos.y;
+
+                box = document.createElement('div');
+                box.style.cssText = 'position:fixed;border:2px dashed #10b981;background:rgba(16,185,129,0.08);box-shadow:0 0 0 99999px rgba(15,23,42,0.45);pointer-events:none;border-radius:4px;z-index:2147483647;left:' + startX + 'px;top:' + startY + 'px;width:0px;height:0px;';
+                
+                dimsBadge = document.createElement('div');
+                dimsBadge.style.cssText = 'position:absolute;top:-26px;left:0;background:#059669;color:#ffffff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:monospace;white-space:nowrap;letter-spacing:0.5px;';
+                dimsBadge.textContent = '0 × 0 px';
+                box.appendChild(dimsBadge);
+
+                overlay.appendChild(box);
+            }
+
+            function onPointerMove(e) {
+                if (!isDragging || !box) return;
+                if (e.cancelable) e.preventDefault();
+                const pos = getPointerPos(e);
+                const currentX = pos.x;
+                const currentY = pos.y;
+
+                const left = Math.min(startX, currentX);
+                const top = Math.min(startY, currentY);
+                const width = Math.abs(currentX - startX);
+                const height = Math.abs(currentY - startY);
+
+                box.style.left = left + 'px';
+                box.style.top = top + 'px';
+                box.style.width = width + 'px';
+                box.style.height = height + 'px';
+
+                if (top < 32) {
+                    dimsBadge.style.top = 'auto';
+                    dimsBadge.style.bottom = '-24px';
+                } else {
+                    dimsBadge.style.top = '-26px';
+                    dimsBadge.style.bottom = 'auto';
+                }
+                dimsBadge.textContent = width + ' × ' + height + ' px';
+            }
+
+            async function onPointerUp(e) {
+                if (!isDragging) return;
+                isDragging = false;
+
+                if (!box) {
+                    cleanup();
+                    return;
+                }
+
+                const width = parseInt(box.style.width, 10) || 0;
+                const height = parseInt(box.style.height, 10) || 0;
+                const left = parseInt(box.style.left, 10) || 0;
+                const top = parseInt(box.style.top, 10) || 0;
+
+                cleanup();
+
+                if (width < 30 || height < 30) {
+                    return; // 面積過小視為誤點擊，優雅略過
+                }
+
+                // 計算相對於整份文件的絕對座標，支援頁面滾動！
+                const docX = left + window.scrollX;
+                const docY = top + window.scrollY;
+
+                try {
+                    const canvas = await html2canvas(document.body, {
+                        x: docX,
+                        y: docY,
+                        width: width,
+                        height: height,
+                        scale: 2, // 2x Retina 解析度確保模型辨識數字無誤
+                        useCORS: true,
+                        logging: false
+                    });
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+                    callback(dataUrl, width, height);
+                } catch(err) {
+                    console.error('html2canvas cropping failed', err);
+                    alert('圈選截圖失敗，請重試或直接按 Ctrl+V 貼上截圖！');
+                }
+            }
+
+            // 支援滑鼠與行動觸控雙手勢
+            overlay.addEventListener('mousedown', onPointerDown);
+            overlay.addEventListener('mousemove', onPointerMove);
+            overlay.addEventListener('mouseup', onPointerUp);
+
+            overlay.addEventListener('touchstart', onPointerDown, { passive: false });
+            overlay.addEventListener('touchmove', onPointerMove, { passive: false });
+            overlay.addEventListener('touchend', onPointerUp, { passive: false });
+
+            document.body.appendChild(overlay);
+        }
+
+        async function captureHeroScreenshot() {
+            startInteractiveSnipping((dataUrl, w, h) => {
+                currentScreenshot = dataUrl;
+                updateScreenshotUI(w, h);
+                const input = document.getElementById('heroPromptInput');
+                if (!input.value.trim()) {
+                    input.value = '請根據我圈選的這張戰情圖表畫面，詳細分析數據含義與決策建議';
+                }
+                input.focus();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        function removeScreenshot() {
+            currentScreenshot = null;
+            updateScreenshotUI();
+        }
+
+        function updateScreenshotUI(w, h) {
+            const badge = document.getElementById('heroScreenshotBadge');
+            if (currentScreenshot) {
+                const dimsText = (w && h) ? `[${w}×${h} px]` : '';
+                badge.innerHTML = `
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-900 shadow-sm">
+                        <img src="${currentScreenshot}" class="w-10 h-7 object-cover rounded border border-emerald-400 shadow-2xs" alt="圈選截圖預覽" />
+                        <span class="font-bold">📸 已鎖定圖表畫面 ${dimsText} </span>
+                        <button type="button" onclick="removeScreenshot()" class="text-emerald-700 hover:text-emerald-950 ml-1 text-base font-bold leading-none p-1 touch-manipulation" title="移除截圖">&times;</button>
+                    </div>
+                `;
+                badge.classList.remove('hidden');
+            } else {
+                badge.innerHTML = '';
+                badge.classList.add('hidden');
+            }
+        }
+
+        // 支援剪貼簿直接貼上截圖 (Ctrl+V / Cmd+V)
+        window.addEventListener('paste', function(e) {
+            const items = e.clipboardData && e.clipboardData.items;
+            if (items) {
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf('image') !== -1) {
+                        const file = items[i].getAsFile();
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            currentScreenshot = evt.target.result;
+                            updateScreenshotUI();
+                            const input = document.getElementById('heroPromptInput');
+                            if (!input.value.trim()) {
+                                input.value = '請分析這張貼上的戰情圖表畫面數據';
+                            }
+                            input.focus();
+                        };
+                        reader.readAsDataURL(file);
+                        break;
+                    }
+                }
+            }
+        });
+
+        // ==========================================
+        // 3. 主視窗直接發問與即時渲染
+        // ==========================================
+        function askFromChip(query) {
+            document.getElementById('heroPromptInput').value = query;
+            submitMainQuery(query);
+        }
+
+        async function submitMainQuery(customQuery) {
+            const input = document.getElementById('heroPromptInput');
+            const query = customQuery || input.value.trim();
+            if (!query && !currentScreenshot) return;
+
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.classList.remove('hidden');
+
+            const interactionId = 'interaction_' + Date.now();
+            const card = document.createElement('div');
+            card.id = interactionId;
+            card.className = "bg-white rounded-3xl border border-stone-200 shadow-sm p-6 sm:p-8 space-y-6";
+
+            const imageToSend = currentScreenshot;
+            let screenshotBadgeHtml = '';
+            if (imageToSend) {
+                screenshotBadgeHtml = `
+                    <div class="mb-3">
+                        <img src="${imageToSend}" class="max-h-48 rounded-xl border border-stone-700 shadow-sm" alt="附帶截圖" />
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                <!-- 使用者問題 -->
+                <div class="flex items-start justify-end gap-3">
+                    <div class="bg-stone-900 text-white text-sm sm:text-base px-5 py-3 rounded-2xl rounded-tr-none shadow-sm max-w-xl">
+                        ${screenshotBadgeHtml}
+                        <div>${escapeHtml(query || '請分析上傳之戰情截圖')}</div>
+                    </div>
+                </div>
+
+                <!-- AI 回覆區 -->
+                <div class="flex items-start gap-4 pt-4 border-t border-stone-100">
+                    <div class="w-9 h-9 rounded-full bg-emerald-800 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">
+                        IR
+                    </div>
+                    <div class="flex-1 min-w-0 space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-stone-900">商學院校務與產學決策 AI 代理人</span>
+                            <span class="text-[10px] text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-mono">數據接地模式 · 每個數字附來源</span>
+                        </div>
+
+                        <!-- 思考中提示 -->
+                        <div id="${interactionId}_loading" class="text-xs text-stone-500 flex items-center gap-2 py-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-ping"></span>
+                            <span>讀取 UDB 指標與交叉查榜原始檔，產生回覆中…</span>
+                        </div>
+
+                        <!-- 回應主體 -->
+                        <div id="${interactionId}_content" class="hidden space-y-5">
+                            
+                            <!-- 推理思考鏈 (Reasoning Trace) -->
+                            <div id="${interactionId}_reasoningBox" class="hidden">
+                                <details class="bg-stone-50 border border-stone-200 rounded-xl p-3 text-xs text-stone-600 cursor-pointer">
+                                    <summary class="font-semibold text-stone-800 select-none flex items-center gap-1.5">
+                                        <span>💭</span>
+                                        <span>檢視模型推理歷程</span>
+                                    </summary>
+                                    <div id="${interactionId}_reasoningText" class="mt-2 text-stone-600 whitespace-pre-wrap font-mono text-[11px] leading-relaxed border-t border-stone-200 pt-2"></div>
+                                </details>
+                            </div>
+
+                            <!-- AI 文字主體 (Markdown) -->
+                            <div id="${interactionId}_text" class="text-stone-800 text-sm sm:text-base leading-relaxed space-y-3"></div>
+
+                            <!-- Chart.js 圖表容器 (行動端響應式高度) -->
+                            <div id="${interactionId}_chartContainer" class="hidden bg-stone-50 p-3.5 sm:p-5 rounded-2xl border border-stone-200">
+                                <h4 id="${interactionId}_chartTitle" class="text-xs font-bold text-stone-700 tracking-wide uppercase mb-2 sm:mb-3"></h4>
+                                <div class="relative w-full h-[260px] sm:h-[320px]">
+                                    <canvas id="${interactionId}_canvas"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- 資料明細表格 (行動端支援順暢觸控滑動) -->
+                            <div id="${interactionId}_tableContainer" class="hidden bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs">
+                                <div class="px-4 sm:px-5 py-3 bg-stone-100/70 border-b border-stone-200 flex flex-wrap items-center justify-between gap-1">
+                                    <h4 id="${interactionId}_tableTitle" class="text-xs font-bold text-stone-800"></h4>
+                                    <span class="text-[10px] sm:text-[11px] text-stone-500">來源：教育部審查與官方商工登記（可左右滑動）</span>
+                                </div>
+                                <div class="overflow-x-auto custom-scrollbar" style="-webkit-overflow-scrolling: touch;">
+                                    <table class="w-full text-left text-xs border-collapse min-w-[500px]">
+                                        <thead id="${interactionId}_tableHead" class="bg-stone-50/80 text-stone-600 font-semibold border-b border-stone-200"></thead>
+                                        <tbody id="${interactionId}_tableBody" class="divide-y divide-stone-100"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- 新開視窗跳轉戰情室 -->
+                            <div id="${interactionId}_drilldown" class="hidden pt-2">
+                                <a id="${interactionId}_drilldownLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-stone-900 hover:bg-stone-800 px-4 py-2.5 rounded-xl transition-all shadow-sm">
+                                    <span>👉 於新視窗開啟該系 25MB+ 巨量實證戰情室</span>
+                                    <span>&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            resultsSection.prepend(card);
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            input.value = '';
+            removeScreenshot();
+
+            try {
+                const resp = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        message: query,
+                        dept_name: "國際貿易與經營系", default_slug: "ib",
+                        school_name: "國立臺中科技大學",
+                        image: imageToSend
+                    })
+                });
+                const data = await resp.json();
+                renderMainResult(interactionId, data);
+            } catch (err) {
+                console.error(err);
+                renderMainFallback(interactionId, query);
+            }
+        }
+
+        function renderMainResult(id, data) {
+            const loading = document.getElementById(`${id}_loading`);
+            const content = document.getElementById(`${id}_content`);
+            const textNode = document.getElementById(`${id}_text`);
+
+            if (loading) loading.classList.add('hidden');
+            if (content) content.classList.remove('hidden');
+
+            // 1. 渲染 Reasoning 思考鏈
+            if (data.grounding && data.grounding.ok === false) {
+                const warn = document.createElement('div');
+                warn.className = 'mt-2 text-xs text-amber-800 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2';
+                warn.textContent = '以下數字無法在資料庫中對應，請勿引用：' + data.grounding.ungrounded.join('、');
+                textNode.parentNode.insertBefore(warn, textNode.nextSibling);
+            }
+            if (data.reasoning) {
+                const rBox = document.getElementById(`${id}_reasoningBox`);
+                const rText = document.getElementById(`${id}_reasoningText`);
+                if (rBox && rText) {
+                    rBox.classList.remove('hidden');
+                    rText.textContent = data.reasoning;
+                }
+            }
+
+            // 2. 渲染主文字內容 (Markdown)
+            if (textNode) {
+                textNode.innerHTML = formatMarkdown(data.response || '已為您完成數據檢索。');
+            }
+
+            // 3. 渲染 Chart.js
+            if (data.chart && data.chart.labels && data.chart.datasets) {
+                const cBox = document.getElementById(`${id}_chartContainer`);
+                const cTitle = document.getElementById(`${id}_chartTitle`);
+                const canvas = document.getElementById(`${id}_canvas`);
+
+                if (cBox && canvas) {
+                    cBox.classList.remove('hidden');
+                    if (cTitle) cTitle.textContent = data.chart.title || '校務統計圖表';
+
+                    try {
+                        chartInstances[id] = new Chart(canvas.getContext('2d'), {
+                            type: data.chart.type || 'bar',
+                            data: {
+                                labels: data.chart.labels,
+                                datasets: data.chart.datasets
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: { font: { size: 11, family: '-apple-system, BlinkMacSystemFont, sans-serif' } }
+                                    }
+                                },
+                                scales: data.chart.type === 'radar' ? {} : {
+                                    y: {
+                                        beginAtZero: false,
+                                        grid: { color: '#f3f4f6' },
+                                        ticks: { font: { size: 11 } }
+                                    },
+                                    x: {
+                                        grid: { display: false },
+                                        ticks: { font: { size: 11 } }
+                                    }
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Chart.js error:', e);
+                    }
+                }
+            }
+
+            // 4. 渲染 Table
+            if (data.table && data.table.headers && data.table.rows) {
+                const tBox = document.getElementById(`${id}_tableContainer`);
+                const tTitle = document.getElementById(`${id}_tableTitle`);
+                const tHead = document.getElementById(`${id}_tableHead`);
+                const tBody = document.getElementById(`${id}_tableBody`);
+
+                if (tBox && tHead && tBody) {
+                    tBox.classList.remove('hidden');
+                    if (tTitle) tTitle.textContent = data.table.title || '實證數據清冊';
+
+                    let headHtml = '<tr>';
+                    data.table.headers.forEach(h => {
+                        headHtml += `<th class="py-3 px-4 font-semibold">${h}</th>`;
+                    });
+                    headHtml += '</tr>';
+                    tHead.innerHTML = headHtml;
+
+                    let bodyHtml = '';
+                    data.table.rows.forEach(r => {
+                        bodyHtml += '<tr class="hover:bg-stone-50 transition-colors">';
+                        r.forEach((cell, idx) => {
+                            let cellStr = String(cell);
+                            let formatted = cellStr;
+                            if (cellStr.includes('-') && cellStr.includes('%')) {
+                                formatted = `<span class="px-2 py-0.5 rounded font-bold text-rose-700 bg-rose-50">${cellStr}</span>`;
+                            } else if (cellStr.includes('領先') || cellStr.includes('低風險') || cellStr.includes('極低風險')) {
+                                formatted = `<span class="px-2 py-0.5 rounded font-bold text-emerald-800 bg-emerald-50">${cellStr}</span>`;
+                            }
+                            bodyHtml += `<td class="py-3 px-4 ${idx === 0 ? 'font-bold text-stone-900' : 'text-stone-700'}">${formatted}</td>`;
+                        });
+                        bodyHtml += '</tr>';
+                    });
+                    tBody.innerHTML = bodyHtml;
+                }
+            }
+
+            // 5. 渲染新視窗戰情室連結 (target="_blank")
+            if (data.drilldown_link) {
+                const drillBox = document.getElementById(`${id}_drilldown`);
+                const drillLink = document.getElementById(`${id}_drilldownLink`);
+                if (drillBox && drillLink) {
+                    drillBox.classList.remove('hidden');
+                    drillLink.href = data.drilldown_link;
+                }
+            }
+        }
+
+        function renderMainFallback(id, query) {
+            renderMainResult(id, {
+                response: `已為您提取本地審計數據庫。\n\n本系統所有校務指標 100% 綁定教育部 UDB 官方報表、少子化 16 年推估與商工登記。您可以直接點選上方晶片，或點擊連結在新視窗檢視！`,
+                drilldown_link: "ib/index.html"
+            });
+        }
+
+        function formatMarkdown(text) {
+            return text
+                .replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-stone-900 mt-3 mb-1">$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-stone-900 mt-4 mb-2">$1</h2>')
+                .replace(/\*\*(.*?)\*\*/gim, '<strong class="font-bold text-stone-900">$1</strong>')
+                .replace(/^- (.*$)/gim, '<div class="flex items-start gap-2 ml-2 my-1"><span class="text-stone-400 mt-1">•</span><span>$1</span></div>')
+                .replace(/\n\n/g, '<div class="h-2"></div>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

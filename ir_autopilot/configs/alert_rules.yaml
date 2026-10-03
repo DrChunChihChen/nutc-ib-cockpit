@@ -1,0 +1,42 @@
+rules:
+  - id: R01_enroll_decline
+    name: "新生註冊率連續下降"
+    severity: "high"
+    condition: "k02 < -2.0 and k01_trend_down"
+    message_template: "日間部新生註冊率呈連續下滑趨勢，近三年斜率為 {k02:+.2f} 百分點/年。"
+    action: "建議啟動高中職端生源偏好調研，檢討招生管道配額。"
+
+  - id: R02_high_attrition
+    name: "學生淨流失率偏高"
+    severity: "medium"
+    condition: "k05 > peer_median_k05 * 1.25"
+    message_template: "學年度學生淨流失率 ({k05:.2f}%) 超出同儕中位數 25% 以上。"
+    action: "檢視大一必修基礎學科之學習預警與退學原因分佈。"
+
+  - id: R03_demographic_gap
+    name: "117 虎年海嘯生源赤字預警"
+    severity: "high"
+    condition: "gap_117 < -0.15"
+    message_template: "推估 117 虎年海嘯谷底生源赤字缺口達 {gap_117_pct:.1f}%，招生面臨壓力測試。"
+    action: "提早評估日間四技與五專、在職專班之名額配比調控。"
+
+  - id: R04_high_faculty_ratio
+    name: "專任生師比逼近警戒線"
+    severity: "medium"
+    condition: "k06 > 32.0"
+    message_template: "專任生師比達 {k06:.1f}，逼近教育部 35 人管制上限。"
+    action: "爭取增聘專任師資或適度調節總在學學生總額。"
+
+  - id: R05_international_lag
+    name: "國際境外生生源拓展滯後"
+    severity: "low"
+    condition: "k07 < 1.0"
+    message_template: "境外在學學生比率僅 {k07:.2f}%，低於公立商管平均水準。"
+    action: "加強新南向與雙聯學制合作，擴展多元國際生源。"
+
+risk_weights:
+  k02_enroll_slope: 0.30
+  k05_net_attrition: 0.25
+  k10_peer_diff: 0.20
+  k19_demographic_gap: 0.15
+  k23_peer_dropout_diff: 0.10

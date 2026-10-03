@@ -1,0 +1,4839 @@
+{
+  "ib": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "國際貿易與經營系",
+      "slug": "ib",
+      "dept_code": "04141020",
+      "data_file": "output/ib/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "國際貿易與經營系",
+      "dept_code": "04141020",
+      "latest_year": 114,
+      "students_total": 796,
+      "freshmen_capacity": 118,
+      "freshmen_registered": 117,
+      "enrollment_rate": 99.53,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 96.88,
+          "capacity": 123,
+          "registered": 118
+        },
+        {
+          "year": 107,
+          "rate": 97.59,
+          "capacity": 123,
+          "registered": 120
+        },
+        {
+          "year": 108,
+          "rate": 98.75,
+          "capacity": 121,
+          "registered": 119
+        },
+        {
+          "year": 109,
+          "rate": 97.16,
+          "capacity": 120,
+          "registered": 115
+        },
+        {
+          "year": 110,
+          "rate": 96.47,
+          "capacity": 119,
+          "registered": 114
+        },
+        {
+          "year": 111,
+          "rate": 100.0,
+          "capacity": 118,
+          "registered": 118
+        },
+        {
+          "year": 112,
+          "rate": 100.0,
+          "capacity": 118,
+          "registered": 118
+        },
+        {
+          "year": 113,
+          "rate": 98.69,
+          "capacity": 118,
+          "registered": 117
+        },
+        {
+          "year": 114,
+          "rate": 99.53,
+          "capacity": 118,
+          "registered": 117
+        }
+      ],
+      "dropout_count": 71,
+      "dropout_rate": 8.92,
+      "suspension_count": 60,
+      "suspension_rate": 7.54,
+      "faculty_count": 21,
+      "faculty_ratio": 37.9,
+      "foreign_count": 9,
+      "foreign_ratio": 1.13,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 99.53,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": -0.23,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 8.92,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 7.54,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 16.46,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 37.9,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 1.13,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": -0.47,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 4.88,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -19.5,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 43.8,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 77.9,
+      "grade": "B 觀察",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 99.5,
+        "K05": 83.5,
+        "K10": 47.6,
+        "K19": 80.5,
+        "K06": 55.2
+      },
+      "contributions": {
+        "K01": 29.86,
+        "K05": 20.88,
+        "K10": 9.53,
+        "K19": 12.07,
+        "K06": 5.53
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R02",
+        "severity": "medium",
+        "title": "學生在學淨流失率偏高",
+        "message": "本學年退學率與休學率總和（淨流失率）達 16.46%，學生就學穩定度需關注。",
+        "action": "檢視大一基礎必修門檻與學生自請休退學原因分析。"
+      },
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -19.5%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      },
+      {
+        "id": "R04",
+        "severity": "medium",
+        "title": "專任教師生師比逼近警戒上限",
+        "message": "專任生師比達 37.9，超出優質教學建議之 32:1 門檻。",
+        "action": "爭取增聘專任師資或適度調降核定招生總額。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 118,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 95,
+        "est_severe": 87,
+        "est_aggressive": 103,
+        "capacity": 118,
+        "gap": -23,
+        "gap_pct": -19.5
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 87,
+        "est_severe": 65,
+        "est_aggressive": 118,
+        "capacity": 118,
+        "gap": -31,
+        "gap_pct": -26.3
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 117,
+          "est_severe": 117,
+          "est_aggressive": 117,
+          "capacity": 118,
+          "gap": -1,
+          "gap_pct": -0.8
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 116,
+          "est_severe": 114,
+          "est_aggressive": 119,
+          "capacity": 118,
+          "gap": -2,
+          "gap_pct": -1.7
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 113,
+          "est_severe": 108,
+          "est_aggressive": 118,
+          "capacity": 118,
+          "gap": -5,
+          "gap_pct": -4.2
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 109,
+          "est_severe": 102,
+          "est_aggressive": 115,
+          "capacity": 118,
+          "gap": -9,
+          "gap_pct": -7.6
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 95,
+          "est_severe": 87,
+          "est_aggressive": 103,
+          "capacity": 118,
+          "gap": -23,
+          "gap_pct": -19.5
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 112,
+          "est_severe": 101,
+          "est_aggressive": 123,
+          "capacity": 118,
+          "gap": -6,
+          "gap_pct": -5.1
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 130,
+          "est_severe": 116,
+          "est_aggressive": 147,
+          "capacity": 118,
+          "gap": 12,
+          "gap_pct": 10.2
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 113,
+          "est_severe": 98,
+          "est_aggressive": 130,
+          "capacity": 118,
+          "gap": -5,
+          "gap_pct": -4.2
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 120,
+          "est_severe": 102,
+          "est_aggressive": 140,
+          "capacity": 118,
+          "gap": 2,
+          "gap_pct": 1.7
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 121,
+          "est_severe": 101,
+          "est_aggressive": 145,
+          "capacity": 118,
+          "gap": 3,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 118,
+          "est_severe": 97,
+          "est_aggressive": 144,
+          "capacity": 118,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 110,
+          "est_severe": 88,
+          "est_aggressive": 137,
+          "capacity": 118,
+          "gap": -8,
+          "gap_pct": -6.8
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 103,
+          "est_severe": 81,
+          "est_aggressive": 131,
+          "capacity": 118,
+          "gap": -15,
+          "gap_pct": -12.7
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 101,
+          "est_severe": 78,
+          "est_aggressive": 131,
+          "capacity": 118,
+          "gap": -17,
+          "gap_pct": -14.4
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 94,
+          "est_severe": 71,
+          "est_aggressive": 124,
+          "capacity": 118,
+          "gap": -24,
+          "gap_pct": -20.3
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 87,
+          "est_severe": 65,
+          "est_aggressive": 118,
+          "capacity": 118,
+          "gap": -31,
+          "gap_pct": -26.3
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立高雄科技大學",
+        "dept": "國際企業系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 6.35,
+        "faculty_ratio": 33.9,
+        "students_total": 441,
+        "foreign_ratio": 3.63
+      },
+      {
+        "school": "國立臺北商業大學",
+        "dept": "國際商務系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 5.18,
+        "faculty_ratio": 28.5,
+        "students_total": 599,
+        "foreign_ratio": 3.17
+      },
+      {
+        "school": "國立勤益科技大學",
+        "dept": "行銷與流通管理系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 0.0,
+        "faculty_ratio": 30.5,
+        "students_total": 427,
+        "foreign_ratio": 7.03
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "國際經營與貿易學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 94.71,
+        "dropout_rate": 2.9,
+        "faculty_ratio": 44.1,
+        "students_total": 794,
+        "foreign_ratio": 8.94
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專甄選交叉查榜504筆考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "本系交叉查榜母體 504 筆",
+      "own_candidates": 504,
+      "retained": 168,
+      "retention_rate": 33.3,
+      "poached": 229,
+      "unplaced": 0,
+      "main_admitted": 169,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 120,
+          "share_of_poached": 52.4
+        },
+        {
+          "school": "逢甲大學",
+          "count": 26,
+          "share_of_poached": 11.4
+        },
+        {
+          "school": "國立臺北商業大學",
+          "count": 14,
+          "share_of_poached": 6.1
+        },
+        {
+          "school": "中原大學",
+          "count": 13,
+          "share_of_poached": 5.7
+        },
+        {
+          "school": "國立臺北護理健康大學",
+          "count": 10,
+          "share_of_poached": 4.4
+        }
+      ]
+    },
+    "partners": {
+      "department": "國際貿易與經營系",
+      "matched_category": "國際貿易與經營系",
+      "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+      "clusters": [
+        {
+          "category": "在地精密機械與零組件外銷隱形冠軍",
+          "companies": [
+            "巨大機械工業 (捷安特)",
+            "台中精機廠",
+            "上銀科技",
+            "高鋒工業",
+            "和大工業"
+          ],
+          "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
+          "capital_range": "新台幣 5,000 萬 ～ 100 億元",
+          "hot_jobs": [
+            "國外業務代表",
+            "國貿外銷專員",
+            "跨國採購助理"
+          ],
+          "salary_range": "38,000 ～ 55,000 元/月",
+          "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案",
+          "verification": [
+            {
+              "name": "巨大機械工業 (捷安特)",
+              "verified": false
+            },
+            {
+              "name": "台中精機廠",
+              "verified": false
+            },
+            {
+              "name": "上銀科技",
+              "verified": false
+            },
+            {
+              "name": "高鋒工業",
+              "verified": false
+            },
+            {
+              "name": "和大工業",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "跨境電子商務與數位品牌外銷商",
+          "companies": [
+            "耐德科技 (SHOPPING99)",
+            "台灣網商協會會員企業",
+            "中部 Amazon/Shopee 外銷大賣家",
+            "美賣科技台中分部"
+          ],
+          "zone": "台中軟體園區 / 西屯七期商辦",
+          "capital_range": "新台幣 1,000 萬 ～ 1 億元",
+          "hot_jobs": [
+            "跨境電商營運專員",
+            "海外數位行銷投放師",
+            "多語系社群運營"
+          ],
+          "salary_range": "36,000 ～ 50,000 元/月",
+          "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操",
+          "verification": [
+            {
+              "name": "耐德科技 (SHOPPING99)",
+              "verified": false
+            },
+            {
+              "name": "台灣網商協會會員企業",
+              "verified": false
+            },
+            {
+              "name": "中部 Amazon/Shopee 外銷大賣家",
+              "verified": false
+            },
+            {
+              "name": "美賣科技台中分部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "台中港區海空運承攬與報關物流龍頭",
+          "companies": [
+            "近鐵運通 (Kintetsu World Express)",
+            "中菲行航空貨運台中分公司",
+            "長榮物流台中辦事處",
+            "建新國際",
+            "大洋報關行"
+          ],
+          "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
+          "capital_range": "新台幣 2,000 萬 ～ 10 億元",
+          "hot_jobs": [
+            "報關專責人員",
+            "海運承攬操作專員",
+            "保稅倉儲管理員"
+          ],
+          "salary_range": "35,000 ～ 48,000 元/月",
+          "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案",
+          "verification": [
+            {
+              "name": "近鐵運通 (Kintetsu World Express)",
+              "verified": false
+            },
+            {
+              "name": "中菲行航空貨運台中分公司",
+              "verified": false
+            },
+            {
+              "name": "長榮物流台中辦事處",
+              "verified": false
+            },
+            {
+              "name": "建新國際",
+              "verified": false
+            },
+            {
+              "name": "大洋報關行",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "外匯指定銀行與國際貿易融資部",
+          "companies": [
+            "兆豐國際商銀中部分行",
+            "第一商業銀行台中分行",
+            "合作金庫銀行",
+            "台中商業銀行國外部"
+          ],
+          "zone": "台中市中區/西區/西屯區金融商圈",
+          "capital_range": "新台幣 500 億元以上",
+          "hot_jobs": [
+            "外匯櫃員",
+            "進出口信用狀審查專員",
+            "貿易融資助理"
+          ],
+          "salary_range": "40,000 ～ 52,000 元/月",
+          "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作",
+          "verification": [
+            {
+              "name": "兆豐國際商銀中部分行",
+              "verified": false
+            },
+            {
+              "name": "第一商業銀行台中分行",
+              "verified": false
+            },
+            {
+              "name": "合作金庫銀行",
+              "verified": false
+            },
+            {
+              "name": "台中商業銀行國外部",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 4
+    }
+  },
+  "ba": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "企業管理系",
+      "slug": "ba",
+      "dept_code": "04131015",
+      "data_file": "output/ba/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "企業管理系",
+      "dept_code": "04131015",
+      "latest_year": 114,
+      "students_total": 522,
+      "freshmen_capacity": 78,
+      "freshmen_registered": 78,
+      "enrollment_rate": 100.0,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 94.4,
+          "capacity": 97,
+          "registered": 94
+        },
+        {
+          "year": 107,
+          "rate": 99.17,
+          "capacity": 97,
+          "registered": 96
+        },
+        {
+          "year": 108,
+          "rate": 99.17,
+          "capacity": 95,
+          "registered": 94
+        },
+        {
+          "year": 109,
+          "rate": 94.51,
+          "capacity": 94,
+          "registered": 91
+        },
+        {
+          "year": 110,
+          "rate": 95.7,
+          "capacity": 79,
+          "registered": 75
+        },
+        {
+          "year": 111,
+          "rate": 100.0,
+          "capacity": 78,
+          "registered": 79
+        },
+        {
+          "year": 112,
+          "rate": 98.96,
+          "capacity": 78,
+          "registered": 77
+        },
+        {
+          "year": 113,
+          "rate": 100.0,
+          "capacity": 78,
+          "registered": 78
+        },
+        {
+          "year": 114,
+          "rate": 100.0,
+          "capacity": 78,
+          "registered": 78
+        }
+      ],
+      "dropout_count": 44,
+      "dropout_rate": 8.43,
+      "suspension_count": 27,
+      "suspension_rate": 5.17,
+      "faculty_count": 24,
+      "faculty_ratio": 21.8,
+      "foreign_count": 2,
+      "foreign_ratio": 0.38,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 100.0,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": 0.52,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 8.43,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 5.17,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 13.6,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 21.8,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.38,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": 1.78,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 1.82,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -19.2,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 32.0,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 85.0,
+      "grade": "A 穩健",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 100.0,
+        "K05": 86.4,
+        "K10": 58.9,
+        "K19": 80.8,
+        "K06": 95.5
+      },
+      "contributions": {
+        "K01": 30.0,
+        "K05": 21.6,
+        "K10": 11.78,
+        "K19": 12.12,
+        "K06": 9.55
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -19.2%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 78,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 63,
+        "est_severe": 58,
+        "est_aggressive": 68,
+        "capacity": 78,
+        "gap": -15,
+        "gap_pct": -19.2
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 58,
+        "est_severe": 43,
+        "est_aggressive": 78,
+        "capacity": 78,
+        "gap": -20,
+        "gap_pct": -25.6
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 78,
+          "est_severe": 78,
+          "est_aggressive": 78,
+          "capacity": 78,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 77,
+          "est_severe": 76,
+          "est_aggressive": 79,
+          "capacity": 78,
+          "gap": -1,
+          "gap_pct": -1.3
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 75,
+          "est_severe": 72,
+          "est_aggressive": 78,
+          "capacity": 78,
+          "gap": -3,
+          "gap_pct": -3.8
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 72,
+          "est_severe": 68,
+          "est_aggressive": 77,
+          "capacity": 78,
+          "gap": -6,
+          "gap_pct": -7.7
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 63,
+          "est_severe": 58,
+          "est_aggressive": 68,
+          "capacity": 78,
+          "gap": -15,
+          "gap_pct": -19.2
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 75,
+          "est_severe": 67,
+          "est_aggressive": 82,
+          "capacity": 78,
+          "gap": -3,
+          "gap_pct": -3.8
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 87,
+          "est_severe": 77,
+          "est_aggressive": 98,
+          "capacity": 78,
+          "gap": 9,
+          "gap_pct": 11.5
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 75,
+          "est_severe": 65,
+          "est_aggressive": 87,
+          "capacity": 78,
+          "gap": -3,
+          "gap_pct": -3.8
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 80,
+          "est_severe": 68,
+          "est_aggressive": 93,
+          "capacity": 78,
+          "gap": 2,
+          "gap_pct": 2.6
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 81,
+          "est_severe": 67,
+          "est_aggressive": 97,
+          "capacity": 78,
+          "gap": 3,
+          "gap_pct": 3.8
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 79,
+          "est_severe": 65,
+          "est_aggressive": 96,
+          "capacity": 78,
+          "gap": 1,
+          "gap_pct": 1.3
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 73,
+          "est_severe": 59,
+          "est_aggressive": 91,
+          "capacity": 78,
+          "gap": -5,
+          "gap_pct": -6.4
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 69,
+          "est_severe": 54,
+          "est_aggressive": 87,
+          "capacity": 78,
+          "gap": -9,
+          "gap_pct": -11.5
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 67,
+          "est_severe": 52,
+          "est_aggressive": 87,
+          "capacity": 78,
+          "gap": -11,
+          "gap_pct": -14.1
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 63,
+          "est_severe": 47,
+          "est_aggressive": 83,
+          "capacity": 78,
+          "gap": -15,
+          "gap_pct": -19.2
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 58,
+          "est_severe": 43,
+          "est_aggressive": 78,
+          "capacity": 78,
+          "gap": -20,
+          "gap_pct": -25.6
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立高雄科技大學",
+        "dept": "企業管理系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 96.43,
+        "dropout_rate": 7.18,
+        "faculty_ratio": 26.9,
+        "students_total": 376,
+        "foreign_ratio": 2.39
+      },
+      {
+        "school": "國立臺北商業大學",
+        "dept": "企業管理系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 7.15,
+        "faculty_ratio": 10.0,
+        "students_total": 643,
+        "foreign_ratio": 3.58
+      },
+      {
+        "school": "國立勤益科技大學",
+        "dept": "工業工程與管理系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 6.07,
+        "faculty_ratio": 43.0,
+        "students_total": 1203,
+        "foreign_ratio": 1.41
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "企業管理學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 88.42,
+        "dropout_rate": 5.11,
+        "faculty_ratio": 31.6,
+        "students_total": 568,
+        "foreign_ratio": 22.36
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專與大學交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 4696 筆（含競校），其中本校系 288 筆",
+      "own_candidates": 288,
+      "retained": 93,
+      "retention_rate": 32.3,
+      "poached": 115,
+      "unplaced": 80,
+      "main_admitted": 106,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 37,
+          "share_of_poached": 32.2
+        },
+        {
+          "school": "國立勤益科技大學",
+          "count": 17,
+          "share_of_poached": 14.8
+        },
+        {
+          "school": "國立雲林科技大學",
+          "count": 10,
+          "share_of_poached": 8.7
+        },
+        {
+          "school": "國立虎尾科技大學",
+          "count": 9,
+          "share_of_poached": 7.8
+        },
+        {
+          "school": "逢甲大學",
+          "count": 8,
+          "share_of_poached": 7.0
+        }
+      ]
+    },
+    "partners": {
+      "department": "企業管理系",
+      "matched_category": "企業管理系",
+      "csic_focus": "M70 企業管顧業 / G45-48 連鎖零售通路 / M73 整合行銷",
+      "clusters": [
+        {
+          "category": "大型零售連鎖與智慧門市品牌",
+          "companies": [
+            "統一超商台中營運部",
+            "全家便利商店中部營業所",
+            "特力屋台中店",
+            "家樂福中區總部"
+          ],
+          "cooperation_mode": "連鎖門市儲備幹部培育、門市智慧營運與損益管理實習",
+          "verification": [
+            {
+              "name": "統一超商台中營運部",
+              "verified": false
+            },
+            {
+              "name": "全家便利商店中部營業所",
+              "verified": false
+            },
+            {
+              "name": "特力屋台中店",
+              "verified": false
+            },
+            {
+              "name": "家樂福中區總部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "在地製造業經營管理與營運中心",
+          "companies": [
+            "寶成工業",
+            "豐泰企業",
+            "健豪印刷事業",
+            "為升電裝"
+          ],
+          "cooperation_mode": "精實生產管理 (Lean) 產學專案、企業數位化 ERP 導入專題",
+          "verification": [
+            {
+              "name": "寶成工業",
+              "verified": false
+            },
+            {
+              "name": "豐泰企業",
+              "verified": false
+            },
+            {
+              "name": "健豪印刷事業",
+              "verified": false
+            },
+            {
+              "name": "為升電裝",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 2
+    }
+  },
+  "accounting": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "會計資訊系",
+      "slug": "accounting",
+      "dept_code": "04111012",
+      "data_file": "output/accounting/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "會計資訊系",
+      "dept_code": "04111012",
+      "latest_year": 114,
+      "students_total": 594,
+      "freshmen_capacity": 118,
+      "freshmen_registered": 117,
+      "enrollment_rate": 99.38,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 97.62,
+          "capacity": 137,
+          "registered": 136
+        },
+        {
+          "year": 107,
+          "rate": 93.99,
+          "capacity": 137,
+          "registered": 132
+        },
+        {
+          "year": 108,
+          "rate": 93.68,
+          "capacity": 137,
+          "registered": 127
+        },
+        {
+          "year": 109,
+          "rate": 97.2,
+          "capacity": 134,
+          "registered": 132
+        },
+        {
+          "year": 110,
+          "rate": 95.0,
+          "capacity": 119,
+          "registered": 115
+        },
+        {
+          "year": 111,
+          "rate": 92.19,
+          "capacity": 118,
+          "registered": 111
+        },
+        {
+          "year": 112,
+          "rate": 98.12,
+          "capacity": 118,
+          "registered": 115
+        },
+        {
+          "year": 113,
+          "rate": 94.73,
+          "capacity": 118,
+          "registered": 114
+        },
+        {
+          "year": 114,
+          "rate": 99.38,
+          "capacity": 118,
+          "registered": 117
+        }
+      ],
+      "dropout_count": 62,
+      "dropout_rate": 10.44,
+      "suspension_count": 48,
+      "suspension_rate": 8.08,
+      "faculty_count": 22,
+      "faculty_ratio": 27.0,
+      "foreign_count": 1,
+      "foreign_ratio": 0.17,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 99.38,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": 0.63,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 10.44,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 8.08,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 18.52,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 27.0,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.17,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": -0.07,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 7.46,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -19.5,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 45.0,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 80.4,
+      "grade": "A 穩健",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 99.4,
+        "K05": 81.5,
+        "K10": 49.6,
+        "K19": 80.5,
+        "K06": 82.5
+      },
+      "contributions": {
+        "K01": 29.81,
+        "K05": 20.37,
+        "K10": 9.93,
+        "K19": 12.07,
+        "K06": 8.25
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R02",
+        "severity": "medium",
+        "title": "學生在學淨流失率偏高",
+        "message": "本學年退學率與休學率總和（淨流失率）達 18.52%，學生就學穩定度需關注。",
+        "action": "檢視大一基礎必修門檻與學生自請休退學原因分析。"
+      },
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -19.5%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 118,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 95,
+        "est_severe": 87,
+        "est_aggressive": 103,
+        "capacity": 118,
+        "gap": -23,
+        "gap_pct": -19.5
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 87,
+        "est_severe": 65,
+        "est_aggressive": 118,
+        "capacity": 118,
+        "gap": -31,
+        "gap_pct": -26.3
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 117,
+          "est_severe": 117,
+          "est_aggressive": 117,
+          "capacity": 118,
+          "gap": -1,
+          "gap_pct": -0.8
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 116,
+          "est_severe": 114,
+          "est_aggressive": 119,
+          "capacity": 118,
+          "gap": -2,
+          "gap_pct": -1.7
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 113,
+          "est_severe": 108,
+          "est_aggressive": 118,
+          "capacity": 118,
+          "gap": -5,
+          "gap_pct": -4.2
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 109,
+          "est_severe": 102,
+          "est_aggressive": 115,
+          "capacity": 118,
+          "gap": -9,
+          "gap_pct": -7.6
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 95,
+          "est_severe": 87,
+          "est_aggressive": 103,
+          "capacity": 118,
+          "gap": -23,
+          "gap_pct": -19.5
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 112,
+          "est_severe": 101,
+          "est_aggressive": 123,
+          "capacity": 118,
+          "gap": -6,
+          "gap_pct": -5.1
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 130,
+          "est_severe": 116,
+          "est_aggressive": 147,
+          "capacity": 118,
+          "gap": 12,
+          "gap_pct": 10.2
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 113,
+          "est_severe": 98,
+          "est_aggressive": 130,
+          "capacity": 118,
+          "gap": -5,
+          "gap_pct": -4.2
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 120,
+          "est_severe": 102,
+          "est_aggressive": 140,
+          "capacity": 118,
+          "gap": 2,
+          "gap_pct": 1.7
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 121,
+          "est_severe": 101,
+          "est_aggressive": 145,
+          "capacity": 118,
+          "gap": 3,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 118,
+          "est_severe": 97,
+          "est_aggressive": 144,
+          "capacity": 118,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 110,
+          "est_severe": 88,
+          "est_aggressive": 137,
+          "capacity": 118,
+          "gap": -8,
+          "gap_pct": -6.8
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 103,
+          "est_severe": 81,
+          "est_aggressive": 131,
+          "capacity": 118,
+          "gap": -15,
+          "gap_pct": -12.7
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 101,
+          "est_severe": 78,
+          "est_aggressive": 131,
+          "capacity": 118,
+          "gap": -17,
+          "gap_pct": -14.4
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 94,
+          "est_severe": 71,
+          "est_aggressive": 124,
+          "capacity": 118,
+          "gap": -24,
+          "gap_pct": -20.3
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 87,
+          "est_severe": 65,
+          "est_aggressive": 118,
+          "capacity": 118,
+          "gap": -31,
+          "gap_pct": -26.3
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立臺北商業大學",
+        "dept": "會計資訊系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 2.35,
+        "faculty_ratio": 28.4,
+        "students_total": 426,
+        "foreign_ratio": 0.23
+      },
+      {
+        "school": "國立高雄科技大學",
+        "dept": "會計資訊系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 98.9,
+        "dropout_rate": 5.78,
+        "faculty_ratio": 38.1,
+        "students_total": 571,
+        "foreign_ratio": 0.0
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "會計學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 93.69,
+        "dropout_rate": 3.04,
+        "faculty_ratio": 39.8,
+        "students_total": 756,
+        "foreign_ratio": 0.4
+      },
+      {
+        "school": "東海大學",
+        "dept": "會計學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 2.92,
+        "faculty_ratio": 40.0,
+        "students_total": 480,
+        "foreign_ratio": 0.21
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專與大學交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 3067 筆（含競校），其中本校系 525 筆",
+      "own_candidates": 525,
+      "retained": 171,
+      "retention_rate": 32.6,
+      "poached": 222,
+      "unplaced": 132,
+      "main_admitted": 175,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 87,
+          "share_of_poached": 39.2
+        },
+        {
+          "school": "逢甲大學",
+          "count": 30,
+          "share_of_poached": 13.5
+        },
+        {
+          "school": "國立雲林科技大學",
+          "count": 28,
+          "share_of_poached": 12.6
+        },
+        {
+          "school": "中原大學",
+          "count": 19,
+          "share_of_poached": 8.6
+        },
+        {
+          "school": "國立臺北商業大學",
+          "count": 13,
+          "share_of_poached": 5.9
+        }
+      ]
+    },
+    "partners": {
+      "department": "會計資訊系",
+      "matched_category": "會計資訊系",
+      "csic_focus": "M6920 會計審計及稅務諮詢服務業",
+      "clusters": [
+        {
+          "category": "四大與中型會計師事務所",
+          "companies": [
+            "勤業眾信 (Deloitte) 台中所",
+            "資誠 (PwC) 台中所",
+            "安侯建業 (KPMG) 台中所",
+            "安永 (EY) 台中所",
+            "致遠聯合會計師事務所"
+          ],
+          "cooperation_mode": "大四下全職繁忙期審計實習、永續 ESG 碳盤查確信專案",
+          "verification": [
+            {
+              "name": "勤業眾信 (Deloitte) 台中所",
+              "verified": false
+            },
+            {
+              "name": "資誠 (PwC) 台中所",
+              "verified": false
+            },
+            {
+              "name": "安侯建業 (KPMG) 台中所",
+              "verified": false
+            },
+            {
+              "name": "安永 (EY) 台中所",
+              "verified": false
+            },
+            {
+              "name": "致遠聯合會計師事務所",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 1
+    }
+  },
+  "finance": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "財務金融系",
+      "slug": "finance",
+      "dept_code": "04121021",
+      "data_file": "output/finance/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "財務金融系",
+      "dept_code": "04121021",
+      "latest_year": 114,
+      "students_total": 684,
+      "freshmen_capacity": 80,
+      "freshmen_registered": 80,
+      "enrollment_rate": 100.0,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 88.75,
+          "capacity": 95,
+          "registered": 90
+        },
+        {
+          "year": 107,
+          "rate": 86.88,
+          "capacity": 95,
+          "registered": 87
+        },
+        {
+          "year": 108,
+          "rate": 98.75,
+          "capacity": 95,
+          "registered": 93
+        },
+        {
+          "year": 109,
+          "rate": 88.16,
+          "capacity": 95,
+          "registered": 88
+        },
+        {
+          "year": 110,
+          "rate": 97.5,
+          "capacity": 80,
+          "registered": 78
+        },
+        {
+          "year": 111,
+          "rate": 95.06,
+          "capacity": 80,
+          "registered": 76
+        },
+        {
+          "year": 112,
+          "rate": 97.53,
+          "capacity": 80,
+          "registered": 78
+        },
+        {
+          "year": 113,
+          "rate": 100.0,
+          "capacity": 80,
+          "registered": 80
+        },
+        {
+          "year": 114,
+          "rate": 100.0,
+          "capacity": 80,
+          "registered": 80
+        }
+      ],
+      "dropout_count": 50,
+      "dropout_rate": 7.31,
+      "suspension_count": 55,
+      "suspension_rate": 8.04,
+      "faculty_count": 17,
+      "faculty_ratio": 40.2,
+      "foreign_count": 1,
+      "foreign_ratio": 0.15,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 100.0,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": 1.23,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 7.31,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 8.04,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 15.35,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 40.2,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.15,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": 0.0,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 3.02,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -18.8,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 35.9,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 78.3,
+      "grade": "B 觀察",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 100.0,
+        "K05": 84.7,
+        "K10": 50.0,
+        "K19": 81.2,
+        "K06": 49.5
+      },
+      "contributions": {
+        "K01": 30.0,
+        "K05": 21.16,
+        "K10": 10.0,
+        "K19": 12.18,
+        "K06": 4.95
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R02",
+        "severity": "medium",
+        "title": "學生在學淨流失率偏高",
+        "message": "本學年退學率與休學率總和（淨流失率）達 15.35%，學生就學穩定度需關注。",
+        "action": "檢視大一基礎必修門檻與學生自請休退學原因分析。"
+      },
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -18.8%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      },
+      {
+        "id": "R04",
+        "severity": "medium",
+        "title": "專任教師生師比逼近警戒上限",
+        "message": "專任生師比達 40.2，超出優質教學建議之 32:1 門檻。",
+        "action": "爭取增聘專任師資或適度調降核定招生總額。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 80,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 65,
+        "est_severe": 60,
+        "est_aggressive": 70,
+        "capacity": 80,
+        "gap": -15,
+        "gap_pct": -18.8
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 60,
+        "est_severe": 44,
+        "est_aggressive": 80,
+        "capacity": 80,
+        "gap": -20,
+        "gap_pct": -25.0
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 80,
+          "est_severe": 80,
+          "est_aggressive": 80,
+          "capacity": 80,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 79,
+          "est_severe": 78,
+          "est_aggressive": 81,
+          "capacity": 80,
+          "gap": -1,
+          "gap_pct": -1.2
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 77,
+          "est_severe": 74,
+          "est_aggressive": 80,
+          "capacity": 80,
+          "gap": -3,
+          "gap_pct": -3.8
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 74,
+          "est_severe": 70,
+          "est_aggressive": 79,
+          "capacity": 80,
+          "gap": -6,
+          "gap_pct": -7.5
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 65,
+          "est_severe": 60,
+          "est_aggressive": 70,
+          "capacity": 80,
+          "gap": -15,
+          "gap_pct": -18.8
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 76,
+          "est_severe": 69,
+          "est_aggressive": 84,
+          "capacity": 80,
+          "gap": -4,
+          "gap_pct": -5.0
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 89,
+          "est_severe": 79,
+          "est_aggressive": 100,
+          "capacity": 80,
+          "gap": 9,
+          "gap_pct": 11.2
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 77,
+          "est_severe": 67,
+          "est_aggressive": 89,
+          "capacity": 80,
+          "gap": -3,
+          "gap_pct": -3.8
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 82,
+          "est_severe": 70,
+          "est_aggressive": 96,
+          "capacity": 80,
+          "gap": 2,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 83,
+          "est_severe": 69,
+          "est_aggressive": 99,
+          "capacity": 80,
+          "gap": 3,
+          "gap_pct": 3.8
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 81,
+          "est_severe": 66,
+          "est_aggressive": 99,
+          "capacity": 80,
+          "gap": 1,
+          "gap_pct": 1.2
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 75,
+          "est_severe": 60,
+          "est_aggressive": 94,
+          "capacity": 80,
+          "gap": -5,
+          "gap_pct": -6.2
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 71,
+          "est_severe": 55,
+          "est_aggressive": 90,
+          "capacity": 80,
+          "gap": -9,
+          "gap_pct": -11.2
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 69,
+          "est_severe": 53,
+          "est_aggressive": 89,
+          "capacity": 80,
+          "gap": -11,
+          "gap_pct": -13.8
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 64,
+          "est_severe": 48,
+          "est_aggressive": 85,
+          "capacity": 80,
+          "gap": -16,
+          "gap_pct": -20.0
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 60,
+          "est_severe": 44,
+          "est_aggressive": 80,
+          "capacity": 80,
+          "gap": -20,
+          "gap_pct": -25.0
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立高雄科技大學",
+        "dept": "金融系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 4.55,
+        "faculty_ratio": 34.4,
+        "students_total": 550,
+        "foreign_ratio": 0.55
+      },
+      {
+        "school": "國立臺北商業大學",
+        "dept": "財務金融系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 5.2,
+        "faculty_ratio": 17.0,
+        "students_total": 442,
+        "foreign_ratio": 11.76
+      },
+      {
+        "school": "國立雲林科技大學",
+        "dept": "財務金融系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 1.35,
+        "faculty_ratio": 15.9,
+        "students_total": 222,
+        "foreign_ratio": 4.95
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "財務金融學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 99.67,
+        "dropout_rate": 4.03,
+        "faculty_ratio": 36.1,
+        "students_total": 794,
+        "foreign_ratio": 1.01
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專甄選交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 2172 筆（含競校），其中本校系 575 筆",
+      "own_candidates": 575,
+      "retained": 157,
+      "retention_rate": 27.3,
+      "poached": 246,
+      "unplaced": 172,
+      "main_admitted": 177,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 83,
+          "share_of_poached": 33.7
+        },
+        {
+          "school": "國立雲林科技大學",
+          "count": 64,
+          "share_of_poached": 26.0
+        },
+        {
+          "school": "國立臺北商業大學",
+          "count": 42,
+          "share_of_poached": 17.1
+        },
+        {
+          "school": "國立彰化師範大學",
+          "count": 14,
+          "share_of_poached": 5.7
+        },
+        {
+          "school": "中原大學",
+          "count": 8,
+          "share_of_poached": 3.3
+        }
+      ]
+    },
+    "partners": {
+      "department": "財務金融系",
+      "matched_category": "國際貿易與經營系",
+      "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+      "clusters": [
+        {
+          "category": "在地精密機械與零組件外銷隱形冠軍",
+          "companies": [
+            "巨大機械工業 (捷安特)",
+            "台中精機廠",
+            "上銀科技",
+            "高鋒工業",
+            "和大工業"
+          ],
+          "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
+          "capital_range": "新台幣 5,000 萬 ～ 100 億元",
+          "hot_jobs": [
+            "國外業務代表",
+            "國貿外銷專員",
+            "跨國採購助理"
+          ],
+          "salary_range": "38,000 ～ 55,000 元/月",
+          "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案",
+          "verification": [
+            {
+              "name": "巨大機械工業 (捷安特)",
+              "verified": false
+            },
+            {
+              "name": "台中精機廠",
+              "verified": false
+            },
+            {
+              "name": "上銀科技",
+              "verified": false
+            },
+            {
+              "name": "高鋒工業",
+              "verified": false
+            },
+            {
+              "name": "和大工業",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "跨境電子商務與數位品牌外銷商",
+          "companies": [
+            "耐德科技 (SHOPPING99)",
+            "台灣網商協會會員企業",
+            "中部 Amazon/Shopee 外銷大賣家",
+            "美賣科技台中分部"
+          ],
+          "zone": "台中軟體園區 / 西屯七期商辦",
+          "capital_range": "新台幣 1,000 萬 ～ 1 億元",
+          "hot_jobs": [
+            "跨境電商營運專員",
+            "海外數位行銷投放師",
+            "多語系社群運營"
+          ],
+          "salary_range": "36,000 ～ 50,000 元/月",
+          "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操",
+          "verification": [
+            {
+              "name": "耐德科技 (SHOPPING99)",
+              "verified": false
+            },
+            {
+              "name": "台灣網商協會會員企業",
+              "verified": false
+            },
+            {
+              "name": "中部 Amazon/Shopee 外銷大賣家",
+              "verified": false
+            },
+            {
+              "name": "美賣科技台中分部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "台中港區海空運承攬與報關物流龍頭",
+          "companies": [
+            "近鐵運通 (Kintetsu World Express)",
+            "中菲行航空貨運台中分公司",
+            "長榮物流台中辦事處",
+            "建新國際",
+            "大洋報關行"
+          ],
+          "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
+          "capital_range": "新台幣 2,000 萬 ～ 10 億元",
+          "hot_jobs": [
+            "報關專責人員",
+            "海運承攬操作專員",
+            "保稅倉儲管理員"
+          ],
+          "salary_range": "35,000 ～ 48,000 元/月",
+          "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案",
+          "verification": [
+            {
+              "name": "近鐵運通 (Kintetsu World Express)",
+              "verified": false
+            },
+            {
+              "name": "中菲行航空貨運台中分公司",
+              "verified": false
+            },
+            {
+              "name": "長榮物流台中辦事處",
+              "verified": false
+            },
+            {
+              "name": "建新國際",
+              "verified": false
+            },
+            {
+              "name": "大洋報關行",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "外匯指定銀行與國際貿易融資部",
+          "companies": [
+            "兆豐國際商銀中部分行",
+            "第一商業銀行台中分行",
+            "合作金庫銀行",
+            "台中商業銀行國外部"
+          ],
+          "zone": "台中市中區/西區/西屯區金融商圈",
+          "capital_range": "新台幣 500 億元以上",
+          "hot_jobs": [
+            "外匯櫃員",
+            "進出口信用狀審查專員",
+            "貿易融資助理"
+          ],
+          "salary_range": "40,000 ～ 52,000 元/月",
+          "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作",
+          "verification": [
+            {
+              "name": "兆豐國際商銀中部分行",
+              "verified": false
+            },
+            {
+              "name": "第一商業銀行台中分行",
+              "verified": false
+            },
+            {
+              "name": "合作金庫銀行",
+              "verified": false
+            },
+            {
+              "name": "台中商業銀行國外部",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 4
+    }
+  },
+  "insurance": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "保險金融管理系",
+      "slug": "insurance",
+      "dept_code": "04123027",
+      "data_file": "output/insurance/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "保險金融管理系",
+      "dept_code": "04123027",
+      "latest_year": 114,
+      "students_total": 510,
+      "freshmen_capacity": 118,
+      "freshmen_registered": 118,
+      "enrollment_rate": 100.0,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 99.17,
+          "capacity": 132,
+          "registered": 131
+        },
+        {
+          "year": 107,
+          "rate": 93.61,
+          "capacity": 132,
+          "registered": 128
+        },
+        {
+          "year": 108,
+          "rate": 91.25,
+          "capacity": 131,
+          "registered": 127
+        },
+        {
+          "year": 109,
+          "rate": 94.44,
+          "capacity": 131,
+          "registered": 129
+        },
+        {
+          "year": 110,
+          "rate": 97.44,
+          "capacity": 119,
+          "registered": 117
+        },
+        {
+          "year": 111,
+          "rate": 100.0,
+          "capacity": 118,
+          "registered": 119
+        },
+        {
+          "year": 112,
+          "rate": 98.69,
+          "capacity": 118,
+          "registered": 117
+        },
+        {
+          "year": 113,
+          "rate": 100.0,
+          "capacity": 118,
+          "registered": 118
+        },
+        {
+          "year": 114,
+          "rate": 100.0,
+          "capacity": 118,
+          "registered": 118
+        }
+      ],
+      "dropout_count": 30,
+      "dropout_rate": 5.88,
+      "suspension_count": 26,
+      "suspension_rate": 5.1,
+      "faculty_count": 22,
+      "faculty_ratio": 23.2,
+      "foreign_count": 1,
+      "foreign_ratio": 0.2,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 100.0,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": 0.66,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 5.88,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 5.1,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 10.98,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 23.2,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.2,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": 1.92,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 0.99,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -18.6,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 24.8,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 85.6,
+      "grade": "A 穩健",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 100.0,
+        "K05": 89.0,
+        "K10": 59.6,
+        "K19": 81.4,
+        "K06": 92.0
+      },
+      "contributions": {
+        "K01": 30.0,
+        "K05": 22.25,
+        "K10": 11.92,
+        "K19": 12.21,
+        "K06": 9.2
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -18.6%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 118,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 96,
+        "est_severe": 88,
+        "est_aggressive": 104,
+        "capacity": 118,
+        "gap": -22,
+        "gap_pct": -18.6
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 88,
+        "est_severe": 65,
+        "est_aggressive": 119,
+        "capacity": 118,
+        "gap": -30,
+        "gap_pct": -25.4
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 118,
+          "est_severe": 118,
+          "est_aggressive": 118,
+          "capacity": 118,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 117,
+          "est_severe": 115,
+          "est_aggressive": 120,
+          "capacity": 118,
+          "gap": -1,
+          "gap_pct": -0.8
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 114,
+          "est_severe": 109,
+          "est_aggressive": 119,
+          "capacity": 118,
+          "gap": -4,
+          "gap_pct": -3.4
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 110,
+          "est_severe": 103,
+          "est_aggressive": 116,
+          "capacity": 118,
+          "gap": -8,
+          "gap_pct": -6.8
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 96,
+          "est_severe": 88,
+          "est_aggressive": 104,
+          "capacity": 118,
+          "gap": -22,
+          "gap_pct": -18.6
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 113,
+          "est_severe": 102,
+          "est_aggressive": 124,
+          "capacity": 118,
+          "gap": -5,
+          "gap_pct": -4.2
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 132,
+          "est_severe": 117,
+          "est_aggressive": 148,
+          "capacity": 118,
+          "gap": 14,
+          "gap_pct": 11.9
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 114,
+          "est_severe": 99,
+          "est_aggressive": 131,
+          "capacity": 118,
+          "gap": -4,
+          "gap_pct": -3.4
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 121,
+          "est_severe": 103,
+          "est_aggressive": 141,
+          "capacity": 118,
+          "gap": 3,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 122,
+          "est_severe": 102,
+          "est_aggressive": 146,
+          "capacity": 118,
+          "gap": 4,
+          "gap_pct": 3.4
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 119,
+          "est_severe": 98,
+          "est_aggressive": 146,
+          "capacity": 118,
+          "gap": 1,
+          "gap_pct": 0.8
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 111,
+          "est_severe": 89,
+          "est_aggressive": 138,
+          "capacity": 118,
+          "gap": -7,
+          "gap_pct": -5.9
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 104,
+          "est_severe": 82,
+          "est_aggressive": 132,
+          "capacity": 118,
+          "gap": -14,
+          "gap_pct": -11.9
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 102,
+          "est_severe": 78,
+          "est_aggressive": 132,
+          "capacity": 118,
+          "gap": -16,
+          "gap_pct": -13.6
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 95,
+          "est_severe": 71,
+          "est_aggressive": 125,
+          "capacity": 118,
+          "gap": -23,
+          "gap_pct": -19.5
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 88,
+          "est_severe": 65,
+          "est_aggressive": 119,
+          "capacity": 118,
+          "gap": -30,
+          "gap_pct": -25.4
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立高雄科技大學",
+        "dept": "風險管理與保險系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 98.08,
+        "dropout_rate": 4.15,
+        "faculty_ratio": 26.8,
+        "students_total": 241,
+        "foreign_ratio": 0.41
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "風險管理與保險學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 97.91,
+        "dropout_rate": 4.89,
+        "faculty_ratio": 40.9,
+        "students_total": 450,
+        "foreign_ratio": 0.44
+      },
+      {
+        "school": "國立臺北商業大學",
+        "dept": "財務金融系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 5.2,
+        "faculty_ratio": 17.0,
+        "students_total": 442,
+        "foreign_ratio": 11.76
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專與大學交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 4768 筆（含競校），其中本校系 518 筆",
+      "own_candidates": 518,
+      "retained": 171,
+      "retention_rate": 33.0,
+      "poached": 200,
+      "unplaced": 147,
+      "main_admitted": 174,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 53,
+          "share_of_poached": 26.5
+        },
+        {
+          "school": "國立勤益科技大學",
+          "count": 40,
+          "share_of_poached": 20.0
+        },
+        {
+          "school": "國立虎尾科技大學",
+          "count": 16,
+          "share_of_poached": 8.0
+        },
+        {
+          "school": "朝陽科技大學",
+          "count": 16,
+          "share_of_poached": 8.0
+        },
+        {
+          "school": "銘傳大學",
+          "count": 11,
+          "share_of_poached": 5.5
+        }
+      ]
+    },
+    "partners": {
+      "department": "保險金融管理系",
+      "matched_category": "國際貿易與經營系",
+      "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+      "clusters": [
+        {
+          "category": "在地精密機械與零組件外銷隱形冠軍",
+          "companies": [
+            "巨大機械工業 (捷安特)",
+            "台中精機廠",
+            "上銀科技",
+            "高鋒工業",
+            "和大工業"
+          ],
+          "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
+          "capital_range": "新台幣 5,000 萬 ～ 100 億元",
+          "hot_jobs": [
+            "國外業務代表",
+            "國貿外銷專員",
+            "跨國採購助理"
+          ],
+          "salary_range": "38,000 ～ 55,000 元/月",
+          "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案",
+          "verification": [
+            {
+              "name": "巨大機械工業 (捷安特)",
+              "verified": false
+            },
+            {
+              "name": "台中精機廠",
+              "verified": false
+            },
+            {
+              "name": "上銀科技",
+              "verified": false
+            },
+            {
+              "name": "高鋒工業",
+              "verified": false
+            },
+            {
+              "name": "和大工業",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "跨境電子商務與數位品牌外銷商",
+          "companies": [
+            "耐德科技 (SHOPPING99)",
+            "台灣網商協會會員企業",
+            "中部 Amazon/Shopee 外銷大賣家",
+            "美賣科技台中分部"
+          ],
+          "zone": "台中軟體園區 / 西屯七期商辦",
+          "capital_range": "新台幣 1,000 萬 ～ 1 億元",
+          "hot_jobs": [
+            "跨境電商營運專員",
+            "海外數位行銷投放師",
+            "多語系社群運營"
+          ],
+          "salary_range": "36,000 ～ 50,000 元/月",
+          "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操",
+          "verification": [
+            {
+              "name": "耐德科技 (SHOPPING99)",
+              "verified": false
+            },
+            {
+              "name": "台灣網商協會會員企業",
+              "verified": false
+            },
+            {
+              "name": "中部 Amazon/Shopee 外銷大賣家",
+              "verified": false
+            },
+            {
+              "name": "美賣科技台中分部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "台中港區海空運承攬與報關物流龍頭",
+          "companies": [
+            "近鐵運通 (Kintetsu World Express)",
+            "中菲行航空貨運台中分公司",
+            "長榮物流台中辦事處",
+            "建新國際",
+            "大洋報關行"
+          ],
+          "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
+          "capital_range": "新台幣 2,000 萬 ～ 10 億元",
+          "hot_jobs": [
+            "報關專責人員",
+            "海運承攬操作專員",
+            "保稅倉儲管理員"
+          ],
+          "salary_range": "35,000 ～ 48,000 元/月",
+          "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案",
+          "verification": [
+            {
+              "name": "近鐵運通 (Kintetsu World Express)",
+              "verified": false
+            },
+            {
+              "name": "中菲行航空貨運台中分公司",
+              "verified": false
+            },
+            {
+              "name": "長榮物流台中辦事處",
+              "verified": false
+            },
+            {
+              "name": "建新國際",
+              "verified": false
+            },
+            {
+              "name": "大洋報關行",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "外匯指定銀行與國際貿易融資部",
+          "companies": [
+            "兆豐國際商銀中部分行",
+            "第一商業銀行台中分行",
+            "合作金庫銀行",
+            "台中商業銀行國外部"
+          ],
+          "zone": "台中市中區/西區/西屯區金融商圈",
+          "capital_range": "新台幣 500 億元以上",
+          "hot_jobs": [
+            "外匯櫃員",
+            "進出口信用狀審查專員",
+            "貿易融資助理"
+          ],
+          "salary_range": "40,000 ～ 52,000 元/月",
+          "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作",
+          "verification": [
+            {
+              "name": "兆豐國際商銀中部分行",
+              "verified": false
+            },
+            {
+              "name": "第一商業銀行台中分行",
+              "verified": false
+            },
+            {
+              "name": "合作金庫銀行",
+              "verified": false
+            },
+            {
+              "name": "台中商業銀行國外部",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 4
+    }
+  },
+  "stat": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "應用統計系",
+      "slug": "stat",
+      "dept_code": "05421032",
+      "data_file": "output/stat/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "應用統計系",
+      "dept_code": "05421032",
+      "latest_year": 114,
+      "students_total": 185,
+      "freshmen_capacity": 40,
+      "freshmen_registered": 40,
+      "enrollment_rate": 100.0,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        },
+        {
+          "year": 107,
+          "rate": 97.5,
+          "capacity": 40,
+          "registered": 39
+        },
+        {
+          "year": 108,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        },
+        {
+          "year": 109,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        },
+        {
+          "year": 110,
+          "rate": 97.5,
+          "capacity": 40,
+          "registered": 39
+        },
+        {
+          "year": 111,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 41
+        },
+        {
+          "year": 112,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        },
+        {
+          "year": 113,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        },
+        {
+          "year": 114,
+          "rate": 100.0,
+          "capacity": 40,
+          "registered": 40
+        }
+      ],
+      "dropout_count": 4,
+      "dropout_rate": 2.16,
+      "suspension_count": 6,
+      "suspension_rate": 3.24,
+      "faculty_count": 7,
+      "faculty_ratio": 26.4,
+      "foreign_count": 0,
+      "foreign_ratio": 0.0,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 100.0,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": 0.0,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 2.16,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 3.24,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 5.4,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 26.4,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": 0.0,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 0.03,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -20.0,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 24.0,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 84.0,
+      "grade": "A 穩健",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 100.0,
+        "K05": 94.6,
+        "K10": 50.0,
+        "K19": 80.0,
+        "K06": 84.0
+      },
+      "contributions": {
+        "K01": 30.0,
+        "K05": 23.65,
+        "K10": 10.0,
+        "K19": 12.0,
+        "K06": 8.4
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -20.0%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 40,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 32,
+        "est_severe": 30,
+        "est_aggressive": 35,
+        "capacity": 40,
+        "gap": -8,
+        "gap_pct": -20.0
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 30,
+        "est_severe": 22,
+        "est_aggressive": 40,
+        "capacity": 40,
+        "gap": -10,
+        "gap_pct": -25.0
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 40,
+          "est_severe": 40,
+          "est_aggressive": 40,
+          "capacity": 40,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 40,
+          "est_severe": 39,
+          "est_aggressive": 41,
+          "capacity": 40,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 39,
+          "est_severe": 37,
+          "est_aggressive": 40,
+          "capacity": 40,
+          "gap": -1,
+          "gap_pct": -2.5
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 37,
+          "est_severe": 35,
+          "est_aggressive": 39,
+          "capacity": 40,
+          "gap": -3,
+          "gap_pct": -7.5
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 32,
+          "est_severe": 30,
+          "est_aggressive": 35,
+          "capacity": 40,
+          "gap": -8,
+          "gap_pct": -20.0
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 38,
+          "est_severe": 35,
+          "est_aggressive": 42,
+          "capacity": 40,
+          "gap": -2,
+          "gap_pct": -5.0
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 45,
+          "est_severe": 40,
+          "est_aggressive": 50,
+          "capacity": 40,
+          "gap": 5,
+          "gap_pct": 12.5
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 39,
+          "est_severe": 34,
+          "est_aggressive": 44,
+          "capacity": 40,
+          "gap": -1,
+          "gap_pct": -2.5
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 41,
+          "est_severe": 35,
+          "est_aggressive": 48,
+          "capacity": 40,
+          "gap": 1,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 42,
+          "est_severe": 35,
+          "est_aggressive": 50,
+          "capacity": 40,
+          "gap": 2,
+          "gap_pct": 5.0
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 41,
+          "est_severe": 33,
+          "est_aggressive": 49,
+          "capacity": 40,
+          "gap": 1,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 38,
+          "est_severe": 30,
+          "est_aggressive": 47,
+          "capacity": 40,
+          "gap": -2,
+          "gap_pct": -5.0
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 35,
+          "est_severe": 28,
+          "est_aggressive": 45,
+          "capacity": 40,
+          "gap": -5,
+          "gap_pct": -12.5
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 35,
+          "est_severe": 27,
+          "est_aggressive": 45,
+          "capacity": 40,
+          "gap": -5,
+          "gap_pct": -12.5
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 32,
+          "est_severe": 24,
+          "est_aggressive": 42,
+          "capacity": 40,
+          "gap": -8,
+          "gap_pct": -20.0
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 30,
+          "est_severe": 22,
+          "est_aggressive": 40,
+          "capacity": 40,
+          "gap": -10,
+          "gap_pct": -25.0
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立臺北商業大學",
+        "dept": "應用統計系",
+        "public": true,
+        "year": 113,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 0.0,
+        "faculty_ratio": 0.0,
+        "students_total": 0,
+        "foreign_ratio": 0.0
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "統計學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 3.6,
+        "faculty_ratio": 34.8,
+        "students_total": 417,
+        "foreign_ratio": 0.72
+      },
+      {
+        "school": "國立高雄科技大學",
+        "dept": "資訊管理系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 97.67,
+        "dropout_rate": 2.13,
+        "faculty_ratio": 11.7,
+        "students_total": 375,
+        "foreign_ratio": 5.6
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專與大學交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 2456 筆（含競校），其中本校系 217 筆",
+      "own_candidates": 217,
+      "retained": 81,
+      "retention_rate": 37.3,
+      "poached": 66,
+      "unplaced": 70,
+      "main_admitted": 81,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 18,
+          "share_of_poached": 27.3
+        },
+        {
+          "school": "國立虎尾科技大學",
+          "count": 7,
+          "share_of_poached": 10.6
+        },
+        {
+          "school": "朝陽科技大學",
+          "count": 6,
+          "share_of_poached": 9.1
+        },
+        {
+          "school": "國立勤益科技大學",
+          "count": 6,
+          "share_of_poached": 9.1
+        },
+        {
+          "school": "逢甲大學",
+          "count": 5,
+          "share_of_poached": 7.6
+        }
+      ]
+    },
+    "partners": {
+      "department": "應用統計系",
+      "matched_category": "國際貿易與經營系",
+      "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+      "clusters": [
+        {
+          "category": "在地精密機械與零組件外銷隱形冠軍",
+          "companies": [
+            "巨大機械工業 (捷安特)",
+            "台中精機廠",
+            "上銀科技",
+            "高鋒工業",
+            "和大工業"
+          ],
+          "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
+          "capital_range": "新台幣 5,000 萬 ～ 100 億元",
+          "hot_jobs": [
+            "國外業務代表",
+            "國貿外銷專員",
+            "跨國採購助理"
+          ],
+          "salary_range": "38,000 ～ 55,000 元/月",
+          "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案",
+          "verification": [
+            {
+              "name": "巨大機械工業 (捷安特)",
+              "verified": false
+            },
+            {
+              "name": "台中精機廠",
+              "verified": false
+            },
+            {
+              "name": "上銀科技",
+              "verified": false
+            },
+            {
+              "name": "高鋒工業",
+              "verified": false
+            },
+            {
+              "name": "和大工業",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "跨境電子商務與數位品牌外銷商",
+          "companies": [
+            "耐德科技 (SHOPPING99)",
+            "台灣網商協會會員企業",
+            "中部 Amazon/Shopee 外銷大賣家",
+            "美賣科技台中分部"
+          ],
+          "zone": "台中軟體園區 / 西屯七期商辦",
+          "capital_range": "新台幣 1,000 萬 ～ 1 億元",
+          "hot_jobs": [
+            "跨境電商營運專員",
+            "海外數位行銷投放師",
+            "多語系社群運營"
+          ],
+          "salary_range": "36,000 ～ 50,000 元/月",
+          "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操",
+          "verification": [
+            {
+              "name": "耐德科技 (SHOPPING99)",
+              "verified": false
+            },
+            {
+              "name": "台灣網商協會會員企業",
+              "verified": false
+            },
+            {
+              "name": "中部 Amazon/Shopee 外銷大賣家",
+              "verified": false
+            },
+            {
+              "name": "美賣科技台中分部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "台中港區海空運承攬與報關物流龍頭",
+          "companies": [
+            "近鐵運通 (Kintetsu World Express)",
+            "中菲行航空貨運台中分公司",
+            "長榮物流台中辦事處",
+            "建新國際",
+            "大洋報關行"
+          ],
+          "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
+          "capital_range": "新台幣 2,000 萬 ～ 10 億元",
+          "hot_jobs": [
+            "報關專責人員",
+            "海運承攬操作專員",
+            "保稅倉儲管理員"
+          ],
+          "salary_range": "35,000 ～ 48,000 元/月",
+          "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案",
+          "verification": [
+            {
+              "name": "近鐵運通 (Kintetsu World Express)",
+              "verified": false
+            },
+            {
+              "name": "中菲行航空貨運台中分公司",
+              "verified": false
+            },
+            {
+              "name": "長榮物流台中辦事處",
+              "verified": false
+            },
+            {
+              "name": "建新國際",
+              "verified": false
+            },
+            {
+              "name": "大洋報關行",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "外匯指定銀行與國際貿易融資部",
+          "companies": [
+            "兆豐國際商銀中部分行",
+            "第一商業銀行台中分行",
+            "合作金庫銀行",
+            "台中商業銀行國外部"
+          ],
+          "zone": "台中市中區/西區/西屯區金融商圈",
+          "capital_range": "新台幣 500 億元以上",
+          "hot_jobs": [
+            "外匯櫃員",
+            "進出口信用狀審查專員",
+            "貿易融資助理"
+          ],
+          "salary_range": "40,000 ～ 52,000 元/月",
+          "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作",
+          "verification": [
+            {
+              "name": "兆豐國際商銀中部分行",
+              "verified": false
+            },
+            {
+              "name": "第一商業銀行台中分行",
+              "verified": false
+            },
+            {
+              "name": "合作金庫銀行",
+              "verified": false
+            },
+            {
+              "name": "台中商業銀行國外部",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 4
+    }
+  },
+  "tax": {
+    "meta": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "財政稅務系",
+      "slug": "tax",
+      "dept_code": "04122028",
+      "data_file": "output/tax/dept_data.json",
+      "fetched_at": "2026-10-02",
+      "latest_year": 114
+    },
+    "profile": {
+      "school_name": "國立臺中科技大學",
+      "dept_name": "財政稅務系",
+      "dept_code": "04122028",
+      "latest_year": 114,
+      "students_total": 342,
+      "freshmen_capacity": 80,
+      "freshmen_registered": 79,
+      "enrollment_rate": 98.75,
+      "enrollment_history": [
+        {
+          "year": 106,
+          "rate": 97.5,
+          "capacity": 80,
+          "registered": 78
+        },
+        {
+          "year": 107,
+          "rate": 98.75,
+          "capacity": 80,
+          "registered": 79
+        },
+        {
+          "year": 108,
+          "rate": 96.25,
+          "capacity": 80,
+          "registered": 77
+        },
+        {
+          "year": 109,
+          "rate": 96.25,
+          "capacity": 80,
+          "registered": 77
+        },
+        {
+          "year": 110,
+          "rate": 98.75,
+          "capacity": 80,
+          "registered": 79
+        },
+        {
+          "year": 111,
+          "rate": 98.75,
+          "capacity": 80,
+          "registered": 79
+        },
+        {
+          "year": 112,
+          "rate": 98.77,
+          "capacity": 80,
+          "registered": 79
+        },
+        {
+          "year": 113,
+          "rate": 98.75,
+          "capacity": 80,
+          "registered": 79
+        },
+        {
+          "year": 114,
+          "rate": 98.75,
+          "capacity": 80,
+          "registered": 79
+        }
+      ],
+      "dropout_count": 12,
+      "dropout_rate": 3.51,
+      "suspension_count": 8,
+      "suspension_rate": 2.34,
+      "faculty_count": 10,
+      "faculty_ratio": 34.2,
+      "foreign_count": 1,
+      "foreign_ratio": 0.29,
+      "graduates_count": 0
+    },
+    "kpis": {
+      "K01": {
+        "id": "K01",
+        "name": "日間部新生註冊率",
+        "value": 98.75,
+        "unit": "%",
+        "source_id": "UDB 學12-1",
+        "field": "當學年度新生註冊率(%)"
+      },
+      "K02": {
+        "id": "K02",
+        "name": "註冊率3年變化斜率",
+        "value": -0.01,
+        "unit": "pp/年",
+        "source_id": "UDB 學12-1",
+        "field": "近3學年 OLS 趨勢項"
+      },
+      "K03": {
+        "id": "K03",
+        "name": "學年度退學率",
+        "value": 3.51,
+        "unit": "%",
+        "source_id": "UDB 學14-1 / 學1-1",
+        "field": "學期間退學人數 / 在學學生數小計"
+      },
+      "K04": {
+        "id": "K04",
+        "name": "學年度休學率",
+        "value": 2.34,
+        "unit": "%",
+        "source_id": "UDB 學13-1 / 學1-1",
+        "field": "學年底處於休學狀態人數 / 在學學生數小計"
+      },
+      "K05": {
+        "id": "K05",
+        "name": "學生淨流失率",
+        "value": 5.85,
+        "unit": "%",
+        "source_id": "UDB 學13-1, 學14-1",
+        "field": "K03 + K04"
+      },
+      "K06": {
+        "id": "K06",
+        "name": "專任教師生師比",
+        "value": 34.2,
+        "unit": "生/師",
+        "source_id": "UDB 學1-1, 教1-1",
+        "field": "在學學生數小計 / 專任教師數總計"
+      },
+      "K07": {
+        "id": "K07",
+        "name": "境外生在學比率",
+        "value": 0.29,
+        "unit": "%",
+        "source_id": "UDB 學3-2",
+        "field": "外國學生數之在學比率(%)"
+      },
+      "K08": {
+        "id": "K08",
+        "name": "畢業生在學比",
+        "value": 0.0,
+        "unit": "%",
+        "source_id": "UDB 學2-1, 學1-1",
+        "field": "畢業生數小計 / 在學學生數小計"
+      },
+      "K10": {
+        "id": "K10",
+        "name": "同儕註冊率中位數差",
+        "value": -0.25,
+        "unit": "pp",
+        "source_id": "UDB 學12-1 跨校對比",
+        "field": "本系K01 - 同儕中位數"
+      },
+      "K23": {
+        "id": "K23",
+        "name": "同儕退學率中位數差",
+        "value": 1.45,
+        "unit": "pp",
+        "source_id": "UDB 學14-1 跨校對比",
+        "field": "本系K03 - 同儕中位數"
+      },
+      "K19": {
+        "id": "K19",
+        "name": "117虎年海嘯缺口率",
+        "value": -20.0,
+        "unit": "%",
+        "source_id": "內政部出生數推估",
+        "field": "117學年度預估名額赤字百分比"
+      },
+      "K09": {
+        "id": "K09",
+        "name": "同細學類規模全台排名",
+        "value": 4,
+        "unit": "名",
+        "source_id": "data.gov.tw (9622)",
+        "field": "學生數同類排名"
+      },
+      "K11": {
+        "id": "K11",
+        "name": "聯招甄選錄取率",
+        "value": 31.8,
+        "unit": "%",
+        "source_id": "data.gov.tw (177318)",
+        "field": "錄取人數 / 報考人數"
+      },
+      "K12": {
+        "id": "K12",
+        "name": "新生報到率",
+        "value": 99.2,
+        "unit": "%",
+        "source_id": "技專招聯會",
+        "field": "實際報到 / 錄取分發"
+      },
+      "K13": {
+        "id": "K13",
+        "name": "統測單科平均錄取分",
+        "value": 66.8,
+        "unit": "分",
+        "source_id": "技專招聯會 109-114",
+        "field": "商管群最低單科均分"
+      },
+      "K14": {
+        "id": "K14",
+        "name": "正取流向Top1競手",
+        "value": "高科大國企系 (42人)",
+        "unit": "校系",
+        "source_id": "com.tw 交叉查榜",
+        "field": "第一大失血競合對象"
+      },
+      "K20": {
+        "id": "K20",
+        "name": "AI與跨領域課程比",
+        "value": 28.6,
+        "unit": "%",
+        "source_id": "data.gov.tw (45717)",
+        "field": "AI及數位應用課綱比"
+      },
+      "K24": {
+        "id": "K24",
+        "name": "系所綜合風險指數",
+        "value": 25.1,
+        "unit": "分 (0-100)",
+        "source_id": "多維模型加權",
+        "field": "K02, K05, K10, K19 綜合風險加權"
+      }
+    },
+    "k24": {
+      "score": 81.4,
+      "grade": "A 穩健",
+      "weights": {
+        "K01": 0.3,
+        "K05": 0.25,
+        "K10": 0.2,
+        "K19": 0.15,
+        "K06": 0.1
+      },
+      "subscores": {
+        "K01": 98.8,
+        "K05": 94.2,
+        "K10": 48.8,
+        "K19": 80.0,
+        "K06": 64.5
+      },
+      "contributions": {
+        "K01": 29.62,
+        "K05": 23.54,
+        "K10": 9.75,
+        "K19": 12.0,
+        "K06": 6.45
+      },
+      "missing": [],
+      "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    "alerts": [
+      {
+        "id": "R03",
+        "severity": "high",
+        "title": "117 虎年海嘯生源赤字警報",
+        "message": "推估至 117 虎年海嘯谷底，大專生源供給缺口達 -20.0%，招生將面臨嚴峻考驗。",
+        "action": "提早啟動跨學制調節（擴增五專或在職碩士班名額，健全防禦護城河）。"
+      }
+    ],
+    "demographics": {
+      "base_capacity": 80,
+      "y117": {
+        "year": 117,
+        "births": 166886,
+        "cohort_ratio": 0.811,
+        "est_baseline": 64,
+        "est_severe": 59,
+        "est_aggressive": 69,
+        "capacity": 80,
+        "gap": -16,
+        "gap_pct": -20.0
+      },
+      "y128": {
+        "year": 128,
+        "births": 153820,
+        "cohort_ratio": 0.747,
+        "est_baseline": 59,
+        "est_severe": 44,
+        "est_aggressive": 79,
+        "capacity": 80,
+        "gap": -21,
+        "gap_pct": -26.2
+      },
+      "timeline": [
+        {
+          "year": 113,
+          "births": 205854,
+          "cohort_ratio": 1.0,
+          "est_baseline": 79,
+          "est_severe": 79,
+          "est_aggressive": 79,
+          "capacity": 80,
+          "gap": -1,
+          "gap_pct": -1.2
+        },
+        {
+          "year": 114,
+          "births": 204414,
+          "cohort_ratio": 0.993,
+          "est_baseline": 78,
+          "est_severe": 77,
+          "est_aggressive": 80,
+          "capacity": 80,
+          "gap": -2,
+          "gap_pct": -2.5
+        },
+        {
+          "year": 115,
+          "births": 198733,
+          "cohort_ratio": 0.965,
+          "est_baseline": 76,
+          "est_severe": 73,
+          "est_aggressive": 79,
+          "capacity": 80,
+          "gap": -4,
+          "gap_pct": -5.0
+        },
+        {
+          "year": 116,
+          "births": 191310,
+          "cohort_ratio": 0.929,
+          "est_baseline": 73,
+          "est_severe": 69,
+          "est_aggressive": 78,
+          "capacity": 80,
+          "gap": -7,
+          "gap_pct": -8.8
+        },
+        {
+          "year": 117,
+          "births": 166886,
+          "cohort_ratio": 0.811,
+          "est_baseline": 64,
+          "est_severe": 59,
+          "est_aggressive": 69,
+          "capacity": 80,
+          "gap": -16,
+          "gap_pct": -20.0
+        },
+        {
+          "year": 118,
+          "births": 196627,
+          "cohort_ratio": 0.955,
+          "est_baseline": 75,
+          "est_severe": 68,
+          "est_aggressive": 83,
+          "capacity": 80,
+          "gap": -5,
+          "gap_pct": -6.2
+        },
+        {
+          "year": 119,
+          "births": 229481,
+          "cohort_ratio": 1.115,
+          "est_baseline": 88,
+          "est_severe": 78,
+          "est_aggressive": 99,
+          "capacity": 80,
+          "gap": 8,
+          "gap_pct": 10.0
+        },
+        {
+          "year": 120,
+          "births": 199113,
+          "cohort_ratio": 0.967,
+          "est_baseline": 76,
+          "est_severe": 66,
+          "est_aggressive": 88,
+          "capacity": 80,
+          "gap": -4,
+          "gap_pct": -5.0
+        },
+        {
+          "year": 121,
+          "births": 210383,
+          "cohort_ratio": 1.022,
+          "est_baseline": 81,
+          "est_severe": 69,
+          "est_aggressive": 95,
+          "capacity": 80,
+          "gap": 1,
+          "gap_pct": 1.2
+        },
+        {
+          "year": 122,
+          "births": 213598,
+          "cohort_ratio": 1.038,
+          "est_baseline": 82,
+          "est_severe": 68,
+          "est_aggressive": 98,
+          "capacity": 80,
+          "gap": 2,
+          "gap_pct": 2.5
+        },
+        {
+          "year": 123,
+          "births": 208440,
+          "cohort_ratio": 1.013,
+          "est_baseline": 80,
+          "est_severe": 65,
+          "est_aggressive": 98,
+          "capacity": 80,
+          "gap": 0,
+          "gap_pct": 0.0
+        },
+        {
+          "year": 124,
+          "births": 193844,
+          "cohort_ratio": 0.942,
+          "est_baseline": 74,
+          "est_severe": 60,
+          "est_aggressive": 92,
+          "capacity": 80,
+          "gap": -6,
+          "gap_pct": -7.5
+        },
+        {
+          "year": 125,
+          "births": 181601,
+          "cohort_ratio": 0.882,
+          "est_baseline": 70,
+          "est_severe": 55,
+          "est_aggressive": 88,
+          "capacity": 80,
+          "gap": -10,
+          "gap_pct": -12.5
+        },
+        {
+          "year": 126,
+          "births": 177767,
+          "cohort_ratio": 0.864,
+          "est_baseline": 68,
+          "est_severe": 52,
+          "est_aggressive": 88,
+          "capacity": 80,
+          "gap": -12,
+          "gap_pct": -15.0
+        },
+        {
+          "year": 127,
+          "births": 165249,
+          "cohort_ratio": 0.803,
+          "est_baseline": 63,
+          "est_severe": 48,
+          "est_aggressive": 84,
+          "capacity": 80,
+          "gap": -17,
+          "gap_pct": -21.2
+        },
+        {
+          "year": 128,
+          "births": 153820,
+          "cohort_ratio": 0.747,
+          "est_baseline": 59,
+          "est_severe": 44,
+          "est_aggressive": 79,
+          "capacity": 80,
+          "gap": -21,
+          "gap_pct": -26.2
+        }
+      ],
+      "source": "內政部歷年出生數 × 本系份額推估（dept_data.json demo）"
+    },
+    "peers": [
+      {
+        "school": "國立臺北商業大學",
+        "dept": "財政稅務系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 99.0,
+        "dropout_rate": 2.06,
+        "faculty_ratio": 21.6,
+        "students_total": 388,
+        "foreign_ratio": 0.0
+      },
+      {
+        "school": "國立高雄科技大學",
+        "dept": "財政稅務系",
+        "public": true,
+        "year": 114,
+        "enrollment_rate": 100.0,
+        "dropout_rate": 5.59,
+        "faculty_ratio": 32.5,
+        "students_total": 358,
+        "foreign_ratio": 0.0
+      },
+      {
+        "school": "逢甲大學",
+        "dept": "財稅學系",
+        "public": false,
+        "year": 114,
+        "enrollment_rate": 96.59,
+        "dropout_rate": 2.02,
+        "faculty_ratio": 49.4,
+        "students_total": 494,
+        "foreign_ratio": 0.4
+      }
+    ],
+    "module5": {
+      "source": "01_四技二專與大學交叉查榜全量考生流向.csv",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ],
+      "population_note": "交叉查榜母體 1568 筆（含競校），其中本校系 516 筆",
+      "own_candidates": 516,
+      "retained": 166,
+      "retention_rate": 32.2,
+      "poached": 189,
+      "unplaced": 161,
+      "main_admitted": 172,
+      "top_destinations": [
+        {
+          "school": "國立高雄科技大學",
+          "count": 83,
+          "share_of_poached": 43.9
+        },
+        {
+          "school": "逢甲大學",
+          "count": 24,
+          "share_of_poached": 12.7
+        },
+        {
+          "school": "國立虎尾科技大學",
+          "count": 16,
+          "share_of_poached": 8.5
+        },
+        {
+          "school": "國立臺北商業大學",
+          "count": 11,
+          "share_of_poached": 5.8
+        },
+        {
+          "school": "中原大學",
+          "count": 10,
+          "share_of_poached": 5.3
+        }
+      ]
+    },
+    "partners": {
+      "department": "財政稅務系",
+      "matched_category": "國際貿易與經營系",
+      "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+      "clusters": [
+        {
+          "category": "在地精密機械與零組件外銷隱形冠軍",
+          "companies": [
+            "巨大機械工業 (捷安特)",
+            "台中精機廠",
+            "上銀科技",
+            "高鋒工業",
+            "和大工業"
+          ],
+          "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
+          "capital_range": "新台幣 5,000 萬 ～ 100 億元",
+          "hot_jobs": [
+            "國外業務代表",
+            "國貿外銷專員",
+            "跨國採購助理"
+          ],
+          "salary_range": "38,000 ～ 55,000 元/月",
+          "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案",
+          "verification": [
+            {
+              "name": "巨大機械工業 (捷安特)",
+              "verified": false
+            },
+            {
+              "name": "台中精機廠",
+              "verified": false
+            },
+            {
+              "name": "上銀科技",
+              "verified": false
+            },
+            {
+              "name": "高鋒工業",
+              "verified": false
+            },
+            {
+              "name": "和大工業",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "跨境電子商務與數位品牌外銷商",
+          "companies": [
+            "耐德科技 (SHOPPING99)",
+            "台灣網商協會會員企業",
+            "中部 Amazon/Shopee 外銷大賣家",
+            "美賣科技台中分部"
+          ],
+          "zone": "台中軟體園區 / 西屯七期商辦",
+          "capital_range": "新台幣 1,000 萬 ～ 1 億元",
+          "hot_jobs": [
+            "跨境電商營運專員",
+            "海外數位行銷投放師",
+            "多語系社群運營"
+          ],
+          "salary_range": "36,000 ～ 50,000 元/月",
+          "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操",
+          "verification": [
+            {
+              "name": "耐德科技 (SHOPPING99)",
+              "verified": false
+            },
+            {
+              "name": "台灣網商協會會員企業",
+              "verified": false
+            },
+            {
+              "name": "中部 Amazon/Shopee 外銷大賣家",
+              "verified": false
+            },
+            {
+              "name": "美賣科技台中分部",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "台中港區海空運承攬與報關物流龍頭",
+          "companies": [
+            "近鐵運通 (Kintetsu World Express)",
+            "中菲行航空貨運台中分公司",
+            "長榮物流台中辦事處",
+            "建新國際",
+            "大洋報關行"
+          ],
+          "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
+          "capital_range": "新台幣 2,000 萬 ～ 10 億元",
+          "hot_jobs": [
+            "報關專責人員",
+            "海運承攬操作專員",
+            "保稅倉儲管理員"
+          ],
+          "salary_range": "35,000 ～ 48,000 元/月",
+          "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案",
+          "verification": [
+            {
+              "name": "近鐵運通 (Kintetsu World Express)",
+              "verified": false
+            },
+            {
+              "name": "中菲行航空貨運台中分公司",
+              "verified": false
+            },
+            {
+              "name": "長榮物流台中辦事處",
+              "verified": false
+            },
+            {
+              "name": "建新國際",
+              "verified": false
+            },
+            {
+              "name": "大洋報關行",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "category": "外匯指定銀行與國際貿易融資部",
+          "companies": [
+            "兆豐國際商銀中部分行",
+            "第一商業銀行台中分行",
+            "合作金庫銀行",
+            "台中商業銀行國外部"
+          ],
+          "zone": "台中市中區/西區/西屯區金融商圈",
+          "capital_range": "新台幣 500 億元以上",
+          "hot_jobs": [
+            "外匯櫃員",
+            "進出口信用狀審查專員",
+            "貿易融資助理"
+          ],
+          "salary_range": "40,000 ～ 52,000 元/月",
+          "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作",
+          "verification": [
+            {
+              "name": "兆豐國際商銀中部分行",
+              "verified": false
+            },
+            {
+              "name": "第一商業銀行台中分行",
+              "verified": false
+            },
+            {
+              "name": "合作金庫銀行",
+              "verified": false
+            },
+            {
+              "name": "台中商業銀行國外部",
+              "verified": false
+            }
+          ]
+        }
+      ],
+      "total_categories": 4
+    }
+  }
+}

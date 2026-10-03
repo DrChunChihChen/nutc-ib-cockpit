@@ -1,0 +1,119 @@
+{
+  "0542": {
+    "school_name": "國立臺中科技大學",
+    "school_code": "0542",
+    "public": true,
+    "city": "臺中市",
+    "departments": {
+      "04141020": {
+        "dept_code": "04141020",
+        "dept_name": "國際貿易與經營系",
+        "short_name": "國貿系",
+        "slug": "ib",
+        "isced_code": "0414",
+        "isced_name": "市場行銷及廣告學類(國際貿易)",
+        "ucan_cluster": "UCAN-10 行銷與銷售 / UCAN-15 物流運輸",
+        "csic_codes": ["G45-48 批發零售業", "F401010 國際貿易業", "G202010 報關業", "H501010 船務海運承攬"],
+        "default_peers": [
+          {"school_name": "國立高雄科技大學", "dept_name": "國際企業系", "public": true, "city": "高雄市"},
+          {"school_name": "國立臺北商業大學", "dept_name": "國際商務系", "public": true, "city": "臺北市"},
+          {"school_name": "國立勤益科技大學", "dept_name": "行銷與流通管理系", "public": true, "city": "臺中市"},
+          {"school_name": "逢甲大學", "dept_name": "國際經營與貿易學系", "public": false, "city": "臺中市"}
+        ]
+      },
+      "04131015": {
+        "dept_code": "04131015",
+        "dept_name": "企業管理系",
+        "short_name": "企管系",
+        "slug": "ba",
+        "isced_code": "0413",
+        "isced_name": "管理及行政學類",
+        "ucan_cluster": "UCAN-09 企業經營管理",
+        "csic_codes": ["M70 企業管顧業", "G45-48 零售連鎖業", "M73 廣告行銷業"],
+        "default_peers": [
+          {"school_name": "國立高雄科技大學", "dept_name": "企業管理系", "public": true, "city": "高雄市"},
+          {"school_name": "國立臺北商業大學", "dept_name": "企業管理系", "public": true, "city": "臺北市"},
+          {"school_name": "國立勤益科技大學", "dept_name": "工業工程與管理系", "public": true, "city": "臺中市"},
+          {"school_name": "逢甲大學", "dept_name": "企業管理學系", "public": false, "city": "臺中市"}
+        ]
+      },
+      "04111012": {
+        "dept_code": "04111012",
+        "dept_name": "會計資訊系",
+        "short_name": "會資系",
+        "slug": "accounting",
+        "isced_code": "0411",
+        "isced_name": "會計學類",
+        "ucan_cluster": "UCAN-04 金融財務",
+        "csic_codes": ["M6920 會計審計及稅務諮詢服務業", "K64-66 金融及保險業"],
+        "default_peers": [
+          {"school_name": "國立臺北商業大學", "dept_name": "會計資訊系", "public": true, "city": "臺北市"},
+          {"school_name": "國立高雄科技大學", "dept_name": "會計資訊系", "public": true, "city": "高雄市"},
+          {"school_name": "逢甲大學", "dept_name": "會計學系", "public": false, "city": "臺中市"},
+          {"school_name": "東海大學", "dept_name": "會計學系", "public": false, "city": "臺中市"}
+        ]
+      },
+      "04121021": {
+        "dept_code": "04121021",
+        "dept_name": "財務金融系",
+        "short_name": "財金系",
+        "slug": "finance",
+        "isced_code": "0412",
+        "isced_name": "金融、銀行及保險學類",
+        "ucan_cluster": "UCAN-04 金融財務",
+        "csic_codes": ["K64 銀行業", "K66 證券期貨業", "K6499 其他金融服務業"],
+        "default_peers": [
+          {"school_name": "國立高雄科技大學", "dept_name": "金融系", "public": true, "city": "高雄市"},
+          {"school_name": "國立臺北商業大學", "dept_name": "財務金融系", "public": true, "city": "臺北市"},
+          {"school_name": "國立雲林科技大學", "dept_name": "財務金融系", "public": true, "city": "雲林縣"},
+          {"school_name": "逢甲大學", "dept_name": "財務金融學系", "public": false, "city": "臺中市"}
+        ]
+      },
+      "04123027": {
+        "dept_code": "04123027",
+        "dept_name": "保險金融管理系",
+        "short_name": "保金系",
+        "slug": "insurance",
+        "isced_code": "0412",
+        "isced_name": "金融、銀行及保險學類(保險)",
+        "ucan_cluster": "UCAN-04 金融財務",
+        "csic_codes": ["K65 人身與財產保險業", "K66 保險輔助及經紀人業"],
+        "default_peers": [
+          {"school_name": "國立高雄科技大學", "dept_name": "風險管理與保險系", "public": true, "city": "高雄市"},
+          {"school_name": "逢甲大學", "dept_name": "風險管理與保險學系", "public": false, "city": "臺中市"},
+          {"school_name": "國立臺北商業大學", "dept_name": "財務金融系", "public": true, "city": "臺北市"}
+        ]
+      },
+      "05421032": {
+        "dept_code": "05421032",
+        "dept_name": "應用統計系",
+        "short_name": "應統系",
+        "slug": "stat",
+        "isced_code": "0542",
+        "isced_name": "統計學類",
+        "ucan_cluster": "UCAN-01 資訊科技 / UCAN-16 STEM",
+        "csic_codes": ["J62 軟體與資料處理業", "M7320 市場研究及民意調查業", "K64 金融量化分析"],
+        "default_peers": [
+          {"school_name": "國立臺北商業大學", "dept_name": "應用統計系", "public": true, "city": "臺北市"},
+          {"school_name": "逢甲大學", "dept_name": "統計學系", "public": false, "city": "臺中市"},
+          {"school_name": "國立高雄科技大學", "dept_name": "資訊管理系", "public": true, "city": "高雄市"}
+        ]
+      },
+      "04122028": {
+        "dept_code": "04122028",
+        "dept_name": "財政稅務系",
+        "short_name": "財稅系",
+        "slug": "tax",
+        "isced_code": "0412",
+        "isced_name": "金融、銀行及保險學類(財稅)",
+        "ucan_cluster": "UCAN-04 金融財務 / UCAN-11 政府公共事務",
+        "csic_codes": ["M6920 會計師與記帳稅務業", "O84 政府公共行政與國稅稽徵"],
+        "default_peers": [
+          {"school_name": "國立臺北商業大學", "dept_name": "財政稅務系", "public": true, "city": "臺北市"},
+          {"school_name": "國立高雄科技大學", "dept_name": "財政稅務系", "public": true, "city": "高雄市"},
+          {"school_name": "逢甲大學", "dept_name": "財稅學系", "public": false, "city": "臺中市"}
+        ]
+      }
+    }
+  }
+}

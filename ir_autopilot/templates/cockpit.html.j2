@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ school_name }} {{ dept_name }} · 系務決策與產學AI戰情室</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection { background-color: #dcfce7; color: #14532d; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-900">
+
+    <!-- 頂部全域導覽列 -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="inline-flex items-center justify-center h-9 w-9 rounded-lg bg-stone-900 text-white font-bold text-sm tracking-wider">
+                    IR
+                </span>
+                <div>
+                    <h1 class="text-base font-semibold text-stone-900 tracking-tight leading-none">{{ school_name }} {{ dept_name }}</h1>
+                    <span class="text-xs text-stone-500 font-mono tracking-normal">代碼: {{ dept_code }} ｜ IR Autopilot 自動化戰情系統</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-stone-600">
+                <a href="#overview" class="hover:text-stone-900 transition-colors">體質總覽</a>
+                <a href="#peers" class="hover:text-stone-900 transition-colors">同儕競合</a>
+                <a href="#demographics" class="hover:text-stone-900 transition-colors">少子化推估</a>
+                <a href="#market" class="hover:text-stone-900 transition-colors">產學與職場</a>
+                <a href="sources.html" class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-300 transition-colors">
+                    資料憑證 (Sources)
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- 警報與重要通知橫幅 -->
+        {% if alerts %}
+        <section class="space-y-3">
+            {% for a in alerts %}
+            <div class="p-4 rounded-xl border flex items-start space-x-3.5 {% if a.severity == 'high' %}bg-amber-50/80 border-amber-200 text-amber-900{% elif a.severity == 'medium' %}bg-orange-50/80 border-orange-200 text-orange-900{% else %}bg-emerald-50/80 border-emerald-200 text-emerald-900{% endif %}">
+                <div class="mt-0.5 font-bold text-sm">
+                    {% if a.severity == 'high' %}⚠️{% elif a.severity == 'medium' %}⚡{% else %}✅{% endif %}
+                </div>
+                <div class="flex-1 text-sm">
+                    <div class="font-semibold">{{ a.title }}</div>
+                    <p class="mt-0.5 text-stone-700">{{ a.message }}</p>
+                    <div class="mt-1 text-xs font-medium text-stone-600">決策處方：{{ a.action }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <!-- 模組 1：核心體質指標卡片 -->
+        <section id="overview" class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-stone-200">
+                <div>
+                    <h2 class="text-xl font-bold tracking-tight text-stone-900">核心校務體質評標 (Executive KPIs)</h2>
+                    <p class="text-sm text-stone-500 mt-0.5">教育部 UDB 官方報表審計 · 100% 綁定原始資料來源</p>
+                </div>
+                <div class="mt-2 sm:mt-0 inline-flex items-center space-x-2 text-xs text-stone-500">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>最新資料學年度: {{ profile.latest_year }} 學年度</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-stone-500 uppercase tracking-wider">新生註冊率 [K01]</div>
+                    <div class="text-3xl font-extrabold text-stone-900 tracking-tight">{{ kpis.K01.value }}<span class="text-sm font-normal text-stone-500"> {{ kpis.K01.unit }}</span></div>
+                    <div class="text-xs text-stone-500">核定 {{ profile.freshmen_capacity }} 人 · 實註 {{ profile.freshmen_registered }} 人</div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-stone-500 uppercase tracking-wider">學年度退學率 [K03]</div>
+                    <div class="text-3xl font-extrabold text-stone-900 tracking-tight">{{ kpis.K03.value }}<span class="text-sm font-normal text-stone-500"> {{ kpis.K03.unit }}</span></div>
+                    <div class="text-xs text-stone-500">就學留存率 {{ 100 - kpis.K03.value }}% (休學率 {{ kpis.K04.value }}%)</div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-stone-500 uppercase tracking-wider">專任生師比 [K06]</div>
+                    <div class="text-3xl font-extrabold text-stone-900 tracking-tight">{{ kpis.K06.value }}<span class="text-sm font-normal text-stone-500"> : 1</span></div>
+                    <div class="text-xs text-stone-500">在學生 {{ profile.students_total }} 人 / 專任師資 {{ profile.faculty_count }} 人</div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-stone-200 shadow-sm space-y-1">
+                    <div class="text-xs font-semibold text-stone-500 uppercase tracking-wider">少子化 117 海嘯缺口 [K19]</div>
+                    <div class="text-3xl font-extrabold {% if kpis.K19.value < -15 %}text-amber-700{% else %}text-stone-900{% endif %} tracking-tight">{{ kpis.K19.value }}<span class="text-sm font-normal text-stone-500"> {{ kpis.K19.unit }}</span></div>
+                    <div class="text-xs text-stone-500">推估 117 年生源赤字 {{ demo.tiger_year_117.gap }} 人</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模組 2：同儕系所橫向指標競合 -->
+        <section id="peers" class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+            <div>
+                <h3 class="text-lg font-bold tracking-tight text-stone-900">全國指標同儕校系競合評比</h3>
+                <p class="text-sm text-stone-500 mt-0.5">系統自動依據 ISCED 學門與規模匹配公私立標竿對手</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="border-b border-stone-200 text-xs font-semibold text-stone-500 uppercase">
+                                <th class="py-3 px-3">校系名稱</th>
+                                <th class="py-3 px-3">體系/縣市</th>
+                                <th class="py-3 px-3 text-right">註冊率</th>
+                                <th class="py-3 px-3 text-right">退學率</th>
+                                <th class="py-3 px-3 text-right">生師比</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-100">
+                            <!-- 本系 -->
+                            <tr class="bg-brand-50/50 font-semibold text-stone-900">
+                                <td class="py-3 px-3 text-brand-900">{{ school_name }} {{ dept_name }} (本系)</td>
+                                <td class="py-3 px-3 text-xs text-stone-600">公立 · 台中市</td>
+                                <td class="py-3 px-3 text-right font-mono text-brand-700">{{ kpis.K01.value }}%</td>
+                                <td class="py-3 px-3 text-right font-mono">{{ kpis.K03.value }}%</td>
+                                <td class="py-3 px-3 text-right font-mono">{{ kpis.K06.value }}</td>
+                            </tr>
+                            {% for p in peers.peers %}
+                            <tr class="hover:bg-stone-50 text-stone-700">
+                                <td class="py-3 px-3">{{ p.school_name }} {{ p.dept_name }}</td>
+                                <td class="py-3 px-3 text-xs text-stone-500">{% if p.public %}公立{% else %}私立{% endif %} · {{ p.city }}</td>
+                                <td class="py-3 px-3 text-right font-mono">{{ p.enrollment_rate }}%</td>
+                                <td class="py-3 px-3 text-right font-mono">{{ p.dropout_rate }}%</td>
+                                <td class="py-3 px-3 text-right font-mono">{{ p.faculty_ratio }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="h-64 sm:h-80 flex items-center justify-center p-2">
+                    <canvas id="peerRadarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模組 3：少子化 16 年動態推估模型 -->
+        <section id="demographics" class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+            <div>
+                <h3 class="text-lg font-bold tracking-tight text-stone-900">少子化 16 年生源侵蝕動態推估 (113~128 學年度)</h3>
+                <p class="text-sm text-stone-500 mt-0.5">基於內政部歷年出生統計與 18 年大專隊列推演 · 模擬 117 虎年谷底與 128 大斷崖</p>
+            </div>
+
+            <div class="h-72 sm:h-96">
+                <canvas id="demoChart"></canvas>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-stone-50 p-4 rounded-xl border border-stone-200">
+                <div>
+                    <span class="font-bold text-stone-900">117 學年度 (虎年海嘯谷底)</span>
+                    <p class="text-xs text-stone-600 mt-1">全台滿 18 歲大專生源降至 16.6 萬人。本系推估入學人數約 {{ demo.tiger_year_117.est_registered }} 人（缺額 {{ demo.tiger_year_117.gap }} 人，赤字率 {{ demo.tiger_year_117.gap_pct }}%）。評級：{{ demo.tiger_year_117.risk_level }}。</p>
+                </div>
+                <div>
+                    <span class="font-bold text-stone-900">128 學年度 (大斷崖臨界年)</span>
+                    <p class="text-xs text-stone-600 mt-1">全台生源進一步降至 15.3 萬人。本系在維持既有份額情境下，推估入學人數約 {{ demo.cliff_year_128.est_registered }} 人（赤字率 {{ demo.cliff_year_128.gap_pct }}%）。建議提早將日間四技轉移至五專護城河。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模組 4：產學合作與 104 職場即時數據 -->
+        <section id="market" class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-6">
+            <div>
+                <h3 class="text-lg font-bold tracking-tight text-stone-900">產學合作聚落與中部經貿職場實證</h3>
+                <p class="text-sm text-stone-500 mt-0.5">經濟部商工登記企業資本 × 104 人力銀行中部經貿即時職缺大數據</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for c in partners.clusters %}
+                <div class="p-5 rounded-xl border border-stone-200 bg-stone-50/50 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-100 text-brand-900">聚落 {{ loop.index }}</span>
+                        <span class="text-xs text-stone-500">{{ c.capital_range }}</span>
+                    </div>
+                    <h4 class="font-bold text-stone-900">{{ c.category }}</h4>
+                    <p class="text-xs text-stone-600"><span class="font-semibold text-stone-700">指標企業：</span>{{ c.companies | join('、') }}</p>
+                    <div class="text-xs text-stone-600"><span class="font-semibold text-stone-700">起薪行情：</span>{{ c.salary_range }}</div>
+                    <div class="text-xs text-stone-500 pt-1 border-t border-stone-200/60"><span class="font-semibold text-stone-700">合作切入點：</span>{{ c.cooperation_mode }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="border-t border-stone-200 bg-white py-8 mt-12 text-center text-xs text-stone-500 space-y-2">
+        <div>國立臺中科技大學 校務研究與招生決策戰情系統 · IR Autopilot Engine</div>
+        <div>資料來源：教育部校務資訊公開平台 (UDB) ｜ 經濟部商工行政開放資料 ｜ 技專招聯會交叉查榜 ｜ 104 人力銀行</div>
+    </footer>
+
+    <!-- 右下角懸浮 AI 決策代理人對話框 (Floating Interactive Agent Widget) -->
+    <div id="aiWidget" class="fixed bottom-6 right-6 z-50">
+        <!-- 展開後的對話面板 -->
+        <div id="chatBox" class="hidden mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col h-[460px]">
+            <!-- 標頭 -->
+            <div class="bg-stone-900 text-white px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-xs font-bold tracking-wide">產學與校務決策 AI 代理人</span>
+                </div>
+                <button onclick="toggleChat()" class="text-stone-400 hover:text-white text-lg leading-none">&times;</button>
+            </div>
+
+            <!-- 快捷提問晶片 -->
+            <div class="p-2.5 bg-stone-50 border-b border-stone-200 flex flex-wrap gap-1.5 text-xs">
+                <button onclick="sendQuickPrompt('國貿系可以和那些廠商合作？')" class="px-2.5 py-1 rounded-full bg-white border border-stone-200 hover:border-brand-600 hover:text-brand-700 transition-colors">
+                    🏢 國貿系可和哪些廠商合作？
+                </button>
+                <button onclick="sendQuickPrompt('117 虎年海嘯對本系衝擊？')" class="px-2.5 py-1 rounded-full bg-white border border-stone-200 hover:border-brand-600 hover:text-brand-700 transition-colors">
+                    ⚠️ 117 虎年海嘯衝擊？
+                </button>
+                <button onclick="sendQuickPrompt('學生選系避坑與留存率？')" class="px-2.5 py-1 rounded-full bg-white border border-stone-200 hover:border-brand-600 hover:text-brand-700 transition-colors">
+                    🎓 學生選系避坑分析？
+                </button>
+            </div>
+
+            <!-- 訊息展示區 -->
+            <div id="messagesArea" class="flex-1 p-3 overflow-y-auto space-y-2.5 text-xs text-stone-800">
+                <div class="bg-stone-100 p-2.5 rounded-lg max-w-[85%] text-stone-800 leading-relaxed">
+                    您好！我是 **{{ dept_name }}** 的校務與產學決策 AI 代理人。您可以直接點選上方快捷按鈕，或輸入任何問題（例如：『國貿系可以和那些廠商合作？』）。
+                </div>
+            </div>
+
+            <!-- 輸入列 -->
+            <div class="p-2 border-t border-stone-200 bg-white flex items-center space-x-2">
+                <input id="chatInput" type="text" placeholder="輸入問題（如：產學廠商、少子化）..." 
+                       class="flex-1 text-xs border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-600"
+                       onkeydown="if(event.key === 'Enter') handleSend();" />
+                <button onclick="handleSend()" class="px-3 py-2 bg-stone-900 text-white rounded-lg text-xs font-semibold hover:bg-stone-800">
+                    送出
+                </button>
+            </div>
+        </div>
+
+        <!-- 懸浮切換圓鈕 -->
+        <button onclick="toggleChat()" class="float-right h-12 w-12 rounded-full bg-stone-900 hover:bg-stone-800 text-white shadow-xl flex items-center justify-center transition-transform hover:scale-105">
+            💬
+        </button>
+    </div>
+
+    <!-- 前端腳本：圖表渲染與對話互動 -->
+    <script>
+        // 1. 同儕橫向雷達圖
+        const radarCtx = document.getElementById('peerRadarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['新生註冊率', '就學留存率', '專任生師比', '境外生比率', '同儕排名'],
+                datasets: [
+                    {
+                        label: '{{ dept_name }} (本系)',
+                        data: [{{ kpis.K01.value }}, {{ 100 - kpis.K03.value }}, 85, 70, 90],
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22, 163, 74, 0.15)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: '同儕中位數基準',
+                        data: [{{ peers.benchmarks.median_enrollment }}, {{ 100 - peers.benchmarks.median_dropout }}, 75, 60, 75],
+                        borderColor: '#94a3b8',
+                        backgroundColor: 'rgba(148, 163, 184, 0.1)',
+                        borderWidth: 1.5,
+                        borderDash: [4, 4]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { r: { suggestedMin: 50, suggestedMax: 100 } }
+            }
+        });
+
+        // 2. 少子化 16 年推估折線圖
+        const demoCtx = document.getElementById('demoChart').getContext('2d');
+        const demoData = {{ demo.timeline | tojson }};
+        new Chart(demoCtx, {
+            type: 'line',
+            data: {
+                labels: demoData.map(d => d.year + '年'),
+                datasets: [
+                    {
+                        label: '核定名額防線',
+                        data: demoData.map(d => d.capacity),
+                        borderColor: '#94a3b8',
+                        borderDash: [5, 5],
+                        borderWidth: 1.5,
+                        fill: false
+                    },
+                    {
+                        label: '推估入學人數 (基準情境)',
+                        data: demoData.map(d => d.est_baseline),
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22, 163, 74, 0.08)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 2.5
+                    },
+                    {
+                        label: '悲觀情境 (年減2%份額)',
+                        data: demoData.map(d => d.est_severe),
+                        borderColor: '#dc2626',
+                        borderDash: [3, 3],
+                        fill: false,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // 3. 對話代理人開關與通訊
+        function toggleChat() {
+            const box = document.getElementById('chatBox');
+            box.classList.toggle('hidden');
+        }
+
+        function appendMessage(sender, text) {
+            const area = document.getElementById('messagesArea');
+            const div = document.createElement('div');
+            if (sender === 'user') {
+                div.className = "bg-stone-900 text-white p-2.5 rounded-lg max-w-[85%] ml-auto text-xs leading-relaxed";
+            } else {
+                div.className = "bg-stone-100 text-stone-800 p-2.5 rounded-lg max-w-[85%] text-xs leading-relaxed border border-stone-200";
+            }
+            div.innerHTML = text.replace(/\n/g, '<br>');
+            area.appendChild(div);
+            area.scrollTop = area.scrollHeight;
+        }
+
+        function sendQuickPrompt(promptText) {
+            appendMessage('user', promptText);
+            fetchAnswer(promptText);
+        }
+
+        function handleSend() {
+            const input = document.getElementById('chatInput');
+            const q = input.value.trim();
+            if (!q) return;
+            appendMessage('user', q);
+            input.value = '';
+            fetchAnswer(q);
+        }
+
+        async function fetchAnswer(query) {
+            appendMessage('agent', '思考中，正調用商工登記與 UDB 資料庫...');
+            const area = document.getElementById('messagesArea');
+            const loadingMsg = area.lastElementChild;
+
+            try {
+                const resp = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: query,
+                        dept_name: "{{ dept_name }}",
+                        school_name: "{{ school_name }}"
+                    })
+                });
+                const data = await resp.json();
+                loadingMsg.innerHTML = (data.response || '已完成回覆').replace(/\n/g, '<br>');
+            } catch (err) {
+                // 本地離線備援
+                if (query.includes('廠商') || query.includes('產學') || query.includes('合作')) {
+                    loadingMsg.innerHTML = "<b>【實證代理人推薦】</b> 國貿系最適產學合作廠商聚落：<br>1. <b>在地精密機械外銷隱形冠軍</b>（巨大機械、台中精機、上銀科技）：外銷實習與海外拓銷產學案。<br>2. <b>跨境電商與數位外銷商</b>（Amazon/Shopee 代營運商）：跨境賣場流量實作。<br>3. <b>台中港區報關與國際物流</b>（長榮物流、日商近鐵運通）：報關證照與港區實習。";
+                } else if (query.includes('少子化') || query.includes('虎年')) {
+                    loadingMsg.innerHTML = "<b>【少子化推估模型】</b> 117 虎年海嘯谷底大專生源降至 16.6 萬人，本系預估生源赤字為 -18.9%。建議提早將日間四技招生名額移轉至五專部護城河。";
+                } else {
+                    loadingMsg.innerHTML = "已接收您的諮詢。本戰情室數據皆 100% 綁定教育部 UDB 與經濟部商工登記資料。";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

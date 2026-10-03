@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ school_name }} · 全院系所校務健康與少子化風險熱力圖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-stone-50 text-stone-900 font-sans antialiased">
+    <header class="bg-white border-b border-stone-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-brand-700 uppercase tracking-widest">IR Autopilot 全校宏觀監控</span>
+                    <h1 class="text-2xl font-bold tracking-tight text-stone-900 mt-1">{{ school_name }} · 商學院全系所健康診斷熱力總覽</h1>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                        7 大系所已納入監控
+                    </span>
+                    <a href="index.html" class="text-xs font-semibold px-3 py-2 bg-stone-900 text-white rounded-lg hover:bg-stone-800">
+                        返回主戰情室
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+        <!-- 說明卡 -->
+        <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+            <h2 class="text-base font-bold text-stone-900">熱力圖判讀指引 (Heatmap Guide)</h2>
+            <p class="text-xs text-stone-500 mt-1 leading-relaxed">
+                本表即時聚合教育部 UDB 8 大系所報表與少子化 16 年推估模型。
+                色階標註：<span class="text-emerald-700 font-bold">綠色（健康/領先）</span>、<span class="text-amber-700 font-bold">黃色（關注）</span>、<span class="text-rose-700 font-bold">紅色（高危/需調節）</span>。
+                點擊任一系所名稱可直接切換進入該系所微觀戰情室。
+            </p>
+        </div>
+
+        <!-- 熱力圖主表 -->
+        <div class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-stone-100/70 border-b border-stone-200 font-semibold text-stone-700 uppercase">
+                            <th class="py-3 px-4">系所名稱</th>
+                            <th class="py-3 px-3 text-center">學類代碼</th>
+                            <th class="py-3 px-3 text-right">在學生數</th>
+                            <th class="py-3 px-3 text-right">新生註冊率 [K01]</th>
+                            <th class="py-3 px-3 text-right">3年斜率 [K02]</th>
+                            <th class="py-3 px-3 text-right">退學率 [K03]</th>
+                            <th class="py-3 px-3 text-right">專任生師比 [K06]</th>
+                            <th class="py-3 px-3 text-right">117海嘯缺口 [K19]</th>
+                            <th class="py-3 px-3 text-center">綜合風險評級 [K24]</th>
+                            <th class="py-3 px-4 text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-100">
+                        {% for d in depts_summary %}
+                        <tr class="hover:bg-stone-50/80 transition-colors">
+                            <td class="py-3.5 px-4 font-bold text-stone-900 flex items-center space-x-2">
+                                <span class="h-2 w-2 rounded-full {% if d.risk_score < 25 %}bg-emerald-500{% elif d.risk_score < 45 %}bg-amber-500{% else %}bg-rose-500{% endif %}"></span>
+                                <a href="{{ d.slug }}/index.html" class="hover:text-brand-700 hover:underline">{{ d.dept_name }}</a>
+                            </td>
+                            <td class="py-3.5 px-3 text-center font-mono text-stone-500">{{ d.isced_code }}</td>
+                            <td class="py-3.5 px-3 text-right font-mono">{{ d.students_total }}</td>
+                            <td class="py-3.5 px-3 text-right font-mono font-bold {% if d.enrollment_rate >= 98 %}text-emerald-700{% elif d.enrollment_rate >= 90 %}text-amber-700{% else %}text-rose-700{% endif %}">
+                                {{ d.enrollment_rate }}%
+                            </td>
+                            <td class="py-3.5 px-3 text-right font-mono">{{ d.k02 }}</td>
+                            <td class="py-3.5 px-3 text-right font-mono {% if d.dropout_rate < 5 %}text-emerald-700{% elif d.dropout_rate < 10 %}text-stone-700{% else %}text-rose-700{% endif %}">
+                                {{ d.dropout_rate }}%
+                            </td>
+                            <td class="py-3.5 px-3 text-right font-mono {% if d.faculty_ratio > 35 %}text-rose-700 font-bold{% else %}text-stone-700{% endif %}">
+                                {{ d.faculty_ratio }}
+                            </td>
+                            <td class="py-3.5 px-3 text-right font-mono {% if d.k19 < -15 %}text-rose-700 font-bold{% else %}text-stone-700{% endif %}">
+                                {{ d.k19 }}%
+                            </td>
+                            <td class="py-3.5 px-3 text-center">
+                                <span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold {% if d.risk_score < 25 %}bg-emerald-100 text-emerald-800{% elif d.risk_score < 45 %}bg-amber-100 text-amber-800{% else %}bg-rose-100 text-rose-800{% endif %}">
+                                    {{ d.risk_score }} 分
+                                </span>
+                            </td>
+                            <td class="py-3.5 px-4 text-center">
+                                <a href="{{ d.slug }}/index.html" class="inline-flex items-center text-xs font-semibold text-brand-700 hover:text-brand-800 hover:underline">
+                                    深入戰情室 →
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

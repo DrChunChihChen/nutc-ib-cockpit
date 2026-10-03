@@ -1,0 +1,121 @@
+kpis:
+  K01:
+    name: "日間部新生註冊率"
+    unit: "%"
+    source_dataset: "UDB 學12-1"
+    formula: "純日間部實際註冊人數 / 核定招生名額"
+  K02:
+    name: "註冊率3年變化斜率"
+    unit: "pp/year"
+    source_dataset: "UDB 學12-1"
+    formula: "近 3 學年度純日間部註冊率之 OLS 線性回歸斜率"
+  K03:
+    name: "學年度退學率"
+    unit: "%"
+    source_dataset: "UDB 學14-1 / 學1-1"
+    formula: "退學總人數 / 在學學生總數"
+  K04:
+    name: "學年度休學率"
+    unit: "%"
+    source_dataset: "UDB 學13-1 / 學1-1"
+    formula: "學年底休學人數 / 在學學生總數"
+  K05:
+    name: "學生淨流失率"
+    unit: "%"
+    source_dataset: "UDB 學13-1, 學14-1"
+    formula: "退學率 (K03) + 休學率 (K04)"
+  K06:
+    name: "專任教師生師比"
+    unit: "生/師"
+    source_dataset: "UDB 學1-1, 教1-1"
+    formula: "在學學生總數 / 專任教師總數"
+  K07:
+    name: "境外生在學比率"
+    unit: "%"
+    source_dataset: "UDB 學3-2"
+    formula: "外國學生在學總數 / 在學學生總數"
+  K08:
+    name: "畢業生在學比"
+    unit: "%"
+    source_dataset: "UDB 學2-1, 學1-1"
+    formula: "當年度畢業生總數 / 在學學生總數"
+  K09:
+    name: "同細學類規模全台排名"
+    unit: "名次"
+    source_dataset: "data.gov.tw (9622)"
+    formula: "全台同 ISCED 細學類系所在學學生規模排名"
+  K10:
+    name: "同儕註冊率中位數差"
+    unit: "pp"
+    source_dataset: "UDB 學12-1"
+    formula: "本系註冊率 - 競合指標同儕系所註冊率中位數"
+  K11:
+    name: "聯招甄選錄取率"
+    unit: "%"
+    source_dataset: "data.gov.tw (177318)"
+    formula: "錄取人數 / 報考人數"
+  K12:
+    name: "新生報到率"
+    unit: "%"
+    source_dataset: "UDB 學12-1, 招聯會"
+    formula: "實際註冊人數 / 錄取分發人數"
+  K13:
+    name: "統測/學測單科均分走勢"
+    unit: "分"
+    source_dataset: "技專招聯會 (109-114)"
+    formula: "連續 6 年商管群/資管群最低錄取單科均分走勢"
+  K14:
+    name: "正取生放棄流向 Top3"
+    unit: "名次"
+    source_dataset: "com.tw 交叉查榜"
+    formula: "考生正取本系但最終報到他校之主要競手學校排行"
+  K15:
+    name: "就學貸款比率"
+    unit: "%"
+    source_dataset: "data.gov.tw (28387)"
+    formula: "就貸人數 / 全校在學人數"
+  K16:
+    name: "每生校舍樓地板面積"
+    unit: "m²/生"
+    source_dataset: "data.gov.tw (6287)"
+    formula: "全校校舍總樓地板面積 / 在學學生數"
+  K17:
+    name: "校務基金餘額穩定度"
+    unit: "指數"
+    source_dataset: "data.gov.tw (177128)"
+    formula: "公立校務基金歷年可用資金結存變化"
+  K18:
+    name: "區域 18 歲生源池 5 年消長"
+    unit: "%"
+    source_dataset: "內政部出生數, data.gov.tw (40121)"
+    formula: "中部生活圈高職畢業生隊列人數消長"
+  K19:
+    name: "117/128 少子化海嘯缺口率"
+    unit: "%"
+    source_dataset: "計量推估模型"
+    formula: "(推估新生供給數 - 核定名額) / 核定名額"
+  K20:
+    name: "AI 與跨領域課程開設比"
+    unit: "%"
+    source_dataset: "data.gov.tw (45717)"
+    formula: "含 AI/數據/跨領域關鍵字之課綱數 / 總開設課程數"
+  K21:
+    name: "對口高職科別人數消長"
+    unit: "%"
+    source_dataset: "data.gov.tw (9617)"
+    formula: "商管群高職畢業生近三年人數變化"
+  K22:
+    name: "全校境外生比率"
+    unit: "%"
+    source_dataset: "data.gov.tw (6289)"
+    formula: "全校境外生總數 / 全校學生總數"
+  K23:
+    name: "同儕退學率中位數差"
+    unit: "pp"
+    source_dataset: "UDB 學14-1"
+    formula: "本系退學率 - 同儕系所退學率中位數"
+  K24:
+    name: "系所綜合風險指數"
+    unit: "分 (0-100)"
+    source_dataset: "綜合指標加權"
+    formula: "加權註冊率斜率、淨流失率、同儕落差與少子化缺口之綜合評級分"
