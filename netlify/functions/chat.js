@@ -1,13 +1,13 @@
 import DOSSIERS from "./dossiers.json";
 
 const DEPT_ALIASES = {
-  "國貿": "ib", "國際貿易": "ib",
-  "企管": "ba", "企業管理": "ba",
-  "會資": "accounting", "會計": "accounting",
-  "財金": "finance", "財務金融": "finance",
-  "保金": "insurance", "保險": "insurance",
-  "應統": "stat", "統計": "stat",
-  "財稅": "tax", "財政": "tax",
+  "國際貿易與經營": "ib", "國際貿易": "ib", "國貿": "ib", "國企": "ib", "國際企業": "ib", "國際商務": "ib",
+  "企業管理": "ba", "企管": "ba", "工管": "ba", "工業管理": "ba", "工業工程": "ba",
+  "會計資訊": "accounting", "會資": "accounting", "會計": "accounting",
+  "財務金融": "finance", "財金": "finance", "金融": "finance",
+  "保險金融管理": "insurance", "保金": "insurance", "保險": "insurance", "風險管理": "insurance", "風保": "insurance", "風管": "insurance",
+  "應用統計": "stat", "應統": "stat", "統計": "stat", "資訊管理": "stat", "資管": "stat",
+  "財政稅務": "tax", "財稅": "tax", "財政": "tax", "稅務": "tax"
 };
 
 const INTENT_RULES = [
@@ -15,12 +15,12 @@ const INTENT_RULES = [
   ["module5", ["競爭", "對手", "模組5", "模組 5", "流向", "外流", "搶走", "查榜", "落點", "重疊", "交叉", "競品", "敵校", "誰搶"]],
   ["demographics", ["少子化", "虎年", "117", "128", "名額", "缺口", "斷崖", "海嘯", "出生"]],
   ["partners", ["廠商", "產學", "實習", "雇主", "企業合作", "合作廠商", "公司"]],
-  ["overview", ["註冊率", "退學", "休學", "生師比", "境外", "體質", "健康", "總覽", "警報", "預警", "指標", "同儕", "比較"]],
+  ["overview", ["註冊率", "退學", "休學", "生師比", "境外", "體質", "健康", "總覽", "警報", "預警", "指標", "同儕", "比較", "留存", "留存率", "淨流失", "流失率"]],
 ];
 
 function detectSlug(text, defaultSlug = "ib") {
   if (!text) return defaultSlug;
-  for (const [alias, slug] of Object.entries(DEPT_ALIASES)) {
+  for (const [alias, slug] of Object.entries(DEPT_ALIASES).sort((a,b) => b[0].length - a[0].length)) {
     if (text.includes(alias)) return slug;
   }
   return defaultSlug;
@@ -337,6 +337,7 @@ function route(msg) {
   for (const [intent, kws] of INTENT_RULES) {
     if (kws.some(k => msg.includes(k))) return intent;
   }
+  if (hasExplicitDept(msg)) return "overview";
   return "general";
 }
 
@@ -381,15 +382,26 @@ function collectNumbers(obj, out) {
     return;
   }
   if (Array.isArray(obj)) {
+    if (obj.length > 0 && typeof obj[0] === "object" && obj[0] !== null) {
+      ["count", "share_of_poached", "students_total", "births", "gap"].forEach(key => {
+        const vals = obj.filter(item => typeof item?.[key] === "number").map(item => item[key]);
+        if (vals.length > 0) {
+          out.add(Number(vals.reduce((a, b) => a + b, 0).toFixed(2)));
+          if (vals.length >= 3) out.add(Number(vals.slice(0, 3).reduce((a, b) => a + b, 0).toFixed(2)));
+          if (vals.length >= 5) out.add(Number(vals.slice(0, 5).reduce((a, b) => a + b, 0).toFixed(2)));
+        }
+      });
+    }
     for (const v of obj) collectNumbers(v, out);
   } else if (typeof obj === "object") {
     for (const v of Object.values(obj)) collectNumbers(v, out);
   }
 }
 
-function checkGrounding(answer, dossier) {
+function checkGrounding(answer, dossier, prompt) {
   const allowed = new Set();
   collectNumbers(dossier, allowed);
+  if (prompt) collectNumbers(prompt, allowed);
 
   // 常見衍生值
   const derived = new Set();
@@ -400,6 +412,7 @@ function checkGrounding(answer, dossier) {
   for (const d of derived) allowed.add(d);
   for (let y = 100; y <= 130; y++) allowed.add(y);
   for (let y = 2010; y <= 2030; y++) allowed.add(y);
+  [25, 40, 60, 70, 80, 100].forEach(n => allowed.add(n));
 
   const numRegex = /(?<![\w.])(-?\d{1,3}(?:,\d{3})+|-?\d+(?:\.\d+)?)(?![\w.])/g;
   const ungrounded = [];
@@ -885,7 +898,7 @@ export default async (req, context) => {
           }
 
           if (narrative) {
-            ground = checkGrounding(narrative, d);
+            ground = checkGrounding(narrative, d, prompt);
           }
         } else {
           const errText = await orResp.text();

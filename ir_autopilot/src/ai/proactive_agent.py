@@ -59,7 +59,7 @@ INTENT_RULES = [
     ("module5", ["競爭", "對手", "模組5", "模組 5", "流向", "外流", "搶走", "查榜", "落點", "重疊", "交叉", "競品", "敵校", "誰搶"]),
     ("demographics", ["少子化", "虎年", "117", "128", "名額", "缺口", "斷崖", "海嘯", "出生"]),
     ("partners", ["廠商", "產學", "實習", "雇主", "企業合作", "合作廠商", "公司"]),
-    ("overview", ["註冊率", "退學", "休學", "生師比", "境外", "體質", "健康", "總覽", "警報", "預警", "指標", "同儕", "比較"]),
+    ("overview", ["註冊率", "退學", "休學", "生師比", "境外", "體質", "健康", "總覽", "警報", "預警", "指標", "同儕", "比較", "留存", "留存率", "淨流失", "流失率"]),
 ]
 
 OUT_OF_SCOPE_REGEX = re.compile(
@@ -307,6 +307,8 @@ class ProactiveAgent:
         for intent, kws in INTENT_RULES:
             if any(k in msg for k in kws):
                 return intent
+        if has_explicit_dept(msg):
+            return "overview"
         return "general"
 
     # ---------- LLM 敘事 ----------
@@ -322,7 +324,7 @@ class ProactiveAgent:
         if not res.get("success"):
             return None, None, None, {"ok": None, "note": f"模型不可用：{res.get('error')}"}
         content = res.get("content", "").strip()
-        ground = grounding.check(content, d)
+        ground = grounding.check(content, d, prompt=prompt)
         return content, res.get("reasoning"), res.get("model"), ground
 
     # ---------- 各意圖的結構化輸出（純程式，不經 LLM） ----------

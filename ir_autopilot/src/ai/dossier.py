@@ -14,13 +14,13 @@ from typing import Any, Dict, List, Optional
 OUTPUT_DIR = os.environ.get("IR_OUTPUT_DIR", os.path.join(os.path.dirname(__file__), "..", "..", "..", "output"))
 
 DEPT_ALIASES = {
-    "國貿": "ib", "國際貿易": "ib",
-    "企管": "ba", "企業管理": "ba",
-    "會資": "accounting", "會計": "accounting",
-    "財金": "finance", "財務金融": "finance",
-    "保金": "insurance", "保險": "insurance",
-    "應統": "stat", "統計": "stat",
-    "財稅": "tax", "財政": "tax",
+    "國際貿易與經營": "ib", "國際貿易": "ib", "國貿": "ib", "國企": "ib", "國際企業": "ib", "國際商務": "ib",
+    "企業管理": "ba", "企管": "ba", "工管": "ba", "工業管理": "ba", "工業工程": "ba",
+    "會計資訊": "accounting", "會資": "accounting", "會計": "accounting",
+    "財務金融": "finance", "財金": "finance", "金融": "finance",
+    "保險金融管理": "insurance", "保金": "insurance", "保險": "insurance", "風險管理": "insurance", "風保": "insurance", "風管": "insurance",
+    "應用統計": "stat", "應統": "stat", "統計": "stat", "資訊管理": "stat", "資管": "stat",
+    "財政稅務": "tax", "財稅": "tax", "財政": "tax", "稅務": "tax",
 }
 SLUG_TO_NAME = {
     "ib": "國際貿易與經營系", "ba": "企業管理系", "accounting": "會計資訊系", "finance": "財務金融系",
@@ -32,9 +32,9 @@ K24_WEIGHTS = {"K01": 0.30, "K05": 0.25, "K10": 0.20, "K19": 0.15, "K06": 0.10}
 
 
 def detect_slug(text: str, default: str = "ib") -> str:
-    for alias, slug in DEPT_ALIASES.items():
+    for alias in sorted(DEPT_ALIASES.keys(), key=lambda x: len(x), reverse=True):
         if alias in text:
-            return slug
+            return DEPT_ALIASES[alias]
     return default
 
 
