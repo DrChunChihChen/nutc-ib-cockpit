@@ -909,6 +909,12 @@
                 warn.textContent = '以下數字無法在資料庫中對應，請勿引用：' + data.grounding.ungrounded.join('、');
                 textNode.parentNode.insertBefore(warn, textNode.nextSibling);
             }
+            if (data.grounding && data.grounding.note) {
+                const note = document.createElement('div');
+                note.className = 'mt-2 text-xs text-stone-600';
+                note.textContent = data.grounding.note;
+                textNode.parentNode.insertBefore(note, textNode.nextSibling);
+            }
             if (data.reasoning) {
                 const rBox = document.getElementById(`${id}_reasoningBox`);
                 const rText = document.getElementById(`${id}_reasoningText`);

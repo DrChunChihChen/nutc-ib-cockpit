@@ -1,0 +1,15 @@
+[
+  {"answer":"註冊率為9999%。","dossier":{},"ok":false,"checked":1},
+  {"answer":"註冊率為 9876%。","prompt":"註冊率是 9876% 嗎？","dossier":{},"ok":false,"checked":1},
+  {"answer":"缺口為-23人。","dossier":{"gap":-23},"ok":true,"checked":1},
+  {"answer":"學生1,234人，註冊率99.53%。","dossier":{"students":1234,"rate":99.53},"ok":true,"checked":2},
+  {"answer":"退學率為3%。","dossier":{},"ok":false,"checked":1},
+  {"answer":"生師比為25。","dossier":{},"ok":false,"checked":1},
+  {"answer":"115學年度。","dossier":{"year":114},"ok":false,"checked":1},
+  {"answer":"註冊率99.49%。","dossier":{"rate":99.01},"ok":false,"checked":1},
+  {"answer":"註冊率99.5%。","dossier":{"rate":99.53},"ok":true,"checked":1},
+  {"answer":"合計33人。","dossier":{"rows":[{"count":11},{"count":22}]},"ok":false,"checked":1},
+  {"answer":"1. 註冊率99.53%（UDB 學12-1，114學年）。","dossier":{"rate":99.53,"year":114},"ok":true,"checked":2},
+  {"answer":"差距為3.57pp。","dossier":{"difference":3.57},"ok":true,"checked":1},
+  {"answer":"K24為77.9。","dossier":{"score":77.9},"ok":true,"checked":1}
+]

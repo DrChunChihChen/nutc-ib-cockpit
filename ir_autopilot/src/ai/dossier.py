@@ -6,6 +6,7 @@ Dossier: 代理人唯一的數字來源。
 import csv
 import glob
 import json
+import math
 import os
 from collections import Counter
 from datetime import datetime
@@ -77,8 +78,9 @@ def compute_k24(kpis: Dict[str, Any]) -> Dict[str, Any]:
     else:
         missing.append("K06")
 
-    total_w = sum(K24_WEIGHTS[k] for k in sub)
-    score = sum(sub[k] * K24_WEIGHTS[k] for k in sub) / total_w if total_w else None
+    # Stable across Python versions whose built-in float sum algorithms differ.
+    total_w = math.fsum(K24_WEIGHTS[k] for k in sub)
+    score = math.fsum(sub[k] * K24_WEIGHTS[k] for k in sub) / total_w if total_w else None
     grade = None
     if score is not None:
         grade = "A 穩健" if score >= 80 else ("B 觀察" if score >= 60 else "C 預警")
@@ -96,7 +98,7 @@ def compute_k24(kpis: Dict[str, Any]) -> Dict[str, Any]:
 def compute_module5(slug: str, school_name: str) -> Optional[Dict[str, Any]]:
     """由交叉查榜 CSV 即時計算：本校考生數、留任、外流去向 Top5。兩種欄位格式皆支援。"""
     files = glob.glob(os.path.join(OUTPUT_DIR, slug, "raw_data", "01_*流向*.csv"))
-    files = [f for f in files if "彙整" not in f]
+    files = sorted(f for f in files if "彙整" not in f)
     if not files:
         return None
     rows: List[Dict[str, str]] = []
@@ -123,6 +125,13 @@ def compute_module5(slug: str, school_name: str) -> Optional[Dict[str, Any]]:
     years = sorted({r.get(year_key, "") for r in own if r.get(year_key)})
     dest = Counter(r.get(dest_key, "") for r in poached if r.get(dest_key) and r.get(dest_key) != "—")
     top = dest.most_common(5)
+    # Preserve the full population before taking Top 5 for display. No candidate
+    # identifiers are exported; counts represent records, not deduplicated people.
+    dept_key = "dest_dept" if "school_name" in rows[0] else "最終分發系所"
+    destinations = Counter(
+        (r.get(dest_key, "").strip(), r.get(dept_key, "").strip(), r.get(year_key, "").strip())
+        for r in poached
+    )
     n = len(own)
     return {
         "source": os.path.basename(files[0]),
@@ -135,6 +144,11 @@ def compute_module5(slug: str, school_name: str) -> Optional[Dict[str, Any]]:
         "unplaced": len(unplaced),
         "main_admitted": sum(1 for r in own if r.get(status_key, "").startswith("正取")),
         "top_destinations": [{"school": s, "count": c, "share_of_poached": round(c / len(poached) * 100, 1) if poached else None} for s, c in top],
+        "count_unit": "records",
+        "destinations": [
+            {"school": school, "dept": dept, "year": year, "count": count}
+            for (school, dept, year), count in sorted(destinations.items())
+        ],
     }
 
 

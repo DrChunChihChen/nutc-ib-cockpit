@@ -7,12 +7,14 @@ ProactiveAgent（接地版）
 4. LLM 回覆經 grounding.check()，數字對不上就標記 ungrounded 供前端警示。
 """
 import re
+import json
 from typing import Any, Dict, List, Optional
 import requests
 
 from ir_autopilot.src.ai import grounding
-from ir_autopilot.src.ai.dossier import build_dossier, detect_slug, dossier_to_text, SLUG_TO_NAME
+from ir_autopilot.src.ai.dossier import build_dossier, detect_slug, dossier_to_text, SLUG_TO_NAME, DEPT_ALIASES
 from ir_autopilot.src.ai.openrouter_client import OpenRouterClient
+from ir_autopilot.src.ai.query_responses import selected_slugs, school_response, peer_response, scope_response
 
 SYSTEM_PROMPT = """你是 {school_name}{dept_name} 的校務研究（IR）決策助理，服務對象是系主任與校務研究人員。
 
@@ -64,8 +66,8 @@ INTENT_RULES = [
 
 OUT_OF_SCOPE_REGEX = re.compile(
     r"(講話|說話|能說話|可以講話|你會講話|你能講話|語音|聊天|哈囉|你好|早安|晚安|嗨|你是誰|你的名字|自我介紹|"
-    r"去美國|怎麼去|機票|觀光|旅遊|天氣|今天幾號|星期幾|算命|星座|"
-    r"寫程式|寫代碼|寫python|寫javascript|寫一首詩|講笑話|講個笑話|唱首歌|推薦餐廳|美食|減肥|幫我寫作業)",
+    r"去美國|怎麼去|機票|觀光|旅遊|天氣|今天幾號|星期幾|算命|星座|運勢|"
+    r"寫程式|寫代碼|寫python|寫javascript|寫一個Python爬蟲|寫一首詩|講笑話|講個笑話|唱首歌|推薦餐廳|美食|減肥|幫我寫作業)",
     re.IGNORECASE
 )
 
@@ -105,26 +107,6 @@ PEER_SCHOOL_ALIASES = {
     "東海大學": "東海大學",
 }
 
-CANONICAL_TO_SHORT = {
-    "國立高雄科技大學": "高科",
-    "國立臺北商業大學": "北商",
-    "逢甲大學": "逢甲",
-    "國立勤益科技大學": "勤益",
-    "國立雲林科技大學": "雲科",
-    "東海大學": "東海",
-}
-
-EXPLICIT_DEPT_KEYWORDS = [
-    "國貿", "國際貿易", "國企", "國際企業", "國際商務",
-    "企管", "企業管理", "工管",
-    "會資", "會計", "會計資訊",
-    "財金", "財務金融", "金融",
-    "保金", "保險", "風險管理", "風保",
-    "應統", "統計", "資管", "資訊管理",
-    "財稅", "財政"
-]
-
-
 def detect_peer_school(text: str) -> Optional[str]:
     if not text:
         return None
@@ -137,7 +119,14 @@ def detect_peer_school(text: str) -> Optional[str]:
 def has_explicit_dept(text: str) -> bool:
     if not text:
         return False
-    return any(k in text for k in EXPLICIT_DEPT_KEYWORDS)
+    return any(k in text for k in DEPT_ALIASES)
+
+
+def is_fast_out_of_scope(message: str) -> bool:
+    # Only remove a leading greeting; unrelated requests still pass through the
+    # normal boundary classifier instead of bypassing it on a department keyword.
+    substantive = re.sub(r"^(?:(?:你好|您好|哈囉|早安|晚安|嗨)[，,！!。\s]*)+", "", message.strip())
+    return bool(OUT_OF_SCOPE_REGEX.search(substantive)) or (not substantive and bool(message.strip()))
 
 
 class ProactiveAgent:
@@ -184,12 +173,12 @@ class ProactiveAgent:
     # ---------- 公開入口 ----------
     def process_chat(self, user_message: str, dept_context: Dict[str, Any],
                      history: Optional[List[Dict[str, str]]] = None, image: Optional[str] = None) -> Dict[str, Any]:
-        slug = dept_context.get("slug") or detect_slug(user_message, dept_context.get("default_slug", "ib"))
+        slug = detect_slug(user_message, dept_context.get("slug") or dept_context.get("default_slug", "ib"))
         d = build_dossier(slug)
         meta = d["meta"]
 
         # 1. 快速過濾範圍外問題
-        if not image and OUT_OF_SCOPE_REGEX.search(user_message):
+        if not image and is_fast_out_of_scope(user_message):
             return {
                 "intent": "out_of_scope",
                 "dept": {"slug": slug, "name": meta["dept_name"], "school": meta["school_name"]},
@@ -222,45 +211,15 @@ class ProactiveAgent:
         peer_school_canonical = detect_peer_school(user_message) if not image else None
         has_dept = has_explicit_dept(user_message)
 
-        if peer_school_canonical and not has_dept:
-            school_dossier = self._build_school_dossier(peer_school_canonical)
-            school_table = self._build_school_summary_table(school_dossier)
-            school_text = self._build_school_summary_text(school_dossier)
-            return {
-                "intent": "school_intelligence",
-                "dept": {"slug": "all", "name": "商學院全院", "school": "國立臺中科技大學"},
-                "response": school_text,
-                "model": "rule-based-ir-engine",
-                "reasoning": (
-                    f"檢測到對同儕學校「{peer_school_canonical}」之全校性跨系所諮詢。系統自動跨商學院 7 個系所數據庫整合對接指標清冊、"
-                    f"計算全院平均註冊率（{school_dossier['summary']['avg_enrollment_rate']}%）與總外流生源（{school_dossier['summary']['total_poached_across_college']} 人），"
-                    "並主動提示使用者指定特定系所進行進一步深度診斷。"
-                ),
-                "grounding": {"ok": True, "checked": len(school_dossier["departments"]), "ungrounded": []},
-                "source": "教育部大專校院校務資訊公開平台（UDB 學12-1/學13-1/教1-1/學1-1）＋ 各系所交叉查榜實證數據庫",
-                "drilldown_link": "heatmap.html",
-                "table": school_table,
-                "chart": None,
-                "data_time": "114 學年度",
-            }
-
+        slugs = selected_slugs(user_message)
+        if peer_school_canonical and (not has_dept or len(slugs) == len(SLUG_TO_NAME)):
+            return school_response(peer_school_canonical, self._get_all_dossiers(), user_message)
         if peer_school_canonical and has_dept:
-            peer_table = self._build_dept_peer_comparison_table(slug, peer_school_canonical)
-            peer_text = self._build_dept_peer_comparison_text(slug, peer_school_canonical)
-            if peer_table and peer_text:
-                return {
-                    "intent": "peer_comparison",
-                    "dept": {"slug": slug, "name": meta["dept_name"], "school": meta["school_name"]},
-                    "response": peer_text,
-                    "model": "rule-based-ir-engine",
-                    "reasoning": f"檢測到針對特定系所「{meta['dept_name']}」對比同儕學校「{peer_school_canonical}」之實證諮詢。系統精確萃取兩系 114 學年度各項核定指標與交叉查榜生源流向進行對照。",
-                    "grounding": {"ok": True, "checked": len(peer_table["rows"]), "ungrounded": []},
-                    "source": "教育部大專校院校務資訊公開平台（UDB 學12-1/學13-1/教1-1/學1-1）＋ 各系所交叉查榜實證數據庫",
-                    "drilldown_link": f"{slug}/index.html",
-                    "table": peer_table,
-                    "chart": None,
-                    "data_time": "114 學年度",
-                }
+            result = peer_response(slug, peer_school_canonical, self._get_all_dossiers(), user_message)
+            if result:
+                return result
+        if not image and len(slugs) > 1:
+            return scope_response(user_message, intent, self._get_all_dossiers(), slugs)
 
         builder = {
             "k24": self._k24, "module5": self._module5, "demographics": self._demographics,
@@ -324,7 +283,7 @@ class ProactiveAgent:
         if not res.get("success"):
             return None, None, None, {"ok": None, "note": f"模型不可用：{res.get('error')}"}
         content = res.get("content", "").strip()
-        ground = grounding.check(content, d, prompt=prompt)
+        ground = grounding.check(content, json.loads(dossier_to_text(d, sections)), prompt=prompt)
         return content, res.get("reasoning"), res.get("model"), ground
 
     # ---------- 各意圖的結構化輸出（純程式，不經 LLM） ----------
@@ -450,193 +409,4 @@ class ProactiveAgent:
         }
 
     def _get_all_dossiers(self) -> Dict[str, Any]:
-        if not hasattr(self, "_all_dossiers") or not self._all_dossiers:
-            self._all_dossiers = {s: build_dossier(s) for s in SLUG_TO_NAME}
-        return self._all_dossiers
-
-    def _build_school_dossier(self, school_canonical: str) -> Dict[str, Any]:
-        all_d = self._get_all_dossiers()
-        depts = []
-        total_poached = 0
-        enrollments = []
-        clean = school_canonical.replace("國立", "")
-
-        for slug, d in all_d.items():
-            our_name = d["meta"]["dept_name"]
-            m5 = d.get("module5") or {}
-            poached = 0
-            for dest in m5.get("top_destinations", []):
-                sch = dest.get("school", "")
-                if school_canonical in sch or clean in sch:
-                    poached += dest.get("count", 0)
-            total_poached += poached
-
-            for p in d.get("peers", []):
-                sch = p.get("school", "")
-                if school_canonical in sch or clean in sch:
-                    e_rate = p.get("enrollment_rate")
-                    if e_rate is not None:
-                        enrollments.append(e_rate)
-                    depts.append({
-                        "our_dept": our_name,
-                        "slug": slug,
-                        "peer_school": p.get("school"),
-                        "peer_dept": p.get("dept"),
-                        "enrollment_rate": e_rate,
-                        "dropout_rate": p.get("dropout_rate"),
-                        "faculty_ratio": p.get("faculty_ratio"),
-                        "students_total": p.get("students_total"),
-                        "foreign_ratio": p.get("foreign_ratio"),
-                        "poached": poached,
-                    })
-
-        avg_enrollment = round(sum(enrollments) / len(enrollments), 2) if enrollments else None
-        return {
-            "target_school": school_canonical,
-            "summary": {
-                "total_depts_matched": len(depts),
-                "avg_enrollment_rate": avg_enrollment,
-                "total_poached_across_college": total_poached,
-            },
-            "departments": depts,
-        }
-
-    def _build_school_summary_table(self, school_dossier: Dict[str, Any]) -> Dict[str, Any]:
-        rows = []
-        for d in school_dossier["departments"]:
-            rows.append([
-                d["our_dept"],
-                d["peer_dept"],
-                f"{d['enrollment_rate']}%" if d.get("enrollment_rate") is not None else "—",
-                f"{d['dropout_rate']}%" if d.get("dropout_rate") is not None else "—",
-                str(d["faculty_ratio"]) if d.get("faculty_ratio") is not None else "—",
-                f"{d['students_total']:,} 人" if d.get("students_total") is not None else "—",
-                f"{d['poached']} 人" if d.get("poached", 0) > 0 else "0 人"
-            ])
-        return {
-            "title": f"{school_dossier['target_school']} 對接本院各系所指標清冊（114學年度）",
-            "headers": ["本院系所", "該校對應系所", "新生註冊率", "學年退學率", "生師比", "在學人數", "查榜外流人數"],
-            "rows": rows
-        }
-
-    def _build_school_summary_text(self, school_dossier: Dict[str, Any]) -> str:
-        s = school_dossier["summary"]
-        depts = school_dossier["departments"]
-        dept_list = "、".join(f"{d['our_dept']}對接{d['peer_dept']}" for d in depts)
-        enrollments = [d["enrollment_rate"] for d in depts if d.get("enrollment_rate") is not None]
-        min_rate = min(enrollments) if enrollments else 0
-        max_rate = max(enrollments) if enrollments else 0
-        canonical = school_dossier["target_school"]
-        short_school = CANONICAL_TO_SHORT.get(canonical) or re.sub(r"^國立", "", canonical)
-        short_school = re.sub(r"科技大學$|大學$", "", short_school)
-
-        text = f"就商學院整體而言，{canonical} 在本院實證數據庫中共收錄 {s['total_depts_matched']} 個對接系所（{dept_list}）。\n\n"
-        text += f"• **招生註冊表現**：該校對接系所 114 學年度平均新生註冊率為 **{s['avg_enrollment_rate']}%**（各系所註冊率介於 {min_rate}% 至 {max_rate}% 之間，來源：UDB 學12-1）。\n"
-        poached_note = "，為本院最主要之關鍵競爭同儕" if s['total_poached_across_college'] >= 100 else ""
-        text += f"• **生源競合流向**：交叉查榜實證顯示，本院各系所考生累計向 {canonical} 外流共 **{s['total_poached_across_college']} 人**{poached_note}（來源：大專聯招交叉查榜）。\n\n"
-        text += "各系所指標整合如下方清冊。\n\n"
-
-        example_depts = "、".join(f"{short_school}{re.sub(r'學系$|系$', '', d['peer_dept'])}" for d in depts[:3])
-        text += f"💡 **請問您詢問的是上述哪一個特定系所（例如：{example_depts}）？還是系統中{canonical}所有的系所？**\n\n"
-        first_dept = re.sub(r'學系$|系$', '', depts[0]['peer_dept']) if depts else ""
-        text += f"• 若需特定系所深入診斷：請直接點名系所（如「{short_school}{first_dept}最近如何」），助理將為您進行單一系所深度對比。\n"
-        text += "• 若檢視全院大局：請點擊下方按鈕開啟商學院全院健康熱力總覽。\n\n"
-        text += "資料時點：114 學年度；來源：UDB 學12-1/學13-1/教1-1/學1-1、大專聯招交叉查榜。"
-        return text
-
-    def _build_dept_peer_comparison_table(self, slug: str, peer_school_canonical: str) -> Optional[Dict[str, Any]]:
-        d = build_dossier(slug)
-        meta = d["meta"]
-        kpis = d.get("kpis", {})
-        m5 = d.get("module5") or {}
-        clean = peer_school_canonical.replace("國立", "")
-
-        matching_peer = next((p for p in d.get("peers", []) if peer_school_canonical in p.get("school", "") or clean in p.get("school", "")), None)
-        if not matching_peer:
-            return None
-
-        poached = 0
-        for dest in m5.get("top_destinations", []):
-            sch = dest.get("school", "")
-            if peer_school_canonical in sch or clean in sch:
-                poached += dest.get("count", 0)
-
-        our_enroll = kpis.get("K01", {}).get("value")
-        our_drop = kpis.get("K02", {}).get("value")
-        our_ratio = kpis.get("K06", {}).get("value")
-        our_students = d.get("profile", {}).get("students_total") or kpis.get("K04", {}).get("value") or "—"
-        our_retained = f"{m5.get('retained')} 人" if m5.get("retained") is not None else "—"
-
-        rows = []
-        if our_enroll is not None and matching_peer.get("enrollment_rate") is not None:
-            peer_e = matching_peer["enrollment_rate"]
-            diff = round(our_enroll - peer_e, 2)
-            comp = f"本系領先 +{diff}%" if diff > 0 else (f"該校領先 +{abs(diff)}%" if diff < 0 else "持平 (0%)")
-            rows.append(["新生註冊率", f"{our_enroll}%", f"{peer_e}%", comp, "UDB 學12-1"])
-
-        if our_drop is not None and matching_peer.get("dropout_rate") is not None:
-            peer_d = matching_peer["dropout_rate"]
-            diff = round(our_drop - peer_d, 2)
-            comp = f"本系較優 (低 {abs(diff)}%)" if diff < 0 else (f"該校較優 (低 {diff}%)" if diff > 0 else "持平 (0%)")
-            rows.append(["學年度退學率", f"{our_drop}%", f"{peer_d}%", comp, "UDB 學13-1"])
-
-        if our_ratio is not None and matching_peer.get("faculty_ratio") is not None:
-            peer_r = matching_peer["faculty_ratio"]
-            diff = round(our_ratio - peer_r, 2)
-            comp = f"本系師資較充裕 (低 {abs(diff)})" if diff < 0 else (f"該校師資較充裕 (低 {diff})" if diff > 0 else "持平")
-            rows.append(["專任生師比", str(our_ratio), str(peer_r), comp, "UDB 教1-1"])
-
-        if matching_peer.get("students_total") is not None:
-            peer_s = matching_peer["students_total"]
-            our_s_str = f"{our_students:,} 人" if isinstance(our_students, int) else str(our_students)
-            rows.append(["在學學生數", our_s_str, f"{peer_s:,} 人", "規模對照", "UDB 學1-1"])
-
-        poached_str = f"吸引本系 {poached} 人" if poached > 0 else "0 人外流"
-        poached_comp = f"外流去向 (共{poached}人)" if poached > 0 else "無考生外流"
-        rows.append(["交叉查榜生源", f"留任 {our_retained}" if our_retained != "—" else "—", poached_str, poached_comp, "交叉查榜"])
-
-        peer_display_school = matching_peer.get("school", "").replace("國立", "")
-        return {
-            "title": f"臺中科大{meta['dept_name']} vs {matching_peer.get('school')}{matching_peer.get('dept')} 核心實證對比（114學年度）",
-            "headers": ["比較指標", f"本校{meta['dept_name']}", f"{peer_display_school}{matching_peer.get('dept')}", "實證對比 / 差距", "資料來源"],
-            "rows": rows
-        }
-
-    def _build_dept_peer_comparison_text(self, slug: str, peer_school_canonical: str) -> Optional[str]:
-        d = build_dossier(slug)
-        meta = d["meta"]
-        kpis = d.get("kpis", {})
-        m5 = d.get("module5") or {}
-        clean = peer_school_canonical.replace("國立", "")
-
-        matching_peer = next((p for p in d.get("peers", []) if peer_school_canonical in p.get("school", "") or clean in p.get("school", "")), None)
-        if not matching_peer:
-            return None
-
-        poached = 0
-        for dest in m5.get("top_destinations", []):
-            sch = dest.get("school", "")
-            if peer_school_canonical in sch or clean in sch:
-                poached += dest.get("count", 0)
-
-        our_enroll = kpis.get("K01", {}).get("value")
-        peer_enroll = matching_peer.get("enrollment_rate")
-        text = f"114 學年度實證數據中，臺中科大{meta['dept_name']}新生註冊率為 **{our_enroll}%**"
-        if peer_enroll is not None:
-            if our_enroll > peer_enroll:
-                text += f"，領先{matching_peer.get('school')}{matching_peer.get('dept')}（**{peer_enroll}%**）達 {round(our_enroll - peer_enroll, 2)} 個百分點（UDB 學12-1）。\n\n"
-            elif our_enroll < peer_enroll:
-                text += f"，{matching_peer.get('school')}{matching_peer.get('dept')}為 **{peer_enroll}%**，領先本系 {round(peer_enroll - our_enroll, 2)} 個百分點（UDB 學12-1）。\n\n"
-            else:
-                text += f"，與{matching_peer.get('school')}{matching_peer.get('dept')}同為 **{peer_enroll}%**，雙方皆達滿招（UDB 學12-1）。\n\n"
-        else:
-            text += "。\n\n"
-
-        stu_str = f"{matching_peer.get('students_total'):,} 人" if matching_peer.get("students_total") else "—"
-        text += f"• **教學規模與品質**：該校該系在學人數為 {stu_str}，學年度退學率為 {matching_peer.get('dropout_rate')}%（UDB 學13-1），專任生師比為 {matching_peer.get('faculty_ratio')}（UDB 教1-1）。\n"
-        poached_note = "，為本系主要外流去向之一" if poached > 20 else ""
-        text += f"• **交叉查榜競合**：在聯招分發中，本系累計有 **{poached} 名考生**選擇就讀{matching_peer.get('school')}{matching_peer.get('dept')}{poached_note}（大專聯招交叉查榜）。\n\n"
-        text += "兩系核心指標深度對照請參閱下方清冊。\n\n"
-        text += "資料時點：114 學年度；來源：UDB 學12-1/學13-1/教1-1/學1-1、交叉查榜。"
-        return text
-
+        return {s: build_dossier(s) for s in SLUG_TO_NAME}

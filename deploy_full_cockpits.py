@@ -638,19 +638,12 @@ def inject_and_copy():
             f.write(hm_html)
         print("✅ [熱力圖] 已更新：僅保留全院導覽列，已完全移除右下角小幫手 -> output/heatmap.html")
 
-    # 9. 同步生成 Netlify 雲端無伺服器函數所需之全系所 dossiers.json
-    try:
-        import json
-        from ir_autopilot.src.ai.dossier import build_dossier, SLUG_TO_NAME
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        dossiers = {s: build_dossier(s) for s in SLUG_TO_NAME}
-        fn_dir = os.path.join(base_dir, "netlify", "functions")
-        os.makedirs(fn_dir, exist_ok=True)
-        with open(os.path.join(fn_dir, "dossiers.json"), "w", encoding="utf-8") as f:
-            json.dump(dossiers, f, ensure_ascii=False, indent=2)
-        print("✅ [雲端同步] 已同步輸出 7 系所完整 Dossier 數據包 -> netlify/functions/dossiers.json")
-    except Exception as e:
-        print(f"⚠️ [雲端同步] dossiers.json 生成略過：{e}")
+    # 9. Validate all source data and atomically export; incomplete builds fail.
+    from pathlib import Path
+    from scripts.export_dossiers import export
+    base_dir = Path(__file__).resolve().parent
+    export(base_dir / "output", base_dir / "netlify/functions/dossiers.json")
+    print("✅ [雲端同步] 已輸出完整 Dossier 數據包")
 
     print("=" * 65)
     print("🎉 全部 7 大系所全量戰情室封裝完成！")

@@ -1,0 +1,504 @@
+[
+  {
+    "id": 1,
+    "cat": "A_WholeSchool",
+    "query": "高科最近如何",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 481
+    }
+  },
+  {
+    "id": 2,
+    "cat": "A_WholeSchool",
+    "query": "想了解高科大的整體狀況",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 481
+    }
+  },
+  {
+    "id": 3,
+    "cat": "A_WholeSchool",
+    "query": "北商最近如何",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 89
+    }
+  },
+  {
+    "id": 4,
+    "cat": "A_WholeSchool",
+    "query": "臺北商業大學的招生表現",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 89
+    }
+  },
+  {
+    "id": 5,
+    "cat": "A_WholeSchool",
+    "query": "逢甲最近如何",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 107
+    }
+  },
+  {
+    "id": 6,
+    "cat": "A_WholeSchool",
+    "query": "逢甲大學跟我們比怎樣",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 107
+    }
+  },
+  {
+    "id": 7,
+    "cat": "A_WholeSchool",
+    "query": "勤益最近如何",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 84
+    }
+  },
+  {
+    "id": 8,
+    "cat": "A_WholeSchool",
+    "query": "勤益科大表現",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 84
+    }
+  },
+  {
+    "id": 9,
+    "cat": "A_WholeSchool",
+    "query": "雲科大近況",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true,
+    "expected_facts": {
+      "flow_records": 123
+    }
+  },
+  {
+    "id": 10,
+    "cat": "A_WholeSchool",
+    "query": "東海大學最近如何",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true
+  },
+  {
+    "id": 11,
+    "cat": "A_WholeSchool",
+    "query": "系統中高科所有的系所",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true
+  },
+  {
+    "id": 12,
+    "cat": "A_WholeSchool",
+    "query": "高科各系所狀況",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_prompt_disambig": true
+  },
+  {
+    "id": 13,
+    "cat": "B_DeptPeer",
+    "query": "高科企管最近如何",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "ba",
+    "expected_facts": {
+      "flow_records": 10,
+      "peer_dept": "企業管理系",
+      "years": [
+        "113",
+        "114",
+        "115"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "cat": "B_DeptPeer",
+    "query": "高科國企跟我們國貿比怎樣",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "ib"
+  },
+  {
+    "id": 15,
+    "cat": "B_DeptPeer",
+    "query": "北商會計資訊系表現如何",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "accounting"
+  },
+  {
+    "id": 16,
+    "cat": "B_DeptPeer",
+    "query": "逢甲財稅最近如何",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "tax"
+  },
+  {
+    "id": 17,
+    "cat": "B_DeptPeer",
+    "query": "北商財金跟本系比",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "finance"
+  },
+  {
+    "id": 18,
+    "cat": "B_DeptPeer",
+    "query": "高科金融系的註冊率",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "finance"
+  },
+  {
+    "id": 19,
+    "cat": "B_DeptPeer",
+    "query": "逢甲保險系的生師比是多少",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "insurance"
+  },
+  {
+    "id": 20,
+    "cat": "B_DeptPeer",
+    "query": "勤益工管系被搶走多少人",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "ba"
+  },
+  {
+    "id": 21,
+    "cat": "B_DeptPeer",
+    "query": "高科資管跟我們應統",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "stat"
+  },
+  {
+    "id": 22,
+    "cat": "B_DeptPeer",
+    "query": "北商企管註冊率好嗎",
+    "expected_intent": "peer_comparison",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "ba"
+  },
+  {
+    "id": 23,
+    "cat": "C_DeptIR",
+    "query": "國貿系的註冊率是多少",
+    "expected_intent": "overview",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "ib"
+  },
+  {
+    "id": 24,
+    "cat": "C_DeptIR",
+    "query": "會資系的K24綜合風險分數怎麼算",
+    "expected_intent": "k24",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "accounting"
+  },
+  {
+    "id": 25,
+    "cat": "C_DeptIR",
+    "query": "企管系117學年的少子化缺口多大",
+    "expected_intent": "demographics",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "ba"
+  },
+  {
+    "id": 26,
+    "cat": "C_DeptIR",
+    "query": "財金系128學年新生會剩多少人",
+    "expected_intent": "demographics",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "finance"
+  },
+  {
+    "id": 27,
+    "cat": "C_DeptIR",
+    "query": "保金系交叉查榜外流最多的學校是哪間",
+    "expected_intent": "module5",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "insurance"
+  },
+  {
+    "id": 28,
+    "cat": "C_DeptIR",
+    "query": "應統系有哪些產學合作廠商",
+    "expected_intent": "partners",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "stat"
+  },
+  {
+    "id": 29,
+    "cat": "C_DeptIR",
+    "query": "財稅系的退學率跟生師比",
+    "expected_intent": "overview",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "tax"
+  },
+  {
+    "id": 30,
+    "cat": "C_DeptIR",
+    "query": "國貿系留存率和淨流失率是多少",
+    "expected_intent": "overview",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "ib"
+  },
+  {
+    "id": 31,
+    "cat": "C_DeptIR",
+    "query": "企管系有沒有收到少子化預警",
+    "expected_intent": "demographics",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "ba"
+  },
+  {
+    "id": 32,
+    "cat": "C_DeptIR",
+    "query": "會資系有哪些已核對統編的廠商",
+    "expected_intent": "partners",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "accounting"
+  },
+  {
+    "id": 33,
+    "cat": "D_OutOfScope",
+    "query": "你可以講話嗎",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 34,
+    "cat": "D_OutOfScope",
+    "query": "你能說話嗎，用語音跟我聊天",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 35,
+    "cat": "D_OutOfScope",
+    "query": "美國要怎麼去？",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 36,
+    "cat": "D_OutOfScope",
+    "query": "去日本機票多少錢",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 37,
+    "cat": "D_OutOfScope",
+    "query": "明天台中天氣好嗎",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 38,
+    "cat": "D_OutOfScope",
+    "query": "請幫我寫一個Python爬蟲",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 39,
+    "cat": "D_OutOfScope",
+    "query": "請推薦台中一中街好吃的美食餐廳",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 40,
+    "cat": "D_OutOfScope",
+    "query": "講個笑話給我聽",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 41,
+    "cat": "D_OutOfScope",
+    "query": "你是誰？自我介紹一下",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 42,
+    "cat": "D_OutOfScope",
+    "query": "天蠍座今天的運勢如何",
+    "expected_intent": "out_of_scope",
+    "expected_chart": false,
+    "expect_table": false
+  },
+  {
+    "id": 43,
+    "cat": "E_CollegeLevel",
+    "query": "商學院全院哪一個系註冊率最高",
+    "expected_intent": "overview",
+    "expected_chart": null,
+    "expect_table": true,
+    "expect_dept": "all",
+    "expected_facts": {
+      "matched_slugs": [
+        "ba",
+        "finance",
+        "insurance",
+        "stat"
+      ],
+      "year": 114,
+      "metric": "K01"
+    }
+  },
+  {
+    "id": 44,
+    "cat": "E_CollegeLevel",
+    "query": "全院少子化在117年總共會少多少學生",
+    "expected_intent": "demographics",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "all",
+    "expected_facts": {
+      "total_gap": -122,
+      "year": 117,
+      "metric": "gap"
+    }
+  },
+  {
+    "id": 45,
+    "cat": "E_CollegeLevel",
+    "query": "商學院整體被高科大搶走多少人",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true,
+    "expect_dept": "all",
+    "expected_facts": {
+      "flow_records": 481
+    }
+  },
+  {
+    "id": 46,
+    "cat": "E_CollegeLevel",
+    "query": "哪一個系的生師比超過25警示值",
+    "expected_intent": "overview",
+    "expected_chart": null,
+    "expect_table": true,
+    "expect_dept": "all",
+    "expected_facts": {
+      "matched_slugs": [
+        "ib",
+        "accounting",
+        "finance",
+        "stat",
+        "tax"
+      ],
+      "year": 114,
+      "metric": "K06"
+    }
+  },
+  {
+    "id": 47,
+    "cat": "F_Ambiguous",
+    "query": "企管",
+    "expected_intent": "overview",
+    "expected_chart": true,
+    "expect_table": true,
+    "expect_dept": "ba"
+  },
+  {
+    "id": 48,
+    "cat": "F_Ambiguous",
+    "query": "高科",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true
+  },
+  {
+    "id": 49,
+    "cat": "F_Ambiguous",
+    "query": "逢甲大學",
+    "expected_intent": "school_intelligence",
+    "expected_chart": false,
+    "expect_table": true
+  },
+  {
+    "id": 50,
+    "cat": "F_Ambiguous",
+    "query": "少子化危機",
+    "expected_intent": "demographics",
+    "expected_chart": true,
+    "expect_table": true
+  }
+]

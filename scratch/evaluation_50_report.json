@@ -1,0 +1,981 @@
+{
+  "mode": "offline",
+  "summary": {
+    "total": 50,
+    "structural_pass": 50,
+    "verified_pass": 24,
+    "unverified": 26,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": 1,
+      "query": "高科最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 2,
+      "query": "想了解高科大的整體狀況",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 3,
+      "query": "北商最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立臺北商業大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **89 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 4,
+      "query": "臺北商業大學的招生表現",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立臺北商業大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **89 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 5,
+      "query": "逢甲最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "逢甲大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **107 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 6,
+      "query": "逢甲大學跟我們比怎樣",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "逢甲大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **107 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 7,
+      "query": "勤益最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 2,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立勤益科技大學：本院資料庫收錄 2 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **84 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 8,
+      "query": "勤益科大表現",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 2,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立勤益科技大學：本院資料庫收錄 2 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **84 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 9,
+      "query": "雲科大近況",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 1,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立雲林科技大學：本院資料庫收錄 1 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **123 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 10,
+      "query": "東海大學最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 1,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "東海大學：本院資料庫收錄 1 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **0 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 11,
+      "query": "系統中高科所有的系所",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 12,
+      "query": "高科各系所狀況",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "disambiguation": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 13,
+      "query": "高科企管最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "企業管理系（114 學年）與國立高雄科技大學企業管理系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立高雄科技大學企業管理系共 **10 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 14,
+      "query": "高科國企跟我們國貿比怎樣",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國際貿易與經營系（114 學年）與國立高雄科技大學國際企業系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立高雄科技大學國際企業系共 **22 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 15,
+      "query": "北商會計資訊系表現如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "會計資訊系（114 學年）與國立臺北商業大學會計資訊系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立臺北商業大學會計資訊系共 **0 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 16,
+      "query": "逢甲財稅最近如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "財政稅務系（114 學年）與逢甲大學財稅學系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向逢甲大學財稅學系共 **10 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 17,
+      "query": "北商財金跟本系比",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "財務金融系（114 學年）與國立臺北商業大學財務金融系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立臺北商業大學財務金融系共 **0 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 18,
+      "query": "高科金融系的註冊率",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "財務金融系（114 學年）與國立高雄科技大學金融系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立高雄科技大學金融系共 **23 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 19,
+      "query": "逢甲保險系的生師比是多少",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "保險金融管理系（114 學年）與逢甲大學風險管理與保險學系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向逢甲大學風險管理與保險學系共 **1 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 20,
+      "query": "勤益工管系被搶走多少人",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "企業管理系（114 學年）與國立勤益科技大學工業工程與管理系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立勤益科技大學工業工程與管理系共 **1 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 21,
+      "query": "高科資管跟我們應統",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "應用統計系（114 學年）與國立高雄科技大學資訊管理系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立高雄科技大學資訊管理系共 **0 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 22,
+      "query": "北商企管註冊率好嗎",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 4,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "企業管理系（114 學年）與國立臺北商業大學企業管理系（114 學年）指標如下。\n交叉查榜（113、114、115 學年）：流向國立臺北商業大學企業管理系共 **0 筆**。紀錄未跨年度去重，不代表不重複人數。"
+    },
+    {
+      "id": 23,
+      "query": "國貿系的註冊率是多少",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "國際貿易與經營系（114 學年）：註冊率 99.53%、淨流失率 16.46%、生師比 37.9；K24 77.9（B 觀察）。 預警 3 則：學生在學淨流失率偏高；117 虎年海嘯生源赤字警報；專任教師生師比逼近警戒上限"
+    },
+    {
+      "id": 24,
+      "query": "會資系的K24綜合風險分數怎麼算",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "會計資訊系 K24 = 80.4（A 穩健）。\n公式：K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"
+    },
+    {
+      "id": 25,
+      "query": "企管系117學年的少子化缺口多大",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "企業管理系 核定名額 78；117 學年基準推估新生 63，缺口 -15 人（-19.2%）；128 學年缺口 -20 人（-25.6%）。 來源：內政部歷年出生數 × 本系份額推估（dept_data.json demo）。"
+    },
+    {
+      "id": 26,
+      "query": "財金系128學年新生會剩多少人",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "財務金融系 核定名額 80；117 學年基準推估新生 65，缺口 -15 人（-18.8%）；128 學年缺口 -20 人（-25.0%）。 來源：內政部歷年出生數 × 本系份額推估（dept_data.json demo）。"
+    },
+    {
+      "id": 27,
+      "query": "保金系交叉查榜外流最多的學校是哪間",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "保險金融管理系：交叉查榜本校系考生 518 人（113/114/115 學年），留任 171 人（33.0%），外流 200 人，未分發 147 人。 外流最大去向：國立高雄科技大學 53 人。"
+    },
+    {
+      "id": 28,
+      "query": "應統系有哪些產學合作廠商",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "應用統計系 候選合作廠商 18 家，其中 0 家已經商工登記核對統編與狀態；其餘為人工整理清單，尚未驗證。對接營業項目：F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬。"
+    },
+    {
+      "id": 29,
+      "query": "財稅系的退學率跟生師比",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "財政稅務系（114 學年）：註冊率 98.75%、淨流失率 5.85%、生師比 34.2；K24 81.4（A 穩健）。 預警 1 則：117 虎年海嘯生源赤字警報"
+    },
+    {
+      "id": 30,
+      "query": "國貿系留存率和淨流失率是多少",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "國際貿易與經營系（114 學年）：註冊率 99.53%、淨流失率 16.46%、生師比 37.9；K24 77.9（B 觀察）。 預警 3 則：學生在學淨流失率偏高；117 虎年海嘯生源赤字警報；專任教師生師比逼近警戒上限"
+    },
+    {
+      "id": 31,
+      "query": "企管系有沒有收到少子化預警",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "企業管理系 核定名額 78；117 學年基準推估新生 63，缺口 -15 人（-19.2%）；128 學年缺口 -20 人（-25.6%）。 來源：內政部歷年出生數 × 本系份額推估（dept_data.json demo）。"
+    },
+    {
+      "id": 32,
+      "query": "會資系有哪些已核對統編的廠商",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "會計資訊系 候選合作廠商 5 家，其中 0 家已經商工登記核對統編與狀態；其餘為人工整理清單，尚未驗證。對接營業項目：M6920 會計審計及稅務諮詢服務業。"
+    },
+    {
+      "id": 33,
+      "query": "你可以講話嗎",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 34,
+      "query": "你能說話嗎，用語音跟我聊天",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 35,
+      "query": "美國要怎麼去？",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 36,
+      "query": "去日本機票多少錢",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 37,
+      "query": "明天台中天氣好嗎",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 38,
+      "query": "請幫我寫一個Python爬蟲",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 39,
+      "query": "請推薦台中一中街好吃的美食餐廳",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 40,
+      "query": "講個笑話給我聽",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 41,
+      "query": "你是誰？自我介紹一下",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 42,
+      "query": "天蠍座今天的運勢如何",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "not_applicable",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "note": "範圍外拒答，無引用數據"
+      },
+      "response_preview": "本助理為國立臺中科技大學「校務研究（IR）決策助理」，專門服務系主任與校務研究人員，僅處理：系所指標、招生與生源、少子化推估、同儕競爭分析及產學合作等校務數據決策。\n\n日常閒聊、語音互動或與校務無關之通用問題（如旅遊交通、個人生活諮詢），不在本系統服務範圍內。\n\n請提出與校務決策或系所發展相關的實證問題（例如：「117年少子化缺口」、「國貿系與會資系註冊率比較」、「查榜競爭對手有誰」）。"
+    },
+    {
+      "id": 43,
+      "query": "商學院全院哪一個系註冊率最高",
+      "checks": {
+        "intent": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "全院 114 學年新生註冊率比較如下。已收錄資料中最高為企業管理系、財務金融系、保險金融管理系、應用統計系（100%）。"
+    },
+    {
+      "id": 44,
+      "query": "全院少子化在117年總共會少多少學生",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "全院 117 學年基準推估缺口合計 -122 人（推估入學數減核定名額）。"
+    },
+    {
+      "id": 45,
+      "query": "商學院整體被高科大搶走多少人",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 46,
+      "query": "哪一個系的生師比超過25警示值",
+      "checks": {
+        "intent": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "verified",
+      "overall_pass": true,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "全院 114 學年生師比比較如下。已收錄資料中超過提問門檻的系所：國際貿易與經營系、會計資訊系、財務金融系、應用統計系、財政稅務系。"
+    },
+    {
+      "id": 47,
+      "query": "企管",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true,
+        "dept": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "企業管理系（114 學年）：註冊率 100.0%、淨流失率 13.6%、生師比 21.8；K24 85.0（A 穩健）。 預警 1 則：117 虎年海嘯生源赤字警報"
+    },
+    {
+      "id": 48,
+      "query": "高科",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "國立高雄科技大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **481 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 49,
+      "query": "逢甲大學",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": true,
+        "method": "structured_sources",
+        "checked": 7,
+        "ungrounded": [],
+        "note": "數值由來源欄位計算；缺少資料時不宣稱完整。"
+      },
+      "response_preview": "逢甲大學：本院資料庫收錄 7 組系所對接；指標學年逐列標示。\n\n交叉查榜（113、114、115 學年）向該校外流共 **107 筆**。跨系紀錄未去重，不代表不重複人數；表內外流為流向該校所有系所的紀錄。\n\n請問您詢問的是上述哪一個特定系所？還是系統中該校所有的系所？"
+    },
+    {
+      "id": 50,
+      "query": "少子化危機",
+      "checks": {
+        "intent": true,
+        "chart": true,
+        "table": true
+      },
+      "structural_ok": true,
+      "factuality": "unverified",
+      "overall_pass": false,
+      "grounding": {
+        "ok": null,
+        "note": "模型未設定，僅顯示數據"
+      },
+      "response_preview": "國際貿易與經營系 核定名額 118；117 學年基準推估新生 95，缺口 -23 人（-19.5%）；128 學年缺口 -31 人（-26.3%）。 來源：內政部歷年出生數 × 本系份額推估（dept_data.json demo）。"
+    }
+  ]
+}

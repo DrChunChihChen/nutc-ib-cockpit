@@ -1,70 +1,50 @@
+"""Numeric provenance check, not a guarantee of semantic or causal correctness.
+
+Only dossier values are evidence. Prompt numbers and arbitrary array sums are not.
+Keep behavior aligned with grounding.mjs, including ASCII token boundaries.
 """
-Grounding check: 回答中的每個數字都必須能在 dossier 中找到（容忍四捨五入）。
-回傳 {"ok": bool, "checked": n, "ungrounded": [...]}，供 UI 顯示警告。
-"""
-import json
+import math
 import re
-from typing import Any, Dict, List, Set, Optional
+from typing import Any, Dict, Optional
 
-_NUM = re.compile(r"(?<![\w.])(-?\d{1,3}(?:,\d{3})+|-?\d+(?:\.\d+)?)(?![\w.])")
-_IGNORE_CONTEXT = re.compile(r"(學年度|學年|年度|年|K\d{2}|R\d{2}|第|名|級|%|％|pp)")
+_NUM = re.compile(r'(?<![A-Za-z0-9_.])(-?\d{1,3}(?:,\d{3})+(?:\.\d+)?|-?\d+(?:\.\d+)?)(?!\d|\.\d|[A-Za-z_])')
+
+def _text(text):
+    text = re.sub(r'^\s*\d+[.)、]\s+', '', text, flags=re.MULTILINE)
+    text = re.sub(r'(?:UDB\s*)?[學教]\d+(?:-\d+)?', '', text)
+    # pp is a numeric unit, not an identifier suffix.
+    return re.sub(r'(?<=\d)pp\b', ' 個百分點', text)
 
 
-def _collect_numbers(obj: Any, out: Set[float]) -> None:
+def _collect_numbers(obj: Any, out: set) -> None:
     if isinstance(obj, bool):
         return
     if isinstance(obj, (int, float)):
-        out.add(round(float(obj), 2))
-        return
-    if isinstance(obj, str):
-        for m in _NUM.findall(obj):
-            try:
-                out.add(round(float(m.replace(",", "")), 2))
-            except ValueError:
-                pass
-        return
-    if isinstance(obj, dict):
+        if math.isfinite(obj):
+            out.add(float(obj))
+    elif isinstance(obj, str):
+        out.update(float(m.replace(',', '')) for m in _NUM.findall(_text(obj)))
+    elif isinstance(obj, dict):
         for v in obj.values():
             _collect_numbers(v, out)
     elif isinstance(obj, (list, tuple)):
-        if obj and isinstance(obj[0], dict):
-            for key in ("count", "share_of_poached", "students_total", "births", "gap"):
-                vals = [float(item[key]) for item in obj if isinstance(item, dict) and key in item and isinstance(item[key], (int, float))]
-                if vals:
-                    out.add(round(sum(vals), 2))
-                    out.add(round(sum(vals[:3]), 2))
-                    out.add(round(sum(vals[:5]), 2))
         for v in obj:
             _collect_numbers(v, out)
 
 
 def check(answer: str, dossier: Dict[str, Any], prompt: Optional[str] = None) -> Dict[str, Any]:
-    allowed: Set[float] = set()
+    allowed = set()
     _collect_numbers(dossier, allowed)
-    if prompt:
-        _collect_numbers(prompt, allowed)
-    # 常見衍生：百分比 ↔ 比例、四捨五入到整數
-    derived = set()
-    for a in allowed:
-        derived.add(round(a))
-        derived.add(round(a, 1))
-    allowed |= derived
-    allowed |= {float(y) for y in range(100, 131)}   # 民國學年
-    allowed |= {float(y) for y in range(2010, 2031)}
-    allowed |= {25.0, 40.0, 60.0, 70.0, 80.0, 100.0}  # 教育部法規基準（生師比25/40、專輔預警60%、滿招100%）
-
-    ungrounded: List[str] = []
-    checked = 0
-    for m in _NUM.finditer(answer):
-        raw = m.group(1)
-        try:
-            val = float(raw.replace(",", ""))
-        except ValueError:
-            continue
-        # 跳過序號「1.」「2.」與極小整數（條列編號）
-        if val.is_integer() and 0 <= val <= 10 and "." not in raw:
-            continue
+    ungrounded, checked = [], 0
+    for m in _NUM.finditer(_text(answer)):
+        raw = m[1]
+        value = float(raw.replace(',', ''))
+        precision = len(raw.split('.')[1]) if '.' in raw else 0
+        scale = 10 ** min(precision, 8)
         checked += 1
-        if round(val, 2) not in allowed and round(val, 1) not in allowed and round(val) not in allowed:
+        # Round source values to the precision the answer actually reports.
+        # Do not round both sides to integers (99.01 must not validate 99.49).
+        if not any(abs(math.floor(a * scale + 0.5 + 1e-8) / scale - value) < 1e-8 for a in allowed):
             ungrounded.append(raw)
-    return {"ok": not ungrounded, "checked": checked, "ungrounded": ungrounded}
+    return {'ok': not ungrounded, 'checked': checked, 'ungrounded': ungrounded,
+            'method': 'numeric_only', 'note': '僅驗證數值是否存在於來源；不代表指標、系所、學年或語意已核實。'}
