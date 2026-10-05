@@ -1,16 +1,18 @@
 # 國立臺中科技大學 國際貿易與經營系 (NUTC ITM)<br>校務研究與招生決策戰情室系統 (IR Decision Cockpit)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d7811e12-2648-4180-bb02-ea0edb982c8b/deploy-status)](https://app.netlify.com/projects/nutc-ib-cockpit/deploys)
+[![Live Site](https://img.shields.io/badge/Production-Live%20Cockpit-10b981.svg)](https://nutc-ib-cockpit.netlify.app)
 [![Data Audit](https://img.shields.io/badge/MOE%20UDB-100%25%20Pure%20Daytime%20Audited-blue.svg)](https://udb.moe.edu.tw/)
-[![Deployment Status](https://img.shields.io/badge/Status-Offline%20%2F%20Internal%20IR-red.svg)](#)
 
 > 本專案為國立臺中科技大學國際貿易與經營系（NUTC ITM）打造之高階校務研究（Institutional Research, IR）決策戰情室與招生戰略沙盤。透過教育部大專校院校務資訊公開平台（UDB）、技專聯招與交叉查榜全量數據、104 人力銀行 700+ 筆外銷職缺實證，建構全面量化之系所經營與生源防禦體系。
 
 ---
 
-## 🏛️ 專案資源與視覺化模組
+## 🌐 線上正式站台 (Live Production)
 
+* **官方戰情室**：[https://nutc-ib-cockpit.netlify.app](https://nutc-ib-cockpit.netlify.app)
 * **決策閉環視覺化**：[`nutc_performance_loop.html`](./nutc_performance_loop.html)
-* **戰情室主頁面**：[`index.html`](./index.html)
+* **戰情室主頁面**：[`output/index.html`](./output/index.html)
 * **完整原始數據庫**：`raw_data/` 及 `NUTC_ITM_Comprehensive_IR_Raw_Data_Pack.xlsx`
 
 ---
