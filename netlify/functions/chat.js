@@ -375,6 +375,125 @@ function buildGeneral(d) {
   };
 }
 
+function isStrategicQuery(text) {
+  if (!text) return false;
+  return /(策略|怎麼看|如何看待|看法|建議|佈局|規劃|方向|作為院長|院長|診斷|對策|生源危機|轉型|因應|定位|招生成效|招生狀況|發展)/i.test(text);
+}
+
+function buildCollegeSummary(dossiers) {
+  const depts = {};
+  for (const [slug, d] of Object.entries(dossiers)) {
+    const kp = d.kpis || {};
+    const dm = d.demographics || {};
+    const m5 = d.module5 || {};
+    depts[d.meta?.dept_name || slug] = {
+      enrollment_rate: `${kp.K01?.value ?? "—"}%（UDB 學12-1）`,
+      dropout_rate: `${kp.K03?.value ?? "—"}%（UDB 學14-1）`,
+      retention_net_loss: `${kp.K05?.value ?? "—"}%（UDB 學13-1, 14-1）`,
+      student_faculty_ratio: `${kp.K06?.value ?? "—"}（UDB 教1-1, 學1-1）`,
+      y117_demographic_gap: `${dm.y117?.gap ?? "—"} 人（${dm.y117?.gap_pct ?? "—"}%）`,
+      top_competitors: (m5.top_destinations || []).slice(0, 3).map(t => `${t.school}${t.dept || ""}(${t.count}人)`),
+      k24_grade: d.k24?.grade ?? "—",
+      k24_score: d.k24?.score ?? "—"
+    };
+  }
+  return {
+    college_name: "國立臺中科技大學 商學院",
+    departments: depts,
+    total_y117_gap: "-122 人（-19.3%）",
+    primary_competitors: [
+      "國立高雄科技大學（全院累計外流 481 筆）",
+      "國立雲林科技大學（123 筆）",
+      "逢甲大學（107 筆）",
+      "國立臺北商業大學（89 筆）"
+    ]
+  };
+}
+
+async function narrateCollegeStrategic({ userMsg, scoped, dossiers, apiKey, model, enableReasoning, history }) {
+  const collegeSummary = buildCollegeSummary(dossiers);
+  const isDean = /(院長|作為院長|院方)/.test(userMsg);
+
+  const systemPrompt = `你是 國立臺中科技大學商學院 的院長級校務研究（IR）決策顧問與戰略大腦，服務對象是院長、系主任與校級決策主管。
+
+## 角色設定與視角
+${isDean ? "使用者明確要求以「作為商學院院長」視角發言。請以院長第一人稱高度（「身為商學院院長…」、「本院…」），展現宏觀、清晰且具備前瞻魄力的治理視野。" : "請站在「商學院整體戰略視角」，為院級主管提供客觀、深刻且具體可落地的戰略決策建言。"}
+你唯一的數據依據是下方 <college_dossier>（收錄國貿、企管、會資、財金、保金、應統、財稅 7 大系所之實證數據）。
+
+## 核心分析指引：
+1. 【全院現況總評】：第一句直接定調全院招生體質與深層矛盾（例如：表面註冊率普遍高達 98.75%~100%，但後端退學流失分化、生師比負擔沉重與 117 虎年斷崖衝擊）。
+2. 【各系現況與關鍵痛點剖析】：
+   - 體質分化警訊：點出會資系退學率 10.44%、企管系 8.43%、財金系 7.31% 偏高，相較應統系 2.16%、國貿系日間部 2.82% 表現穩健。
+   - 師資負擔：財金系專任生師比高達 40.2、財稅系 34.2、國貿系 33.7，師資負擔沉重。
+   - 跨校跨區生源外流：直面高科大（全院外流 481 筆）、雲科大（123 筆）、逢甲（107 筆）在中部技術高中生源的強烈吸力。
+   - 少子化海嘯：117 虎年全院預估少子化缺口達 -122 人（-19.3%），全院各系缺口率普遍在 -18.6% ~ -20.0%。
+3. 【四大戰略行動方針（Action Plan）】：
+   - 跨系特色整合與 AI 賦能（如 AI+新商管跨域學程、數據金融與稅務科技）。
+   - 生源前線深耕與防禦（強化中部技術高中宣傳，針對高科大重疊強項提出差異化定位）。
+   - 學制與名額結構彈性調節（善用五專提前鎖定優秀生源，適度平衡進修部與日間部資源）。
+   - 產學就業閉環對接（強化外銷經貿、在地金融與專業事務所實習，打出「入學即就業」保證）。
+
+## 輸出規範
+- 觀點鮮明、嚴謹權威、條理分明。
+- 數據嚴格符合 <college_dossier>，提及數字時括號標註出處（例如：114 學年 UDB 學12-1、學14-1）。
+- 250～450 字，條列清晰。
+- 結尾註明：資料時點：2026-10-03；來源：教育部大專校院校務資訊公開平台（UDB）、技專招聯會交叉查榜、內政部出生數推估。
+
+<college_dossier>
+${JSON.stringify(collegeSummary, null, 1)}
+</college_dossier>`;
+
+  const messages = [];
+  for (const m of (history || []).slice(-6)) {
+    if (m.role === "user" || m.role === "assistant") {
+      messages.push({ role: m.role, content: m.content });
+    }
+  }
+  messages.push({ role: "user", content: userMsg });
+
+  try {
+    const payload = {
+      model,
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
+      temperature: 0.3
+    };
+    if (enableReasoning) {
+      payload.reasoning = { enabled: true };
+    }
+
+    const orResp = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": process.env.SITE_URL || "https://nutc-ib-cockpit.netlify.app",
+        "X-Title": process.env.SITE_NAME || "NUTC-IR-Autopilot"
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(35000)
+    });
+
+    if (orResp.ok) {
+      const orData = await orResp.json();
+      const choice = orData.choices?.[0];
+      const narrative = choice?.message?.content?.trim() || null;
+      const usedModel = orData.model || model;
+      let reasoning = choice?.message?.reasoning || null;
+      if (!reasoning && choice?.message?.reasoning_details) {
+        const rd = choice.message.reasoning_details;
+        if (Array.isArray(rd)) {
+          reasoning = rd.map(x => (typeof x === "object" ? (x.text || JSON.stringify(x)) : String(x))).join("\n");
+        }
+      }
+      const ground = checkGrounding(narrative, collegeSummary);
+      return { narrative, reasoning, usedModel, ground };
+    }
+  } catch (err) {
+    console.error("College strategic LLM call failed:", err);
+  }
+  return null;
+}
+
 const BUILDERS = {
   k24: buildK24,
   module5: buildModule5,
@@ -510,6 +629,23 @@ export default async (req, context) => {
     }
     if (!scoped && !image && slugs.length > 1) {
       scoped = scopeResponse(userMsg, intent, DOSSIERS, slugs);
+      if (scoped && apiKey && !apiKey.includes("your_openrouter_api_key_here") && isStrategicQuery(userMsg)) {
+        const collegeResult = await narrateCollegeStrategic({
+          userMsg,
+          scoped,
+          dossiers: DOSSIERS,
+          apiKey,
+          model,
+          enableReasoning,
+          history
+        });
+        if (collegeResult && collegeResult.narrative) {
+          scoped.response = collegeResult.narrative;
+          scoped.reasoning = collegeResult.reasoning;
+          scoped.model = collegeResult.usedModel;
+          scoped.grounding = collegeResult.ground;
+        }
+      }
     }
     if (scoped) return new Response(JSON.stringify(scoped), { status: 200, headers });
 

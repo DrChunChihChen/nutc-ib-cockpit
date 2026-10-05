@@ -219,7 +219,15 @@ class ProactiveAgent:
             if result:
                 return result
         if not image and len(slugs) > 1:
-            return scope_response(user_message, intent, self._get_all_dossiers(), slugs)
+            scoped = scope_response(user_message, intent, self._get_all_dossiers(), slugs)
+            if self.client.available and self._is_strategic_query(user_message):
+                narrative, reasoning, model, ground = self._narrate_college_strategic(user_message, scoped, history)
+                if narrative:
+                    scoped["response"] = narrative
+                    scoped["reasoning"] = reasoning
+                    scoped["model"] = model
+                    scoped["grounding"] = ground
+            return scoped
 
         builder = {
             "k24": self._k24, "module5": self._module5, "demographics": self._demographics,
@@ -284,6 +292,91 @@ class ProactiveAgent:
             return None, None, None, {"ok": None, "note": f"模型不可用：{res.get('error')}"}
         content = res.get("content", "").strip()
         ground = grounding.check(content, json.loads(dossier_to_text(d, sections)), prompt=prompt)
+        return content, res.get("reasoning"), res.get("model"), ground
+
+    @staticmethod
+    def _is_strategic_query(message: str) -> bool:
+        if not message:
+            return False
+        return bool(re.search(r"(策略|怎麼看|如何看待|看法|建議|佈局|規劃|方向|作為院長|院長|診斷|對策|生源危機|轉型|因應|定位|招生成效|招生狀況|發展)", message, re.IGNORECASE))
+
+    def _narrate_college_strategic(self, user_msg: str, scoped: dict, history: list) -> tuple:
+        if not self.client.available:
+            return None, None, None, {"ok": None, "note": "模型未設定，僅顯示數據"}
+
+        all_dossiers = self._get_all_dossiers()
+        depts = {}
+        for s, d in all_dossiers.items():
+            kp = d.get("kpis", {})
+            dm = d.get("demographics", {})
+            m5 = d.get("module5", {})
+            k01 = kp.get("K01", {}).get("value")
+            k03 = kp.get("K03", {}).get("value")
+            k05 = kp.get("K05", {}).get("value")
+            k06 = kp.get("K06", {}).get("value")
+            gap = dm.get("y117", {}).get("gap")
+            gap_pct = dm.get("y117", {}).get("gap_pct")
+            top_c = [t["school"] + t.get("dept", "") + "(" + str(t["count"]) + "人)" for t in m5.get("top_destinations", [])[:3]]
+            depts[d.get("meta", {}).get("dept_name", s)] = {
+                "enrollment_rate": f"{k01}%（UDB 學12-1）",
+                "dropout_rate": f"{k03}%（UDB 學14-1）",
+                "retention_net_loss": f"{k05}%（UDB 學13-1, 14-1）",
+                "student_faculty_ratio": f"{k06}（UDB 教1-1, 學1-1）",
+                "y117_demographic_gap": f"{gap} 人（{gap_pct}%）",
+                "top_competitors": top_c,
+                "k24_grade": d.get("k24", {}).get("grade"),
+                "k24_score": d.get("k24", {}).get("score"),
+            }
+        college_summary = {
+            "college_name": "國立臺中科技大學 商學院",
+            "departments": depts,
+            "total_y117_gap": "-122 人（-19.3%）",
+            "primary_competitors": [
+                "國立高雄科技大學（全院累計外流 481 筆）",
+                "國立雲林科技大學（123 筆）",
+                "逢甲大學（107 筆）",
+                "國立臺北商業大學（89 筆）"
+            ]
+        }
+        is_dean = bool(re.search(r"院長|作為院長|院方", user_msg))
+        role_desc = "使用者明確要求以「作為商學院院長」視角發言。請以院長第一人稱高度（「身為商學院院長…」、「本院…」），展現宏觀、清晰且具備前瞻魄力的治理視野。" if is_dean else "請站在「商學院整體戰略視角」，為院級主管提供客觀、深刻且具體可落地的戰略決策建言。"
+
+        system = f"""你是 國立臺中科技大學商學院 的院長級校務研究（IR）決策顧問與戰略大腦，服務對象是院長、系主任與校級決策主管。
+
+## 角色設定與視角
+{role_desc}
+你唯一的數據依據是下方 <college_dossier>（收錄國貿、企管、會資、財金、保金、應統、財稅 7 大系所之實證數據）。
+
+## 核心分析指引：
+1. 【全院現況總評】：第一句直接定調全院招生體質與深層矛盾（例如：表面註冊率普遍高達 98.75%~100%，但後端退學流失分化、生師比負擔沉重與 117 虎年斷崖衝擊）。
+2. 【各系現況與關鍵痛點剖析】：
+   - 體質分化警訊：點出會資系退學率 10.44%、企管系 8.43%、財金系 7.31% 偏高，相較應統系 2.16%、國貿系日間部 2.82% 表現穩健。
+   - 師資負擔：財金系專任生師比高達 40.2、財稅系 34.2、國貿系 33.7，師資負擔沉重。
+   - 跨校跨區生源外流：直面高科大（全院外流 481 筆）、雲科大（123 筆）、逢甲（107 筆）在中部技術高中生源的強烈吸力。
+   - 少子化海嘯：117 虎年全院預估少子化缺口達 -122 人（-19.3%），全院各系缺口率普遍在 -18.6% ~ -20.0%。
+3. 【四大戰略行動方針（Action Plan）】：
+   - 跨系特色整合與 AI 賦能（如 AI+新商管跨域學程、數據金融與稅務科技）。
+   - 生源前線深耕與防禦（強化中部技術高中宣傳，針對高科大重疊強項提出差異化定位）。
+   - 學制與名額結構彈性調節（善用五專提前鎖定優秀生源，適度平衡進修部與日間部資源）。
+   - 產學就業閉環對接（強化外銷經貿、在地金融與專業事務所實習，打出「入學即就業」保證）。
+
+## 輸出規範
+- 觀點鮮明、嚴謹權威、條理分明。
+- 數據嚴格符合 <college_dossier>，提及數字時括號標註出處（例如：114 學年 UDB 學12-1、學14-1）。
+- 250～450 字，條列清晰。
+- 結尾註明：資料時點：2026-10-03；來源：教育部大專校院校務資訊公開平台（UDB）、技專招聯會交叉查榜、內政部出生數推估。
+
+<college_dossier>
+{json.dumps(college_summary, ensure_ascii=False, indent=1)}
+</college_dossier>"""
+
+        messages = [m for m in (history or []) if m.get("role") in ("user", "assistant")][-6:]
+        messages.append({"role": "user", "content": user_msg})
+        res = self.client.chat(messages, system_prompt=system)
+        if not res.get("success"):
+            return None, None, None, {"ok": None, "note": f"模型不可用：{res.get('error')}"}
+        content = res.get("content", "").strip()
+        ground = grounding.check(content, college_summary, prompt=user_msg)
         return content, res.get("reasoning"), res.get("model"), ground
 
     # ---------- 各意圖的結構化輸出（純程式，不經 LLM） ----------

@@ -30,7 +30,7 @@ export function selectedSlugs(message, aliases) {
       remaining = remaining.replaceAll(alias, "");
     }
   }
-  if (/全院|商學院|全校|各系|哪(?:一)?個系|哪些系/.test(message))
+  if (/全院|商學院|全校|各系|哪(?:一)?個系|哪些系|院長/.test(message))
     return slugsAll;
   return slugsAll.filter((s) => selected.has(s));
 }

@@ -30,7 +30,7 @@ def selected_slugs(message):
         if alias in remaining:
             selected.add(DEPT_ALIASES[alias])
             remaining = remaining.replace(alias, '')
-    if re.search(r'全院|商學院|全校|各系|哪(?:一)?個系|哪些系', message):
+    if re.search(r'全院|商學院|全校|各系|哪(?:一)?個系|哪些系|院長', message):
         return list(SLUG_TO_NAME)
     return [s for s in SLUG_TO_NAME if s in selected]
 
