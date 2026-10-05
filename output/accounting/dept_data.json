@@ -1,345 +1,393 @@
 {
   "school_name": "國立臺中科技大學",
-  "dept_name": "國際貿易與經營系",
-  "dept_code": "04141020",
+  "dept_name": "會計資訊系",
+  "dept_code": "04111012",
   "profile": {
     "school_name": "國立臺中科技大學",
-    "dept_name": "國際貿易與經營系",
-    "dept_code": "04141020",
+    "dept_name": "會計資訊系",
+    "dept_code": "04111012",
     "latest_year": 114,
-    "students_total": 708,
-    "freshmen_capacity": 168,
-    "freshmen_registered": 167,
-    "enrollment_rate": 99.4,
+    "students_total": 838,
+    "freshmen_capacity": 118,
+    "freshmen_registered": 117,
+    "enrollment_rate": 99.38,
     "enrollment_history": [
       {
         "year": 106,
-        "rate": 96.88,
-        "capacity": 123,
-        "registered": 118
+        "rate": 97.62,
+        "capacity": 137,
+        "registered": 136
       },
       {
         "year": 107,
-        "rate": 97.59,
-        "capacity": 123,
-        "registered": 120
+        "rate": 93.99,
+        "capacity": 137,
+        "registered": 132
       },
       {
         "year": 108,
-        "rate": 98.75,
-        "capacity": 121,
-        "registered": 119
+        "rate": 93.68,
+        "capacity": 137,
+        "registered": 127
       },
       {
         "year": 109,
-        "rate": 97.16,
-        "capacity": 120,
-        "registered": 115
+        "rate": 97.2,
+        "capacity": 134,
+        "registered": 132
       },
       {
         "year": 110,
-        "rate": 96.47,
+        "rate": 95.0,
         "capacity": 119,
-        "registered": 114
+        "registered": 115
       },
       {
         "year": 111,
-        "rate": 100.0,
+        "rate": 92.19,
         "capacity": 118,
-        "registered": 118
+        "registered": 111
       },
       {
         "year": 112,
-        "rate": 100.0,
+        "rate": 98.12,
         "capacity": 118,
-        "registered": 118
+        "registered": 115
       },
       {
         "year": 113,
-        "rate": 98.69,
+        "rate": 94.73,
         "capacity": 118,
-        "registered": 117
+        "registered": 114
       },
       {
         "year": 114,
-        "rate": 99.53,
+        "rate": 99.38,
         "capacity": 118,
         "registered": 117
       }
     ],
-    "dropout_count": 20,
-    "dropout_rate": 2.82,
-    "suspension_count": 20,
-    "suspension_rate": 2.82,
-    "faculty_count": 21,
-    "faculty_ratio": 33.7,
-    "foreign_count": 9,
-    "foreign_ratio": 1.27,
+    "dropout_count": 67,
+    "dropout_rate": 4.0,
+    "suspension_count": 69,
+    "suspension_rate": 8.23,
+    "faculty_count": 22,
+    "faculty_ratio": 27.0,
+    "foreign_count": 1,
+    "foreign_ratio": 0.17,
     "graduates_count": 0,
-    "scope_note": "純日間部（四技＋二技＋五專）；已排除進修部夜間數據；進修四技因在職工作因素退學人數較高（60人），另列於戰情室學制診斷表。"
+    "scope_note": "純日間部（四技＋五專＋二技＋碩士）；已排除進修部夜間數據（進修四技退學51人/10.58%）；純日間四技學士退學率僅1.87%。"
   },
   "peers": {
     "peer_count": 4,
     "peers": [
       {
-        "school_name": "國立高雄科技大學",
-        "dept_name": "國際企業系",
-        "dept_code": "04141023",
+        "school_name": "國立臺北商業大學",
+        "dept_name": "會計資訊系",
+        "dept_code": "04111009",
         "latest_year": 114,
-        "students_total": 441,
-        "freshmen_capacity": 45,
-        "freshmen_registered": 45,
+        "students_total": 426,
+        "freshmen_capacity": 65,
+        "freshmen_registered": 65,
         "enrollment_rate": 100.0,
         "enrollment_history": [
           {
             "year": 106,
-            "rate": 86.06,
-            "capacity": 74,
-            "registered": 64
+            "rate": 98.48,
+            "capacity": 56,
+            "registered": 55
+          },
+          {
+            "year": 107,
+            "rate": 100.0,
+            "capacity": 69,
+            "registered": 69
           },
           {
             "year": 108,
-            "rate": 83.48,
-            "capacity": 74,
+            "rate": 100.0,
+            "capacity": 63,
             "registered": 63
           },
           {
             "year": 109,
-            "rate": 93.27,
-            "capacity": 73,
-            "registered": 68
+            "rate": 100.0,
+            "capacity": 65,
+            "registered": 65
           },
           {
             "year": 110,
-            "rate": 98.33,
-            "capacity": 46,
-            "registered": 45
-          },
-          {
-            "year": 111,
-            "rate": 96.15,
-            "capacity": 46,
-            "registered": 44
-          },
-          {
-            "year": 112,
-            "rate": 96.08,
-            "capacity": 44,
-            "registered": 42
-          },
-          {
-            "year": 113,
-            "rate": 100.0,
-            "capacity": 44,
-            "registered": 44
-          },
-          {
-            "year": 114,
-            "rate": 100.0,
-            "capacity": 45,
-            "registered": 45
-          }
-        ],
-        "dropout_count": 28,
-        "dropout_rate": 6.35,
-        "suspension_count": 34,
-        "suspension_rate": 7.71,
-        "faculty_count": 13,
-        "faculty_ratio": 33.9,
-        "foreign_count": 16,
-        "foreign_ratio": 3.63,
-        "graduates_count": 0,
-        "public": true,
-        "city": "高雄市"
-      },
-      {
-        "school_name": "國立臺北商業大學",
-        "dept_name": "國際商務系",
-        "dept_code": "04141012",
-        "latest_year": 114,
-        "students_total": 599,
-        "freshmen_capacity": 93,
-        "freshmen_registered": 93,
-        "enrollment_rate": 100.0,
-        "enrollment_history": [
-          {
-            "year": 106,
-            "rate": 98.28,
-            "capacity": 98,
-            "registered": 95
-          },
-          {
-            "year": 107,
-            "rate": 98.28,
-            "capacity": 103,
-            "registered": 100
-          },
-          {
-            "year": 108,
-            "rate": 100.0,
-            "capacity": 102,
-            "registered": 102
-          },
-          {
-            "year": 109,
-            "rate": 100.0,
-            "capacity": 107,
-            "registered": 107
-          },
-          {
-            "year": 110,
-            "rate": 100.0,
-            "capacity": 93,
-            "registered": 93
+            "rate": 98.81,
+            "capacity": 65,
+            "registered": 64
           },
           {
             "year": 111,
             "rate": 100.0,
-            "capacity": 93,
-            "registered": 93
+            "capacity": 65,
+            "registered": 64
           },
           {
             "year": 112,
-            "rate": 94.28,
-            "capacity": 93,
-            "registered": 89
+            "rate": 100.0,
+            "capacity": 65,
+            "registered": 65
           },
           {
             "year": 113,
-            "rate": 98.57,
-            "capacity": 93,
-            "registered": 92
+            "rate": 98.81,
+            "capacity": 65,
+            "registered": 64
           },
           {
             "year": 114,
             "rate": 100.0,
-            "capacity": 93,
-            "registered": 93
+            "capacity": 65,
+            "registered": 65
           }
         ],
-        "dropout_count": 31,
-        "dropout_rate": 5.18,
-        "suspension_count": 33,
-        "suspension_rate": 5.51,
-        "faculty_count": 21,
-        "faculty_ratio": 28.5,
-        "foreign_count": 19,
-        "foreign_ratio": 3.17,
+        "dropout_count": 10,
+        "dropout_rate": 2.35,
+        "suspension_count": 18,
+        "suspension_rate": 4.23,
+        "faculty_count": 15,
+        "faculty_ratio": 28.4,
+        "foreign_count": 1,
+        "foreign_ratio": 0.23,
         "graduates_count": 0,
         "public": true,
         "city": "臺北市"
       },
       {
-        "school_name": "國立勤益科技大學",
-        "dept_name": "行銷與流通管理系",
-        "dept_code": "04132003",
+        "school_name": "國立高雄科技大學",
+        "dept_name": "會計資訊系",
+        "dept_code": "04111020",
         "latest_year": 114,
-        "students_total": 427,
-        "freshmen_capacity": 86,
-        "freshmen_registered": 86,
-        "enrollment_rate": 100.0,
-        "enrollment_history": [
-          {
-            "year": 114,
-            "rate": 100.0,
-            "capacity": 86,
-            "registered": 86
-          }
-        ],
-        "dropout_count": 0,
-        "dropout_rate": 0.0,
-        "suspension_count": 0,
-        "suspension_rate": 0.0,
-        "faculty_count": 14,
-        "faculty_ratio": 30.5,
-        "foreign_count": 30,
-        "foreign_ratio": 7.03,
-        "graduates_count": 0,
-        "public": true,
-        "city": "臺中市"
-      },
-      {
-        "school_name": "逢甲大學",
-        "dept_name": "國際經營與貿易學系",
-        "dept_code": "04141024",
-        "latest_year": 114,
-        "students_total": 794,
-        "freshmen_capacity": 172,
-        "freshmen_registered": 168,
-        "enrollment_rate": 94.71,
+        "students_total": 571,
+        "freshmen_capacity": 90,
+        "freshmen_registered": 89,
+        "enrollment_rate": 98.9,
         "enrollment_history": [
           {
             "year": 106,
-            "rate": 82.53,
-            "capacity": 178,
-            "registered": 167
-          },
-          {
-            "year": 107,
-            "rate": 79.28,
-            "capacity": 175,
-            "registered": 164
+            "rate": 93.57,
+            "capacity": 62,
+            "registered": 59
           },
           {
             "year": 108,
-            "rate": 69.12,
-            "capacity": 175,
-            "registered": 163
+            "rate": 73.31,
+            "capacity": 124,
+            "registered": 103
           },
           {
             "year": 109,
-            "rate": 87.88,
-            "capacity": 173,
-            "registered": 165
+            "rate": 84.64,
+            "capacity": 126,
+            "registered": 114
           },
           {
             "year": 110,
-            "rate": 100.0,
-            "capacity": 173,
-            "registered": 173
+            "rate": 96.7,
+            "capacity": 90,
+            "registered": 87
           },
           {
             "year": 111,
-            "rate": 99.4,
-            "capacity": 174,
-            "registered": 172
+            "rate": 100.0,
+            "capacity": 90,
+            "registered": 91
           },
           {
             "year": 112,
-            "rate": 92.25,
-            "capacity": 174,
-            "registered": 169
+            "rate": 97.83,
+            "capacity": 91,
+            "registered": 89
           },
           {
             "year": 113,
-            "rate": 86.35,
-            "capacity": 174,
-            "registered": 165
+            "rate": 97.85,
+            "capacity": 91,
+            "registered": 89
           },
           {
             "year": 114,
-            "rate": 94.71,
-            "capacity": 172,
-            "registered": 168
+            "rate": 98.9,
+            "capacity": 90,
+            "registered": 89
+          }
+        ],
+        "dropout_count": 33,
+        "dropout_rate": 5.78,
+        "suspension_count": 34,
+        "suspension_rate": 5.95,
+        "faculty_count": 15,
+        "faculty_ratio": 38.1,
+        "foreign_count": 0,
+        "foreign_ratio": 0.0,
+        "graduates_count": 0,
+        "public": true,
+        "city": "高雄市"
+      },
+      {
+        "school_name": "逢甲大學",
+        "dept_name": "會計學系",
+        "dept_code": "04111017",
+        "latest_year": 114,
+        "students_total": 756,
+        "freshmen_capacity": 185,
+        "freshmen_registered": 181,
+        "enrollment_rate": 93.69,
+        "enrollment_history": [
+          {
+            "year": 106,
+            "rate": 93.22,
+            "capacity": 188,
+            "registered": 178
+          },
+          {
+            "year": 107,
+            "rate": 95.09,
+            "capacity": 190,
+            "registered": 185
+          },
+          {
+            "year": 108,
+            "rate": 99.69,
+            "capacity": 190,
+            "registered": 189
+          },
+          {
+            "year": 109,
+            "rate": 99.13,
+            "capacity": 190,
+            "registered": 187
+          },
+          {
+            "year": 110,
+            "rate": 99.71,
+            "capacity": 191,
+            "registered": 190
+          },
+          {
+            "year": 111,
+            "rate": 100.0,
+            "capacity": 189,
+            "registered": 191
+          },
+          {
+            "year": 112,
+            "rate": 92.0,
+            "capacity": 187,
+            "registered": 183
+          },
+          {
+            "year": 113,
+            "rate": 95.69,
+            "capacity": 187,
+            "registered": 184
+          },
+          {
+            "year": 114,
+            "rate": 93.69,
+            "capacity": 185,
+            "registered": 181
           }
         ],
         "dropout_count": 23,
-        "dropout_rate": 2.9,
-        "suspension_count": 21,
-        "suspension_rate": 2.64,
-        "faculty_count": 18,
-        "faculty_ratio": 44.1,
-        "foreign_count": 71,
-        "foreign_ratio": 8.94,
+        "dropout_rate": 3.04,
+        "suspension_count": 17,
+        "suspension_rate": 2.25,
+        "faculty_count": 19,
+        "faculty_ratio": 39.8,
+        "foreign_count": 3,
+        "foreign_ratio": 0.4,
+        "graduates_count": 0,
+        "public": false,
+        "city": "臺中市"
+      },
+      {
+        "school_name": "東海大學",
+        "dept_name": "會計學系",
+        "dept_code": "04111018",
+        "latest_year": 114,
+        "students_total": 480,
+        "freshmen_capacity": 125,
+        "freshmen_registered": 125,
+        "enrollment_rate": 100.0,
+        "enrollment_history": [
+          {
+            "year": 106,
+            "rate": 84.16,
+            "capacity": 140,
+            "registered": 132
+          },
+          {
+            "year": 107,
+            "rate": 73.34,
+            "capacity": 140,
+            "registered": 126
+          },
+          {
+            "year": 108,
+            "rate": 98.75,
+            "capacity": 140,
+            "registered": 137
+          },
+          {
+            "year": 109,
+            "rate": 97.56,
+            "capacity": 135,
+            "registered": 129
+          },
+          {
+            "year": 110,
+            "rate": 79.59,
+            "capacity": 135,
+            "registered": 125
+          },
+          {
+            "year": 111,
+            "rate": 79.16,
+            "capacity": 135,
+            "registered": 113
+          },
+          {
+            "year": 112,
+            "rate": 98.63,
+            "capacity": 125,
+            "registered": 122
+          },
+          {
+            "year": 113,
+            "rate": 99.55,
+            "capacity": 125,
+            "registered": 124
+          },
+          {
+            "year": 114,
+            "rate": 100.0,
+            "capacity": 125,
+            "registered": 125
+          }
+        ],
+        "dropout_count": 14,
+        "dropout_rate": 2.92,
+        "suspension_count": 12,
+        "suspension_rate": 2.5,
+        "faculty_count": 12,
+        "faculty_ratio": 40.0,
+        "foreign_count": 1,
+        "foreign_ratio": 0.21,
         "graduates_count": 0,
         "public": false,
         "city": "臺中市"
       }
     ],
     "benchmarks": {
-      "median_enrollment": 100.0,
-      "median_dropout": 4.04,
-      "median_faculty_ratio": 32.2
+      "median_enrollment": 99.45,
+      "median_dropout": 2.98,
+      "median_faculty_ratio": 39.0
     }
   },
   "demo": {
@@ -542,15 +590,15 @@
     "K01": {
       "id": "K01",
       "name": "日間部新生註冊率",
-      "value": 99.4,
+      "value": 99.38,
       "unit": "%",
       "source_id": "UDB 學12-1",
-      "field": "純日間部實際註冊人數(167人) / 核定名額(168人)"
+      "field": "純日間部實際註冊人數(212人) / 核定名額(214人)"
     },
     "K02": {
       "id": "K02",
       "name": "註冊率3年變化斜率",
-      "value": -0.23,
+      "value": 0.63,
       "unit": "pp/年",
       "source_id": "UDB 學12-1",
       "field": "近3學年 OLS 趨勢項"
@@ -558,42 +606,42 @@
     "K03": {
       "id": "K03",
       "name": "學年度退學率 (純日間部)",
-      "value": 2.82,
+      "value": 4.0,
       "unit": "%",
       "source_id": "UDB 學14-1 / 學1-1",
-      "field": "純日間部退學人數(20人) / 日間部在學學生數(708人)"
+      "field": "純日間部退學人數(67人) / 純日間在學母數 (四技學士退學率僅1.87%)"
     },
     "K04": {
       "id": "K04",
       "name": "學年度休學率 (純日間部)",
-      "value": 2.82,
+      "value": 8.23,
       "unit": "%",
       "source_id": "UDB 學13-1 / 學1-1",
-      "field": "純日間部休學人數(20人) / 日間部在學學生數(708人)"
+      "field": "純日間部休學人數(69人) / 純日間在學學生數(838人)"
     },
     "K05": {
       "id": "K05",
       "name": "學生淨流失率 (純日間部)",
-      "value": 5.64,
+      "value": 12.23,
       "unit": "%",
       "source_id": "UDB 學13-1, 學14-1",
-      "field": "K03 (2.82%) + K04 (2.82%)"
+      "field": "K03 (4.00%) + K04 (8.23%)"
     },
     "K06": {
       "id": "K06",
       "name": "專任教師生師比 (純日間部)",
-      "value": 33.7,
+      "value": 27.0,
       "unit": "生/師",
       "source_id": "UDB 學1-1, 教1-1",
-      "field": "純日間部在學學生數(708人) / 專任教師數總計(21人)"
+      "field": "在學學生數小計 / 專任教師數總計(22人)"
     },
     "K07": {
       "id": "K07",
       "name": "境外生在學比率",
-      "value": 1.27,
+      "value": 0.17,
       "unit": "%",
       "source_id": "UDB 學3-2",
-      "field": "外國學生在學數(9人) / 純日間在學學生數(708人)"
+      "field": "外國學生數之在學比率(%)"
     },
     "K08": {
       "id": "K08",
@@ -606,7 +654,7 @@
     "K10": {
       "id": "K10",
       "name": "同儕註冊率中位數差",
-      "value": -0.47,
+      "value": -0.07,
       "unit": "pp",
       "source_id": "UDB 學12-1 跨校對比",
       "field": "本系K01 - 同儕中位數"
@@ -614,10 +662,10 @@
     "K23": {
       "id": "K23",
       "name": "同儕退學率中位數差",
-      "value": -1.22,
+      "value": 0.96,
       "unit": "pp",
       "source_id": "UDB 學14-1 跨校對比",
-      "field": "本系日間退學率(2.82%) - 國立同儕日間中位數(4.04%)"
+      "field": "本系日間退學率(4.00%) - 同儕日間中位數(3.04%)"
     },
     "K19": {
       "id": "K19",
@@ -678,7 +726,7 @@
     "K24": {
       "id": "K24",
       "name": "系所綜合風險指數",
-      "value": 81.6,
+      "value": 82.0,
       "unit": "分 (0-100)",
       "source_id": "多維模型加權",
       "field": "K02, K05, K10, K19 綜合風險加權"
@@ -694,89 +742,26 @@
     }
   ],
   "partners": {
-    "department": "國際貿易與經營系",
-    "matched_category": "國際貿易與經營系",
-    "csic_focus": "F401010 國際貿易業 / G202010 報關業 / H501010 船務海運承攬",
+    "department": "會計資訊系",
+    "matched_category": "會計資訊系",
+    "csic_focus": "M6920 會計審計及稅務諮詢服務業",
     "clusters": [
       {
-        "category": "在地精密機械與零組件外銷隱形冠軍",
+        "category": "四大與中型會計師事務所",
         "companies": [
-          "巨大機械工業 (捷安特)",
-          "台中精機廠",
-          "上銀科技",
-          "高鋒工業",
-          "和大工業"
+          "勤業眾信 (Deloitte) 台中所",
+          "資誠 (PwC) 台中所",
+          "安侯建業 (KPMG) 台中所",
+          "安永 (EY) 台中所",
+          "致遠聯合會計師事務所"
         ],
-        "zone": "台中精密機械科技創新園區 / 台中港科技產業園區 / 大里工業區",
-        "capital_range": "新台幣 5,000 萬 ～ 100 億元",
-        "hot_jobs": [
-          "國外業務代表",
-          "國貿外銷專員",
-          "跨國採購助理"
-        ],
-        "salary_range": "38,000 ～ 55,000 元/月",
-        "cooperation_mode": "全學期大四外銷實習、海外展會拓銷專案、歐美供應鏈 ESG 碳足跡申報產學案"
-      },
-      {
-        "category": "跨境電子商務與數位品牌外銷商",
-        "companies": [
-          "耐德科技 (SHOPPING99)",
-          "台灣網商協會會員企業",
-          "中部 Amazon/Shopee 外銷大賣家",
-          "美賣科技台中分部"
-        ],
-        "zone": "台中軟體園區 / 西屯七期商辦",
-        "capital_range": "新台幣 1,000 萬 ～ 1 億元",
-        "hot_jobs": [
-          "跨境電商營運專員",
-          "海外數位行銷投放師",
-          "多語系社群運營"
-        ],
-        "salary_range": "36,000 ～ 50,000 元/月",
-        "cooperation_mode": "跨境電商專題實作、產學共推 Amazon 賣場經營、生成式 AI 外貿文案代操"
-      },
-      {
-        "category": "台中港區海空運承攬與報關物流龍頭",
-        "companies": [
-          "近鐵運通 (Kintetsu World Express)",
-          "中菲行航空貨運台中分公司",
-          "長榮物流台中辦事處",
-          "建新國際",
-          "大洋報關行"
-        ],
-        "zone": "台中港自由貿易港區 / 台中國際機場物流專區",
-        "capital_range": "新台幣 2,000 萬 ～ 10 億元",
-        "hot_jobs": [
-          "報關專責人員",
-          "海運承攬操作專員",
-          "保稅倉儲管理員"
-        ],
-        "salary_range": "35,000 ～ 48,000 元/月",
-        "cooperation_mode": "報關業務證照實習接軌、保稅物流實務培訓、智慧關務流程優化產學案"
-      },
-      {
-        "category": "外匯指定銀行與國際貿易融資部",
-        "companies": [
-          "兆豐國際商銀中部分行",
-          "第一商業銀行台中分行",
-          "合作金庫銀行",
-          "台中商業銀行國外部"
-        ],
-        "zone": "台中市中區/西區/西屯區金融商圈",
-        "capital_range": "新台幣 500 億元以上",
-        "hot_jobs": [
-          "外匯櫃員",
-          "進出口信用狀審查專員",
-          "貿易融資助理"
-        ],
-        "salary_range": "40,000 ～ 52,000 元/月",
-        "cooperation_mode": "外匯與押匯暑期實習、業師協同外幣避險授課、金融科技實證合作"
+        "cooperation_mode": "大四下全職繁忙期審計實習、永續 ESG 碳盤查確信專案"
       }
     ],
-    "total_categories": 4
+    "total_categories": 1
   },
   "k24": {
-    "score": 81.6,
+    "score": 82.0,
     "grade": "A 穩健",
     "weights": {
       "K01": 0.3,
@@ -787,17 +772,17 @@
     },
     "subscores": {
       "K01": 99.4,
-      "K05": 94.4,
-      "K10": 47.6,
+      "K05": 87.8,
+      "K10": 49.6,
       "K19": 80.5,
-      "K06": 65.8
+      "K06": 82.5
     },
     "contributions": {
-      "K01": 29.82,
-      "K05": 23.59,
-      "K10": 9.53,
+      "K01": 29.81,
+      "K05": 21.94,
+      "K10": 9.93,
       "K19": 12.07,
-      "K06": 6.58
+      "K06": 8.25
     },
     "missing": [],
     "formula": "K24 = Σ w_k · sub_k；sub_K01=註冊率, sub_K05=100−淨流失率, sub_K10=50+5×同儕差(pp), sub_K19=100+缺口%, sub_K06=100−2.5×max(0,生師比−20)"

@@ -167,7 +167,7 @@ export function peerResponse(slug, school, dossiers, message) {
     rows = [];
   const metrics = [
     ["新生註冊率", "K01", "enrollment_rate", "%", "UDB 學12-1"],
-    ["學年度退學率", "K02", "dropout_rate", "%", "UDB 學13-1"],
+    ["學年度退學率", "K03", "dropout_rate", "%", "UDB 學14-1"],
     ["專任生師比", "K06", "faculty_ratio", "", "UDB 教1-1"],
   ];
   for (const [label, key, field, unit, source] of metrics) {
@@ -240,7 +240,7 @@ export function scopeResponse(message, intent, dossiers, slugs) {
   const [key, label, unit] = message.includes("生師比")
     ? ["K06", "生師比", ""]
     : message.includes("退學")
-      ? ["K02", "退學率", "%"]
+      ? ["K03", "退學率", "%"]
       : message.includes("淨流失")
         ? ["K05", "淨流失率", "%"]
         : ["K01", "新生註冊率", "%"];

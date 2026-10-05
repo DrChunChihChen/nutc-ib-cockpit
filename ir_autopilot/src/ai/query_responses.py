@@ -111,7 +111,7 @@ def peer_response(slug, school, dossiers, message):
     own_year, peer_year = d['meta'].get('latest_year'), p.get('year')
     f = flow(d, school, p['dept'], year)
     rows = []
-    metrics = [('新生註冊率', 'K01', 'enrollment_rate', '%', 'UDB 學12-1'), ('學年度退學率', 'K02', 'dropout_rate', '%', 'UDB 學13-1'), ('專任生師比', 'K06', 'faculty_ratio', '', 'UDB 教1-1')]
+    metrics = [('新生註冊率', 'K01', 'enrollment_rate', '%', 'UDB 學12-1'), ('學年度退學率', 'K03', 'dropout_rate', '%', 'UDB 學14-1'), ('專任生師比', 'K06', 'faculty_ratio', '', 'UDB 教1-1')]
     for label, key, field, unit, source in metrics:
         own = d.get('kpis', {}).get(key, {}).get('value') if year is None or str(own_year) == str(year) else None
         other = p.get(field) if year is None or str(peer_year) == str(year) else None
@@ -132,7 +132,7 @@ def scope_response(message, intent, dossiers, slugs):
     year = requested_year(message)
     rows, missing, values = [], [], []
     demo = intent == 'demographics'
-    key, label, unit = ('K06', '生師比', '') if '生師比' in message else ('K02', '退學率', '%') if '退學' in message else ('K05', '淨流失率', '%') if '淨流失' in message else ('K01', '新生註冊率', '%')
+    key, label, unit = ('K06', '生師比', '') if '生師比' in message else ('K03', '退學率', '%') if '退學' in message else ('K05', '淨流失率', '%') if '淨流失' in message else ('K01', '新生註冊率', '%')
     if demo:
         year = year or 117
     else:
